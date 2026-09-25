@@ -1,0 +1,259 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+import logoWhite from '../assets/brand/logo-white.png';
+import { site, t, path, waLink, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const home = path(lang, '/');
+
+const links = [
+  { href: '#hizmetler', label: s.nav.services },
+  { href: '#projeler', label: s.nav.projects },
+  { href: '#bolgeler', label: s.nav.areas },
+  { href: '#hakkimizda', label: s.nav.about },
+  { href: '#iletisim', label: s.nav.contact },
+];
+const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href: '/' };
+---
+
+<header
+  id="site-nav"
+  data-nav
+  class="fixed inset-x-0 top-0 z-50 transition-colors duration-300 border-b border-transparent"
+>
+  <!-- Reading progress: CSS scroll timeline, hidden where unsupported. -->
+  <span class="scroll-progress absolute left-0 right-0 bottom-[-1px] h-px bg-accent-strong" aria-hidden="true"></span>
+  <div class="container-page flex items-center justify-between gap-4 h-20">
+    <a href={home} class="flex items-center h-11 shrink-0" aria-label={site.name}>
+      <!-- TODO(client): vector logo — both files below are traced from raster art. -->
+      <Image
+        src={logoWhite}
+        alt={site.name}
+        widths={[240]}
+        sizes="120px"
+        class="h-9 w-auto nav-logo-light"
+        loading="eager"
+      />
+      <Image
+        src={logo}
+        alt=""
+        widths={[240]}
+        sizes="120px"
+        class="h-9 w-auto nav-logo-dark hidden"
+        loading="eager"
+      />
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8" aria-label={s.nav.menu}>
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="nav-link inline-flex items-center h-11 text-sm font-medium tracking-wide"
+          >
+            <span class="link-line">{l.label}</span>
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-1 sm:gap-2">
+      <button
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        class="nav-link inline-flex items-center justify-center w-11 h-11"
+      >
+        <span class="sr-only">{s.nav.theme}</span>
+        <!-- Moon in light mode, sun in dark mode (lucide). -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="theme-icon w-5 h-5 dark:hidden" aria-hidden="true"
+          ><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg
+        >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" class="theme-icon w-5 h-5 hidden dark:block" aria-hidden="true"
+          ><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg
+        >
+      </button>
+      <a
+        href={other.href}
+        class="nav-link text-sm font-semibold px-3 h-11 inline-flex items-center"
+        aria-label={`${other.code}: ${s.nav.langLabel}`}
+        hreflang={other.code.toLowerCase()}>{other.code}</a
+      >
+      <a
+        href={waLink(s.whatsapp.message)}
+        target="_blank"
+        rel="noopener"
+        class="btn hidden sm:inline-flex h-11 px-4 gap-2 bg-brand text-white text-sm"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4" aria-hidden="true"
+          ><path
+            d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.5-.3Z"
+          ></path><path
+            d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"
+          ></path></svg
+        >
+        WhatsApp
+      </a>
+      <button
+        type="button"
+        data-menu-toggle
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="lg:hidden inline-flex items-center justify-center w-11 h-11 nav-link"
+      >
+        <span class="sr-only" data-menu-label>{s.nav.menu}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-6 h-6" aria-hidden="true"
+          ><path d="M3 6h18M3 12h18M3 18h18"></path></svg
+        >
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    data-menu
+    hidden
+    class="lg:hidden fixed inset-0 z-50 bg-surface flex flex-col"
+  >
+    <div class="container-page flex items-center justify-between h-20 border-b border-line">
+      <Image src={logo} alt={site.name} widths={[240]} sizes="120px" class="h-9 w-auto dark:hidden" loading="eager" />
+      <Image src={logoWhite} alt={site.name} widths={[240]} sizes="120px" class="h-9 w-auto hidden dark:block" loading="eager" />
+      <button
+        type="button"
+        data-menu-close
+        class="inline-flex items-center justify-center w-11 h-11 text-fg"
+      >
+        <span class="sr-only">{s.nav.menuClose}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="w-6 h-6" aria-hidden="true"
+          ><path d="M6 6l12 12M18 6L6 18"></path></svg
+        >
+      </button>
+    </div>
+    <nav class="container-page flex-1 flex flex-col justify-center gap-2" aria-label={s.nav.menu}>
+      {
+        links.map((l, i) => (
+          <a href={l.href} data-menu-link style={`--i:${i}`} class="font-display text-4xl py-3 text-fg">
+            {l.label}
+          </a>
+        ))
+      }
+      <a
+        href={waLink(s.whatsapp.message)}
+        target="_blank"
+        rel="noopener"
+        class="mt-6 inline-flex items-center justify-center h-14 px-6 bg-brand text-white font-medium"
+        >{s.whatsapp.label}</a
+      >
+    </nav>
+  </div>
+</header>
+
+<style>
+  /* Transparent over the hero, solid white once scrolled. */
+  [data-nav] {
+    color: #fff;
+  }
+  [data-nav].is-solid {
+    background: var(--color-surface);
+    color: var(--color-fg);
+    border-bottom-color: var(--color-line);
+  }
+  /* Dark theme keeps the white logo on the solid nav. */
+  :global(:root[data-theme='dark']) [data-nav].is-solid .nav-logo-light {
+    display: block;
+  }
+  :global(:root[data-theme='dark']) [data-nav].is-solid .nav-logo-dark {
+    display: none;
+  }
+  .theme-icon {
+    transition: transform 600ms var(--ease-out);
+  }
+  [data-theme-toggle]:hover .theme-icon {
+    transform: rotate(-20deg) scale(1.1);
+  }
+  [data-nav].is-solid .nav-logo-light {
+    display: none;
+  }
+  [data-nav].is-solid .nav-logo-dark {
+    display: block;
+  }
+  [data-nav] .nav-link {
+    color: currentColor;
+  }
+  /* Over the video: dark halo behind white links/icons so they read on bright frames. */
+  [data-nav]:not(.is-solid) .nav-link {
+    text-shadow: 0 0 14px rgb(0 0 0 / 0.5), 0 1px 2px rgb(0 0 0 / 0.35);
+  }
+  [data-nav]:not(.is-solid) .nav-link svg,
+  [data-nav]:not(.is-solid) .nav-logo-light {
+    filter: drop-shadow(0 0 4px rgb(0 0 0 / 0.5));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-menu]:not([hidden]) [data-menu-link] {
+      animation: fade-up 700ms var(--ease-out) both;
+      animation-delay: calc(80ms + var(--i) * 60ms);
+    }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const label = document.querySelector<HTMLElement>('[data-menu-label]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+  const openText = label?.textContent ?? '';
+  const closeText = closeBtn?.querySelector('.sr-only')?.textContent ?? '';
+
+  // Solid once a 24px sentinel at the top of the page leaves the viewport (no scroll listener).
+  if (nav && 'IntersectionObserver' in window) {
+    const sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:24px;pointer-events:none';
+    sentinel.setAttribute('aria-hidden', 'true');
+    document.body.prepend(sentinel);
+    new IntersectionObserver(([e]) => nav.classList.toggle('is-solid', !e.isIntersecting)).observe(sentinel);
+  } else nav?.classList.add('is-solid');
+
+  // Theme toggle. The initial theme is set inline in <head> (Base.astro) to avoid a flash.
+  const root = document.documentElement;
+  const themeBtn = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+  const syncTheme = () => themeBtn?.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+  syncTheme();
+  themeBtn?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    const apply = () => {
+      root.dataset.theme = next;
+      syncTheme();
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+    };
+    if (!document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return apply();
+    const r = themeBtn.getBoundingClientRect();
+    root.style.setProperty('--vt-x', `${r.left + r.width / 2}px`);
+    root.style.setProperty('--vt-y', `${r.top + r.height / 2}px`);
+    document.startViewTransition(apply);
+  });
+
+  function setMenu(open: boolean) {
+    if (!menu || !toggle) return;
+    menu.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (label) label.textContent = open ? closeText : openText;
+    if (open) menu.querySelector<HTMLAnchorElement>('[data-menu-link]')?.focus();
+    else toggle.focus();
+  }
+
+  toggle?.addEventListener('click', () => setMenu(menu?.hidden ?? true));
+  closeBtn?.addEventListener('click', () => setMenu(false));
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.hidden) setMenu(false);
+  });
+</script>

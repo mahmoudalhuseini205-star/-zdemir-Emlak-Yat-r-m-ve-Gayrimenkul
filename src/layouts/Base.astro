@@ -1,0 +1,136 @@
+---
+import '@fontsource/cormorant-garamond/500.css';
+import '@fontsource/cormorant-garamond/600.css';
+import '@fontsource/cormorant-garamond/500-italic.css';
+import '@fontsource/montserrat/400.css';
+import '@fontsource/montserrat/500.css';
+import '@fontsource/montserrat/600.css';
+import '../styles/global.css';
+
+// Above-the-fold faces are preloaded so the hero doesn't reflow on font swap.
+// latin-ext carries the Turkish characters.
+import cormorant600 from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2?url';
+import cormorant600Ext from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-ext-600-normal.woff2?url';
+import montserrat400 from '@fontsource/montserrat/files/montserrat-latin-400-normal.woff2?url';
+import montserrat400Ext from '@fontsource/montserrat/files/montserrat-latin-ext-400-normal.woff2?url';
+
+import { getImage } from 'astro:assets';
+import ogSource from '../assets/og/share.jpg';
+import { site, t, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+
+const ogImage = await getImage({ src: ogSource, width: 1200, height: 630, format: 'jpeg' });
+const ogUrl = new URL(ogImage.src, Astro.site).href;
+const canonical = new URL(lang === 'tr' ? '/' : '/en/', Astro.site).href;
+const altTr = new URL('/', Astro.site).href;
+const altEn = new URL('/en/', Astro.site).href;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  name: site.name,
+  url: canonical,
+  image: ogUrl,
+  telephone: '+90 326 614 15 55',
+  founder: { '@type': 'Person', name: site.founder },
+  address: {
+    '@type': 'PostalAddress',
+    // TODO(client): streetAddress + postalCode once the address conflict is resolved.
+    addressLocality: site.city,
+    addressRegion: site.region,
+    addressCountry: site.country,
+  },
+  areaServed: `${site.city}, ${site.region}`,
+  hasMap: site.maps,
+  sameAs: [site.instagram, site.facebook, site.sahibinden, site.hepsiemlak],
+};
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <!-- Set the theme before first paint: saved choice, else the OS preference. -->
+    <script is:inline>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      } catch (e) {}
+      // A reload starts at the top: no restored scroll position, no jump to a leftover #section hash.
+      history.scrollRestoration = 'manual';
+      if (performance.getEntriesByType('navigation')[0]?.type === 'reload' && location.hash)
+        history.replaceState(null, '', location.pathname + location.search);
+    </script>
+    <title>{s.meta.title}</title>
+    <meta name="description" content={s.meta.description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="tr" href={altTr} />
+    <link rel="alternate" hreflang="en" href={altEn} />
+    <link rel="alternate" hreflang="x-default" href={altTr} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {
+      [cormorant600, cormorant600Ext, montserrat400, montserrat400Ext].map((href) => (
+        <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />
+      ))
+    }
+    <link
+      rel="preload"
+      as="image"
+      href="/video/hero-poster-1600.webp"
+      imagesrcset="/video/hero-poster-800.webp 800w, /video/hero-poster-1600.webp 1600w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_US'} />
+    <meta property="og:title" content={s.meta.title} />
+    <meta property="og:description" content={s.meta.description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={s.meta.ogAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#0A0A80" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-brand focus:px-4 focus:py-3 focus:text-white"
+      >{s.nav.skip}</a
+    >
+    <slot />
+
+    <script>
+      // Section reveal. Applied from JS so no-JS visitors never see hidden content.
+      const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
+      if ('IntersectionObserver' in window && items.length) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (!e.isIntersecting) continue;
+              (e.target as HTMLElement).classList.add('is-in');
+              io.unobserve(e.target);
+            }
+          },
+          { rootMargin: '0px 0px -10% 0px' }
+        );
+        items.forEach((el, i) => {
+          el.classList.add('reveal');
+          el.style.transitionDelay = `${(i % 4) * 60}ms`;
+          io.observe(el);
+        });
+      }
+    </script>
+  </body>
+</html>

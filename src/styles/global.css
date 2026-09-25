@@ -1,0 +1,256 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --color-brand: #0A0A80;
+  --color-brand-mark: #2E3192;
+  --color-ink: #111318;
+  --color-graphite: #58595B;
+  --color-paper: #F7F7F5;
+  --color-line: #E4E4E7;
+  --color-whatsapp: #25D366;
+  /* Theme-aware roles. Light values here, dark values under [data-theme="dark"] below. */
+  --color-surface: #FFFFFF;
+  --color-fg: #111318;
+  --color-accent: #2E3192;
+  --color-accent-strong: #0A0A80;
+  /* Form borders: ≥ 3:1 against the field and the section behind it (WCAG 1.4.11). */
+  --color-field: #85888F;
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Montserrat", system-ui, sans-serif;
+
+  --radius-none: 0px;
+}
+
+/* Dark theme: same black-and-white mood, inverted. Brand blue is lifted so text/icons stay ≥ 4.5:1. */
+:root[data-theme="dark"] {
+  --color-surface: #0D0F14;
+  --color-paper: #15181F;
+  --color-fg: #ECEDEF;
+  --color-graphite: #A3A6AD;
+  --color-line: #2A2E38;
+  --color-accent: #A9AEFF;
+  --color-accent-strong: #C3C6FF;
+  --color-field: #6B7080;
+  --halo: rgb(169 174 255 / 0.2);
+  color-scheme: dark;
+}
+
+/* Halo: a soft ring (instead of a drop shadow) that lifts icons and fields off their background.
+   Brand-tinted on light surfaces, lifted blue in dark mode, faint white on dark bands. */
+:root { --halo: rgb(46 49 146 / 0.14); }
+.on-dark { --halo: rgb(255 255 255 / 0.14); }
+
+@layer base {
+  html {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-fg);
+    background: var(--color-surface);
+    font-size: 1rem;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  h1 { font-size: clamp(2.75rem, 6vw, 5.5rem); }
+  h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
+  h3 { font-size: 1.5rem; }
+  :focus-visible {
+    outline: 2px solid var(--color-accent-strong);
+    outline-offset: 2px;
+  }
+  .on-dark :focus-visible { outline-color: #fff; }
+  /* Tap highlight is replaced by the halo/focus styles. */
+  a, button { -webkit-tap-highlight-color: transparent; }
+  ::selection { background: var(--color-brand); color: #fff; }
+}
+
+@utility container-page {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  /* max() keeps content clear of the notch on landscape phones (needs viewport-fit=cover). */
+  padding-inline: max(1.5rem, env(safe-area-inset-left)) max(1.5rem, env(safe-area-inset-right));
+  @media (max-width: 400px) { padding-inline: max(1rem, env(safe-area-inset-left)) max(1rem, env(safe-area-inset-right)); }
+}
+
+@utility section-y {
+  padding-block: 4rem;
+  @media (min-width: 768px) { padding-block: 7rem; }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: var(--color-accent);
+}
+
+@utility halo {
+  box-shadow: 0 0 0 4px var(--halo);
+}
+
+/* White text and glyphs over photos/video get a dark halo so they read on every frame. */
+@utility on-photo {
+  text-shadow: 0 0 18px rgb(0 0 0 / 0.45), 0 1px 2px rgb(0 0 0 / 0.35);
+  & svg { filter: drop-shadow(0 0 3px rgb(0 0 0 / 0.55)); }
+  & .btn { text-shadow: none; }
+  & .btn svg { filter: none; }
+}
+
+/* Form fields: visible border, then a solid accent edge + halo on focus. */
+@utility field {
+  background: var(--color-surface);
+  border: 1px solid var(--color-field);
+  transition: border-color 200ms, box-shadow 250ms var(--ease-out);
+  &:hover { border-color: var(--color-fg); }
+  &:focus { outline: none; border-color: var(--color-accent-strong); box-shadow: 0 0 0 1px var(--color-accent-strong), 0 0 0 5px var(--halo); }
+  &[aria-invalid="true"] { border-color: var(--color-accent-strong); box-shadow: 0 0 0 4px var(--halo); }
+}
+
+/* Reveal on scroll. .reveal is added by JS only when IO is supported,
+   so no-JS visitors always see content. */
+:root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* Image variant: the photo is uncovered bottom-up like a lifted sheet. */
+.reveal[data-reveal="clip"] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1100ms var(--ease-out);
+}
+.reveal[data-reveal="clip"].is-in { clip-path: inset(0 0 0 0); }
+
+/* Buttons: a fill sweeps in from the left on hover, a 1px press on :active. */
+@utility btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  height: 3.5rem;
+  padding-inline: 2rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color 300ms var(--ease-out), transform 150ms ease-out;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--btn-sweep, var(--color-brand-mark));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 500ms var(--ease-out);
+  }
+  @media (hover: hover) {
+    &:hover::before { transform: scaleX(1); transform-origin: left; }
+    &:hover svg { transform: translateX(3px); }
+  }
+  &:active { transform: translateY(1px) scale(0.99); }
+  & svg { transition: transform 400ms var(--ease-out); }
+}
+
+/* Underline that grows from the left; used for text links and nav. */
+@utility link-line {
+  background: linear-gradient(currentColor, currentColor) no-repeat left bottom / 0% 1px;
+  transition: background-size 400ms var(--ease-out);
+  @media (hover: hover) {
+    &:hover { background-size: 100% 1px; }
+    a:hover > & { background-size: 100% 1px; }
+  }
+}
+
+/* Hero: words rise out of a mask, then the M stroke draws itself. */
+.word-mask { display: inline-block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; vertical-align: top; }
+.word { display: inline-block; }
+.m-comet { visibility: hidden; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-in .word { transform: translateY(110%); animation: word-up 1100ms var(--ease-out) forwards; animation-delay: calc(120ms + var(--i) * 70ms); }
+  .hero-in .hero-fade { opacity: 0; animation: fade-up 900ms var(--ease-out) forwards; animation-delay: calc(500ms + var(--i, 0) * 100ms); }
+  .hero-in .m-draw path:not(.m-comet) { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2400ms var(--ease-out) 300ms forwards; }
+  .hero-in .hero-media { animation: settle 2600ms var(--ease-out) forwards; }
+  .hero-in .m-comet { visibility: visible; stroke-dasharray: 0.07 1; animation: comet 5s linear 2700ms infinite both; }
+}
+/* WhatsApp FAB: pops in after the hero settles, then a soft ring pulses a few times. */
+@media (prefers-reduced-motion: no-preference) {
+  .fab { animation: fab-in 700ms var(--ease-out) 1400ms both; }
+  .fab::after {
+    content: ""; position: absolute; inset: 0; border-radius: inherit;
+    border: 2px solid var(--color-whatsapp);
+    animation: fab-ring 2400ms var(--ease-out) 2400ms 3 both;
+  }
+}
+@keyframes fab-in { from { opacity: 0; transform: translateY(16px) scale(0.6); } }
+@keyframes fab-ring { from { opacity: 0.8; transform: scale(1); } to { opacity: 0; transform: scale(1.7); } }
+
+@keyframes word-up { to { transform: none; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes comet { from { stroke-dashoffset: 0.07; } to { stroke-dashoffset: -1; } }
+@keyframes settle { from { transform: scale(1.08); } to { transform: scale(1); } }
+
+.scroll-progress { transform: scaleX(0); }
+
+/* Theme switch: the new theme spreads as a circle from the toggle (View Transitions; instant elsewhere). */
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-new(root) { animation: theme-reveal 700ms var(--ease-out); }
+@keyframes theme-reveal {
+  from { clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0)); }
+  to { clip-path: circle(150vmax at var(--vt-x, 50%) var(--vt-y, 0)); }
+}
+
+/* Social icons lift on hover; the colors come from each placement. */
+.social-link { transition: transform 400ms var(--ease-out), background-color 300ms, color 300ms, border-color 300ms, box-shadow 300ms; }
+@media (hover: hover) { .social-link:hover { transform: translateY(-3px); box-shadow: 0 0 0 6px var(--halo); } }
+
+/* Scroll-driven effects: progressive enhancement, skipped where unsupported. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress { transform-origin: left; animation: grow linear both; animation-timeline: scroll(root); }
+    .parallax { animation: drift linear both; animation-timeline: view(); }
+    .m-scroll path { stroke-dasharray: 1; animation: draw-scroll linear both; animation-timeline: view(); animation-range: entry 10% cover 60%; }
+  }
+}
+@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes drift { from { transform: translateY(-6%) scale(1.12); } to { transform: translateY(6%) scale(1.12); } }
+@keyframes draw-scroll { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal.is-in { opacity: 1; transform: none; clip-path: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Below-the-fold sections are skipped during the first layout so the hero paints sooner. */
+main > section:not(#hero, [data-overlap]) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}

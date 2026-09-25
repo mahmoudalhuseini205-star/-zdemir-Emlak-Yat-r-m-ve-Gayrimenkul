@@ -1,0 +1,52 @@
+---
+import { Image } from 'astro:assets';
+import office from '../assets/office/office-exterior.png';
+import Placeholder from './Placeholder.astro';
+import { site, t, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+---
+
+<section id="hakkimizda" class="section-y bg-paper scroll-mt-20">
+  <div class="container-page grid gap-12 lg:grid-cols-12 lg:items-center">
+    <div class="lg:col-span-5" data-reveal>
+      <p class="eyebrow">{s.about.eyebrow}</p>
+      <h2 class="mt-4">{s.about.title}</h2>
+      <p class="mt-6 text-graphite">{s.about.bio}</p>
+      <p class="mt-2 text-xs text-graphite">{s.about.bioTodo}</p>
+
+      <div class="mt-8 flex items-center gap-4">
+        <!-- TODO(image): founder portrait — never use a stock photo of a person here. -->
+        <Placeholder label={s.about.portraitTodo} class="w-24 h-24 shrink-0 gap-1" />
+        <div>
+          <p class="font-display text-2xl">{s.about.founderName}</p>
+          <p class="text-sm text-graphite">{s.about.founderRole}</p>
+          <a
+            href={site.linkedin}
+            target="_blank"
+            rel="noopener"
+            class="mt-1 inline-flex items-center h-11 text-sm font-medium text-accent link-line"
+            >{s.about.linkedin}</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="overflow-hidden aspect-[4/3] lg:col-span-6 lg:col-start-7" data-reveal="clip">
+      <!-- Provisional office photo, cropped from the client's shop-sign screenshot.
+           TODO(client): proper office exterior photo (see CLIENT.md shot list #3). -->
+      <Image
+        src={office}
+        alt={s.about.officeAlt}
+        widths={[600, 1000]}
+        sizes="(min-width: 1024px) 600px, 100vw"
+        class="parallax w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>

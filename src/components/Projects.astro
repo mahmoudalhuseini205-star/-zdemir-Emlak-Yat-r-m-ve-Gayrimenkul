@@ -1,0 +1,117 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import projects from '../data/projects.json';
+import ProjectModal from './ProjectModal.astro';
+import { site, t, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/projects/**/*.jpg', {
+  eager: true,
+});
+
+/** Returns the optimized image for a project slug, or null so the card can fall back. */
+function pick(slug: string, file: string) {
+  return files[`../assets/projects/${slug}/${file}`]?.default ?? null;
+}
+
+const cards = projects.map((p) => {
+  const copy = p[lang];
+  const images = p.images
+    .map((img) => ({ ...img, src: pick(p.slug, img.file), alt: img[lang] }))
+    .filter((img) => img.src);
+  return { ...p, copy, images };
+});
+---
+
+<section id="projeler" class="section-y bg-paper scroll-mt-20">
+  <div class="container-page">
+    <p class="eyebrow" data-reveal>{s.projects.eyebrow}</p>
+    <h2 class="mt-4 max-w-2xl" data-reveal>{s.projects.title}</h2>
+    <p class="mt-4 max-w-2xl text-graphite" data-reveal>{s.projects.intro}</p>
+
+    <!-- Bento: one feature cell (2 rows) + 5 supporting cells, exactly one per project.
+         < 640px: single column. 640-1023px: 2 columns, feature spans both. -->
+    <ul class="mt-12 grid gap-4 md:gap-5 sm:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[17rem]">
+      {
+        cards.map((card, i) => (
+          <li
+            class:list={[
+              i === 0 && 'sm:col-span-2 lg:col-span-7 lg:row-span-2',
+              (i === 1 || i === 2) && 'lg:col-span-5',
+              i > 2 && 'lg:col-span-4',
+            ]}
+            data-reveal="clip"
+          >
+            <button
+              type="button"
+              class="group relative block w-full h-full min-h-[20rem] lg:min-h-0 text-left overflow-hidden bg-ink text-white focus-visible:outline-2"
+              data-open-gallery={card.slug}
+              aria-haspopup="dialog"
+            >
+              {card.images[0]?.src ? (
+                <Image
+                  src={card.images[0].src!}
+                  alt={card.images[0].alt}
+                  widths={i === 0 ? [800, 1400] : [500, 900]}
+                  sizes={i === 0 ? '(min-width: 1024px) 740px, 100vw' : '(min-width: 1024px) 520px, (min-width: 640px) 50vw, 100vw'}
+                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[var(--ease-out)] group-hover:scale-[1.06]"
+                  loading="lazy"
+                />
+              ) : (
+                /* TODO(image): {card.slug}: no photo available */
+                <span class="absolute inset-0 flex items-center justify-center bg-paper text-graphite text-xs uppercase tracking-[0.2em]">
+                  {s.common.placeholderLabel}
+                </span>
+              )}
+              <span
+                class="absolute inset-0"
+                style="background: linear-gradient(to top, rgb(17 19 24 / .82) 0%, rgb(17 19 24 / .25) 45%, rgb(17 19 24 / 0) 70%);"
+              />
+              <span class="on-photo absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <span class:list={['block font-display leading-tight', i === 0 ? 'text-4xl md:text-5xl' : 'text-2xl md:text-3xl']}>
+                  {card.copy.title}
+                </span>
+                <span class="block mt-2 max-w-md text-sm text-white/85">{card.copy.desc}</span>
+                <span class="mt-4 flex items-center gap-4 text-sm">
+                  <span class="inline-flex items-center gap-2 font-medium">
+                    {s.projects.open}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" aria-hidden="true">
+                      <path d="M5 12h14M13 6l6 6-6 6" />
+                    </svg>
+                  </span>
+                  <span class="text-xs text-white/70">{s.projects.stockNote}</span>
+                </span>
+              </span>
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-12 flex flex-wrap items-center gap-4" data-reveal>
+      <span class="text-sm font-medium">{s.projects.allListings}:</span>
+      <a
+        href={site.sahibinden}
+        target="_blank"
+        rel="noopener"
+        class="btn h-12 px-6 border border-fg text-sm hover:text-surface [--btn-sweep:var(--color-fg)]"
+        >{s.projects.sahibinden}</a
+      >
+      <a
+        href={site.hepsiemlak}
+        target="_blank"
+        rel="noopener"
+        class="btn h-12 px-6 border border-fg text-sm hover:text-surface [--btn-sweep:var(--color-fg)]"
+        >{s.projects.hepsiemlak}</a
+      >
+    </div>
+  </div>
+</section>
+
+<ProjectModal lang={lang} cards={cards} />

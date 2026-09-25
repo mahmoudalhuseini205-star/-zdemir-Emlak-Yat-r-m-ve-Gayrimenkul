@@ -1,0 +1,508 @@
+---
+import { site, t, waLink, type Lang } from '../site';
+import { SERVICES } from '../request';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const r = s.request;
+
+// Lucide paths: key-round, home, tag, building-2, clipboard-list, message-circle
+const icons = {
+  rent: 'M15.5 3a5.5 5.5 0 1 0-4.9 8L10 11.6 3 18.6V21h3l1-1v-2h2v-2h2l1.4-1.4.6-.6a5.5 5.5 0 0 0 2.5-11ZM16.5 7.5h.01',
+  buy: 'M3 10.5 12 3l9 7.5M5.5 9.3V20a1 1 0 0 0 1 1H10v-6h4v6h3.5a1 1 0 0 0 1-1V9.3',
+  sell: 'M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4ZM7.5 7.5h.01',
+  letOut: 'M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18ZM6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2M10 6h4M10 10h4M10 14h4M10 18h4',
+  manage: 'M9 2h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1ZM16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2M12 11h4M12 16h4M8 11h.01M8 16h.01',
+  consult: 'M7.9 20A9 9 0 1 0 4 16.1L2 22Z',
+};
+
+type Field = {
+  name: keyof typeof r.labels;
+  kind: 'text' | 'select' | 'radio' | 'textarea';
+  options?: string[];
+  required?: boolean;
+  wide?: boolean;
+  checked?: string;
+  inputmode?: 'numeric' | 'url';
+  autocomplete?: string;
+};
+const opts = (name: keyof typeof r.options) => Object.keys(r.options[name]);
+
+// Every detail field, in display order. request.ts decides which ones a service shows.
+const details: Field[] = [
+  { name: 'propertyType', kind: 'select', options: opts('propertyType'), required: true },
+  { name: 'topic', kind: 'select', options: opts('topic'), required: true },
+  { name: 'callTime', kind: 'select', options: opts('callTime'), required: true },
+  { name: 'city', kind: 'text', required: true, autocomplete: 'address-level2' },
+  { name: 'district', kind: 'text' },
+  { name: 'rooms', kind: 'select', options: ['1+0', '1+1', '2+1', '3+1', '4+1', '5+'], required: true },
+  { name: 'size', kind: 'text', inputmode: 'numeric' },
+  { name: 'budget', kind: 'text', required: true },
+  { name: 'askingPrice', kind: 'text' },
+  { name: 'expectedRent', kind: 'text' },
+  { name: 'units', kind: 'text', inputmode: 'numeric' },
+  { name: 'moveIn', kind: 'select', options: opts('moveIn'), required: true },
+  { name: 'management', kind: 'select', options: opts('management'), required: true },
+  { name: 'furnished', kind: 'radio', options: opts('furnished'), checked: 'any', wide: true },
+  { name: 'available', kind: 'radio', options: opts('available'), required: true, wide: true },
+  { name: 'location', kind: 'text', wide: true },
+  { name: 'challenge', kind: 'textarea', required: true, wide: true },
+  { name: 'notes', kind: 'textarea', wide: true },
+];
+
+const placeholders: Record<string, string> = r.placeholders;
+const optionLabel = (field: string, value: string) =>
+  (r.options as Record<string, Record<string, string>>)[field]?.[value] ?? value;
+
+const chip =
+  'inline-flex items-center h-12 px-5 border border-field bg-surface text-sm cursor-pointer transition-colors hover:border-fg has-[:checked]:bg-brand has-[:checked]:border-brand has-[:checked]:text-white has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-strong';
+const heading = 'font-display text-3xl leading-tight focus:outline-none';
+
+// Only this language's copy goes to the browser; request.ts turns it into the message.
+const text = JSON.stringify({ ...r, office: site.name });
+---
+
+<form data-request data-text={text} data-wa={waLink('')} novalidate hidden class="mt-8 scroll-mt-28">
+  <div class="flex items-center gap-4">
+    <p class="eyebrow shrink-0" data-step-label>{r.step.replace('{current}', '1').replace('{total}', '4')}</p>
+    <span class="relative h-px flex-1 bg-line" aria-hidden="true">
+      <span data-progress class="absolute inset-y-0 left-0 w-1/4 bg-accent-strong transition-[width] duration-500 ease-[var(--ease-out)]"></span>
+    </span>
+  </div>
+
+  <!-- Step 1: service -->
+  <div data-step="1" class="mt-6">
+    <fieldset>
+      <legend class="contents">
+        <h3 tabindex="-1" class={heading} data-step-heading>{r.steps[0]}</h3>
+      </legend>
+      <div class="mt-6 grid gap-3 sm:grid-cols-2">
+        {
+          SERVICES.map((svc) => (
+            <label class="group flex items-start gap-4 p-5 border border-line bg-surface cursor-pointer transition-[border-color,box-shadow] duration-300 hover:border-fg has-[:checked]:border-accent-strong has-[:checked]:shadow-[0_0_0_1px_var(--color-accent-strong),0_0_0_6px_var(--halo)] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-strong">
+              <input type="radio" name="service" value={svc} required class="sr-only" aria-describedby="rq-service-error" />
+              <span
+                class="w-11 h-11 shrink-0 inline-flex items-center justify-center border border-line bg-paper text-accent transition-colors duration-300 group-has-[:checked]:bg-brand group-has-[:checked]:border-brand group-has-[:checked]:text-white"
+                aria-hidden="true"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                  <path d={icons[svc]} />
+                </svg>
+              </span>
+              <span>
+                <span class="block font-medium">{r.services[svc]}</span>
+                <span class="block mt-1 text-sm text-graphite leading-snug">{r.serviceNotes[svc]}</span>
+              </span>
+            </label>
+          ))
+        }
+      </div>
+      <p id="rq-service-error" class="mt-3 text-sm text-accent" data-error-for="service" hidden></p>
+    </fieldset>
+  </div>
+
+  <!-- Step 2: details. Fields the chosen service doesn't need are hidden and disabled. -->
+  <div data-step="2" class="mt-6" hidden>
+    <h3 tabindex="-1" class={heading} data-step-heading>{r.steps[1]}</h3>
+    <div class="mt-6 grid gap-5 sm:grid-cols-2">
+      {
+        details.map((f) => {
+          const id = `rq-${f.name}`;
+          const errId = `${id}-error`;
+          const label = (
+            <>
+              {r.labels[f.name]}
+              {!f.required && <span class="font-normal text-graphite"> ({r.optional})</span>}
+            </>
+          );
+          const error = <p id={errId} class="text-sm text-accent" data-error-for={f.name} hidden />;
+          if (f.kind === 'radio')
+            return (
+              <fieldset data-field={f.name} hidden class:list={['grid gap-2', f.wide && 'sm:col-span-2']}>
+                <legend class="text-sm font-medium mb-2">{label}</legend>
+                <div class="flex flex-wrap gap-2">
+                  {f.options!.map((o) => (
+                    <label class={chip}>
+                      <input
+                        type="radio"
+                        name={f.name}
+                        value={o}
+                        required={f.required}
+                        checked={o === f.checked}
+                        class="sr-only"
+                        aria-describedby={errId}
+                      />
+                      {optionLabel(f.name, o)}
+                    </label>
+                  ))}
+                </div>
+                {error}
+              </fieldset>
+            );
+          return (
+            <div data-field={f.name} hidden class:list={['grid gap-2 content-start', f.wide && 'sm:col-span-2']}>
+              <label for={id} class="text-sm font-medium">{label}</label>
+              {f.kind === 'select' ? (
+                <select id={id} name={f.name} required={f.required} aria-describedby={errId} class="h-12 px-4 field">
+                  <option value="">{r.select}</option>
+                  {f.options!.map((o) => <option value={o}>{optionLabel(f.name, o)}</option>)}
+                </select>
+              ) : f.kind === 'textarea' ? (
+                <textarea id={id} name={f.name} rows="3" required={f.required} aria-describedby={errId} class="p-4 field" />
+              ) : (
+                <input
+                  id={id}
+                  name={f.name}
+                  type="text"
+                  required={f.required}
+                  inputmode={f.inputmode}
+                  autocomplete={f.autocomplete ?? 'off'}
+                  placeholder={placeholders[f.name]}
+                  aria-describedby={errId}
+                  class="h-12 px-4 field"
+                />
+              )}
+              {error}
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <!-- Step 3: client details -->
+  <div data-step="3" class="mt-6" hidden>
+    <h3 tabindex="-1" class={heading} data-step-heading>{r.steps[2]}</h3>
+    <div class="mt-6 grid gap-5 sm:grid-cols-2">
+      <div class="grid gap-2 sm:col-span-2">
+        <label for="rq-name" class="text-sm font-medium">{r.labels.name}</label>
+        <input id="rq-name" name="name" type="text" required autocomplete="name" aria-describedby="rq-name-error" class="h-12 px-4 field" />
+        <p id="rq-name-error" class="text-sm text-accent" data-error-for="name" hidden></p>
+      </div>
+      <div class="grid gap-2 content-start">
+        <label for="rq-phone" class="text-sm font-medium">{r.labels.phone}</label>
+        <input
+          id="rq-phone"
+          name="phone"
+          type="tel"
+          required
+          autocomplete="tel"
+          inputmode="tel"
+          placeholder={r.placeholders.phone}
+          aria-describedby="rq-phone-error"
+          class="h-12 px-4 field"
+        />
+        <p id="rq-phone-error" class="text-sm text-accent" data-error-for="phone" hidden></p>
+      </div>
+      <div class="grid gap-2 content-start">
+        <label for="rq-email" class="text-sm font-medium">
+          {r.labels.email} <span class="font-normal text-graphite">({r.optional})</span>
+        </label>
+        <input id="rq-email" name="email" type="email" autocomplete="email" aria-describedby="rq-email-error" class="h-12 px-4 field" />
+        <p id="rq-email-error" class="text-sm text-accent" data-error-for="email" hidden></p>
+      </div>
+      <fieldset class="grid gap-2 sm:col-span-2">
+        <legend class="text-sm font-medium mb-2">{r.labels.method}</legend>
+        <div class="flex flex-wrap gap-2">
+          {
+            Object.entries(r.options.method).map(([value, label]) => (
+              <label class={chip}>
+                <input type="radio" name="method" value={value} checked={value === 'whatsapp'} class="sr-only" />
+                {label}
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+      <div class="grid gap-2 sm:col-span-2">
+        <label for="rq-consent" class="flex items-start gap-3 text-sm">
+          <input
+            id="rq-consent"
+            name="consent"
+            type="checkbox"
+            required
+            aria-describedby="rq-consent-error"
+            class="mt-1 w-6 h-6 shrink-0 accent-[var(--color-accent-strong)] focus-visible:shadow-[0_0_0_5px_var(--halo)]"
+          />
+          <span>{s.contact.consent}</span>
+        </label>
+        <p id="rq-consent-error" class="text-sm text-accent" data-error-for="consent" hidden></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: review -->
+  <div data-step="4" class="mt-6" hidden>
+    <h3 tabindex="-1" class={heading} data-step-heading>{r.steps[3]}</h3>
+    <p class="mt-3 text-sm text-graphite">{r.review}</p>
+    <div class="mt-6 border border-line bg-surface">
+      <dl data-summary="details" class="grid gap-x-6 sm:grid-cols-[minmax(0,12rem)_1fr] px-5 py-4 text-sm"></dl>
+      <dl data-summary="client" class="grid gap-x-6 sm:grid-cols-[minmax(0,12rem)_1fr] px-5 py-4 text-sm border-t border-line"></dl>
+    </div>
+    <p class="mt-4 text-sm text-graphite">{r.photosNote}</p>
+  </div>
+
+  <div data-actions class="mt-8 flex flex-col-reverse gap-3 sm:flex-row sm:items-center">
+    <button type="button" data-back hidden class="btn w-full sm:w-auto border border-fg hover:text-surface [--btn-sweep:var(--color-fg)]">
+      {r.back}
+    </button>
+    <button type="submit" data-next class="btn w-full sm:w-auto sm:ml-auto bg-brand text-white">
+      {r.next}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </button>
+    <a
+      href={waLink('')}
+      data-send
+      hidden
+      target="_blank"
+      rel="noopener"
+      class="btn w-full sm:w-auto sm:ml-auto bg-whatsapp text-ink hover:text-white [--btn-sweep:var(--color-ink)]"
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"
+        ><path
+          d="M17.5 14.4c-.3-.1-1.7-.9-2-1-.3-.1-.4-.1-.6.1-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5 0-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.1 4.9 4.3.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.5-.3Z"
+        ></path><path
+          d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Z"
+        ></path></svg
+      >
+      {r.send}
+    </a>
+  </div>
+
+  <!-- After the WhatsApp hand-off. Nothing is "sent" until the visitor taps send in WhatsApp. -->
+  <div data-sent hidden class="mt-6">
+    <h3 tabindex="-1" class={heading} data-sent-heading>{r.sentTitle}</h3>
+    <p class="mt-3 text-graphite">{r.sentText}</p>
+    <p class="mt-2 text-sm text-graphite">{r.photosNote}</p>
+
+    <div class="mt-8 border-l-2 border-accent-strong pl-5">
+      <p class="font-medium">{r.fallbackTitle}</p>
+      <p class="mt-1 text-sm text-graphite">{r.fallbackText.replace('{phone}', site.mobilePhone.display)}</p>
+      <label for="rq-message" class="sr-only">{r.heading}</label>
+      <textarea id="rq-message" data-message readonly rows="8" class="mt-4 w-full p-4 field text-sm"></textarea>
+      <div class="mt-3 flex flex-wrap items-center gap-3">
+        <button type="button" data-copy class="inline-flex items-center h-12 px-5 border border-fg text-sm font-medium">{r.copy}</button>
+        <a href={site.mobilePhone.href} class="inline-flex items-center h-12 px-5 border border-line text-sm font-medium">
+          {s.common.call}: {site.mobilePhone.display}
+        </a>
+        <p data-copy-status aria-live="polite" class="text-sm text-graphite"></p>
+      </div>
+    </div>
+
+    <button type="button" data-restart class="mt-8 inline-flex items-center min-h-11 text-sm font-medium text-accent link-line">{r.restart}</button>
+  </div>
+</form>
+
+<noscript>
+  <div class="mt-8 border-l-2 border-accent-strong pl-5">
+    <p>{r.noscript}</p>
+    <p class="mt-4 flex flex-wrap gap-3">
+      <a href={waLink(s.whatsapp.message)} target="_blank" rel="noopener" class="inline-flex items-center h-12 px-5 bg-whatsapp text-ink text-sm font-medium">
+        {s.whatsapp.label}
+      </a>
+      <a href={site.mobilePhone.href} class="inline-flex items-center h-12 px-5 border border-fg text-sm font-medium">
+        {s.common.call}: {site.mobilePhone.display}
+      </a>
+    </p>
+  </div>
+</noscript>
+
+<script>
+  import { visibleFields, buildEntries, clientEntries, buildMessage, type Service, type MessageText } from '../request';
+
+  type Text = MessageText & {
+    step: string;
+    steps: string[];
+    copied: string;
+    copyFailed: string;
+    errors: Record<'required' | 'choose' | 'phone' | 'email' | 'consent', string>;
+  };
+  type Control = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+
+  const form = document.querySelector<HTMLFormElement>('[data-request]');
+
+  if (form) {
+    const text: Text = JSON.parse(form.dataset.text!);
+    const steps = [...form.querySelectorAll<HTMLElement>('[data-step]')];
+    const total = steps.length;
+    const $ = <T extends HTMLElement>(sel: string) => form.querySelector<T>(sel)!;
+    const back = $<HTMLButtonElement>('[data-back]');
+    const next = $<HTMLButtonElement>('[data-next]');
+    const send = $<HTMLAnchorElement>('[data-send]');
+    const sent = $('[data-sent]');
+    const actions = $('[data-actions]');
+    const message = $<HTMLTextAreaElement>('[data-message]');
+    const copyStatus = $('[data-copy-status]');
+    let current = 1;
+    let handedOff = false;
+
+    form.hidden = false;
+
+    const field = (name: string) => form.elements.namedItem(name) as Control | RadioNodeList | null;
+    const service = () => (field('service') as RadioNodeList).value as Service | '';
+    const values = () => Object.fromEntries([...new FormData(form)].map(([k, v]) => [k, String(v)]));
+
+    /** Show only the detail fields the chosen service (and property type) needs. Hidden = disabled = not validated or sent. */
+    function syncFields() {
+      const svc = service();
+      const shown = svc ? visibleFields(svc, (field('propertyType') as HTMLSelectElement).value) : [];
+      form!.querySelectorAll<HTMLElement>('[data-field]').forEach((wrap) => {
+        const on = shown.includes(wrap.dataset.field!);
+        wrap.hidden = !on;
+        wrap.querySelectorAll<Control>('input, select, textarea').forEach((c) => (c.disabled = !on));
+      });
+    }
+
+    function errorFor(c: Control): string {
+      const value = c.value.trim();
+      if (c instanceof HTMLInputElement && c.type === 'checkbox') return c.required && !c.checked ? text.errors.consent : '';
+      if (c instanceof HTMLInputElement && c.type === 'radio')
+        return c.required && !(field(c.name) as RadioNodeList).value ? text.errors.choose : '';
+      if (c.required && !value) return c instanceof HTMLSelectElement ? text.errors.choose : text.errors.required;
+      if (c.type === 'tel') {
+        // Lenient on formatting (spaces, dashes, +90, brackets), strict on length.
+        const digits = value.replace(/\D/g, '').length;
+        if (/[^\d\s+().-]/.test(value) || digits < 10 || digits > 13) return text.errors.phone;
+      }
+      if (c.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return text.errors.email;
+      return '';
+    }
+
+    function showError(c: Control) {
+      const msg = errorFor(c);
+      const el = form!.querySelector<HTMLElement>(`[data-error-for="${c.name}"]`);
+      if (el) {
+        el.textContent = msg;
+        el.hidden = !msg;
+      }
+      const group = c.type === 'radio' ? [...form!.querySelectorAll<Control>(`[name="${c.name}"]`)] : [c];
+      group.forEach((g) => g.setAttribute('aria-invalid', String(!!msg)));
+      return !msg;
+    }
+
+    function validateStep() {
+      const controls = [...steps[current - 1].querySelectorAll<Control>('input, select, textarea')].filter((c) => !c.disabled);
+      // One check per radio group; every other control on its own.
+      const seen = new Set<string>();
+      const invalid = controls.filter((c) => {
+        if (c.type === 'radio') {
+          if (seen.has(c.name)) return false;
+          seen.add(c.name);
+        }
+        return !showError(c);
+      });
+      invalid[0]?.focus();
+      return invalid.length === 0;
+    }
+
+    function fillSummary() {
+      const svc = service() as Service;
+      const v = values();
+      const rows = (sel: string, entries: [string, string][]) => {
+        const dl = $(`[data-summary="${sel}"]`);
+        dl.replaceChildren(
+          ...entries.flatMap(([label, value]) => {
+            const dt = document.createElement('dt');
+            dt.className = 'pt-2 sm:py-2 text-graphite';
+            dt.textContent = label;
+            const dd = document.createElement('dd');
+            dd.className = 'pb-2 sm:py-2 font-medium break-words';
+            dd.textContent = value;
+            return [dt, dd];
+          })
+        );
+      };
+      rows('details', buildEntries(svc, v, text));
+      rows('client', clientEntries(v, text));
+      const msg = buildMessage(svc, v, text);
+      send.href = `${form!.dataset.wa}${encodeURIComponent(msg)}`;
+      message.value = msg;
+    }
+
+    function focusHeading(el: HTMLElement) {
+      el.focus({ preventScroll: true });
+      if (form!.getBoundingClientRect().top < 0) form!.scrollIntoView({ block: 'start' });
+    }
+
+    function goTo(step: number) {
+      current = step;
+      steps.forEach((el, i) => (el.hidden = i + 1 !== step));
+      $('[data-step-label]').textContent = text.step.replace('{current}', String(step)).replace('{total}', String(total));
+      $('[data-progress]').style.width = `${(step / total) * 100}%`;
+      back.hidden = step === 1;
+      next.hidden = step === total;
+      send.hidden = step !== total;
+      if (step === total) fillSummary();
+      focusHeading(steps[step - 1].querySelector<HTMLElement>('[data-step-heading]')!);
+    }
+
+    form.addEventListener('change', (e) => {
+      const c = e.target as Control;
+      if (c.name === 'service' || c.name === 'propertyType') syncFields();
+      if (c.getAttribute('aria-invalid') === 'true') showError(c);
+    });
+    // Clear an error as soon as the visitor fixes it; don't nag while they're still typing a fresh field.
+    form.addEventListener('input', (e) => {
+      const c = e.target as Control;
+      if (c.getAttribute('aria-invalid') === 'true') showError(c);
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (current < total && validateStep()) goTo(current + 1);
+    });
+    back.addEventListener('click', () => goTo(current - 1));
+
+    send.addEventListener('click', (e) => {
+      // Guard against double taps opening two chats.
+      if (handedOff) return e.preventDefault();
+      handedOff = true;
+      // Let the link open WhatsApp first, then swap to the "opened" state.
+      setTimeout(() => {
+        steps.forEach((el) => (el.hidden = true));
+        actions.hidden = true;
+        sent.hidden = false;
+        focusHeading($('[data-sent-heading]'));
+      });
+    });
+
+    $('[data-copy]').addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(message.value);
+        copyStatus.textContent = text.copied;
+      } catch {
+        message.select();
+        copyStatus.textContent = text.copyFailed;
+      }
+    });
+
+    $('[data-restart]').addEventListener('click', () => {
+      form.reset();
+      form.querySelectorAll<HTMLElement>('[data-error-for]').forEach((el) => (el.hidden = true));
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      handedOff = false;
+      copyStatus.textContent = '';
+      sent.hidden = true;
+      actions.hidden = false;
+      syncFields();
+      goTo(1);
+    });
+
+    // Buttons elsewhere on the page can open the form on a service, e.g. data-request-preset="consult:valuation".
+    document.querySelectorAll<HTMLElement>('[data-request-preset]').forEach((el) =>
+      el.addEventListener('click', () => {
+        if (handedOff) return;
+        const [svc, topic] = el.dataset.requestPreset!.split(':');
+        form.querySelector<HTMLInputElement>(`[name="service"][value="${svc}"]`)!.checked = true;
+        syncFields();
+        if (topic) (field('topic') as HTMLSelectElement).value = topic;
+        goTo(2);
+      })
+    );
+
+    syncFields();
+  }
+</script>

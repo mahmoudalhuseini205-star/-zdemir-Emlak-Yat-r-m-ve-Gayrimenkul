@@ -1,0 +1,142 @@
+---
+import Socials from './Socials.astro';
+import { t, waLink, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+
+// "*...*" in the title marks the phrase set in italic. Each word gets its own mask for the load reveal.
+const words = s.hero.title
+  .split(/(\*[^*]+\*)/)
+  .filter(Boolean)
+  .flatMap((part) => {
+    const em = part.startsWith('*');
+    return part.replace(/\*/g, '').trim().split(/\s+/).filter(Boolean).map((w) => ({ w, em }));
+  });
+const socialOnVideo = 'halo border-white/60 text-white bg-black/30 backdrop-blur-sm hover:bg-white hover:text-ink hover:border-white';
+
+// Keep the last two words together so the headline never ends on a lone word.
+if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
+  const last = words.pop()!;
+  words[words.length - 1].w += ` ${last.w}`;
+}
+---
+
+<section id="hero" class="hero-in relative min-h-[100svh] flex items-end overflow-hidden on-dark">
+  <!-- Decorative background. The poster is the LCP element; the video is added by JS. -->
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="hero-media absolute inset-0">
+    <img
+      src="/video/hero-poster-1600.webp"
+      srcset="/video/hero-poster-800.webp 800w, /video/hero-poster-1600.webp 1600w"
+      sizes="100vw"
+      alt=""
+      aria-hidden="true"
+      width="1920"
+      height="1080"
+      fetchpriority="high"
+      decoding="async"
+      class="w-full h-full object-cover"
+    />
+    <video
+      data-hero-video
+      muted
+      loop
+      playsinline
+      preload="none"
+      aria-hidden="true"
+      tabindex="-1"
+      class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"></video>
+    </div>
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(to top, rgb(17 19 24 / .75), rgb(17 19 24 / .25));"
+    >
+    </div>
+  </div>
+
+  <!-- Signature: the logo's M stroke draws itself over the video. Decorative. -->
+  <svg
+    viewBox="0 0 100 100"
+    aria-hidden="true"
+    focusable="false"
+    class="m-draw pointer-events-none absolute right-[-30vw] top-[6%] w-[115vw] md:right-[-8vw] md:top-[14%] md:w-[62vw] max-w-[860px] text-white/25"
+  >
+    <path d="M8 76 L33 24 L50 58 L67 24 L92 76" pathLength="1" fill="none" stroke="currentColor" stroke-width="0.35" />
+    <!-- A light travels along the stroke once it has drawn (global.css → .m-comet). -->
+    <path class="m-comet" d="M8 76 L33 24 L50 58 L67 24 L92 76" pathLength="1" fill="none" stroke="#fff" stroke-width="0.7" stroke-linecap="round" style="filter: drop-shadow(0 0 1.5px #fff)" />
+  </svg>
+
+  <div class="on-photo container-page pb-40 md:pb-44 pt-24 text-white">
+    <h1 class="max-w-4xl leading-[1.05]" aria-label={s.hero.title.replace(/\*/g, '')}>
+      {
+        words.map(({ w, em }, i) => (
+          <>
+            <span class="word-mask" aria-hidden="true">
+              <span class:list={['word', em && 'italic font-medium']} style={`--i:${i}`}>
+                {w}
+              </span>
+            </span>{' '}
+          </>
+        ))
+      }
+    </h1>
+    <p class="hero-fade mt-6 max-w-xl text-lg text-white/90" style="--i:0">{s.hero.subtitle}</p>
+    <div class="hero-fade mt-10 flex flex-col sm:flex-row gap-4" style="--i:1">
+      <a href={waLink(s.whatsapp.message)} target="_blank" rel="noopener" class="btn bg-brand text-white">
+        {s.hero.ctaPrimary}
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+      <a href="#projeler" class="btn border border-white text-white hover:text-ink [--btn-sweep:#fff]">{s.hero.ctaSecondary}</a>
+    </div>
+    <div class="hero-fade mt-8 flex items-center gap-4 md:hidden" style="--i:2">
+      <span class="text-xs uppercase tracking-[0.3em] text-white/80">{s.footer.follow}</span>
+      <Socials label={s.footer.follow} itemClass={socialOnVideo} />
+    </div>
+  </div>
+
+  <!-- Social rail: vertical on the right from md, a row under the CTAs on mobile. -->
+  <div class="on-photo hero-fade absolute right-6 top-1/2 -translate-y-1/2 z-10 hidden md:flex flex-col items-center gap-4" style="--i:3">
+    <span class="w-px h-16 bg-white/40" aria-hidden="true"></span>
+    <Socials label={s.footer.follow} class="flex-col" itemClass={socialOnVideo} />
+    <span class="text-[0.625rem] uppercase tracking-[0.3em] text-white/80 [writing-mode:vertical-rl] rotate-180">{s.footer.follow}</span>
+  </div>
+
+</section>
+
+<script>
+  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const saveData = (navigator as any).connection?.saveData === true;
+
+  if (video && !reduced && !saveData) {
+    const mobile = matchMedia('(max-width: 767px)').matches;
+    const add = (src: string, type: string) => {
+      const el = document.createElement('source');
+      el.src = src;
+      el.type = type;
+      video.appendChild(el);
+    };
+    if (mobile) {
+      add('/video/hero-720.mp4', 'video/mp4');
+    } else {
+      add('/video/hero-1080.webm', 'video/webm');
+      add('/video/hero-1080.mp4', 'video/mp4');
+    }
+    video.preload = 'metadata';
+    video.load();
+    video.addEventListener('playing', () => video.classList.replace('opacity-0', 'opacity-100'), {
+      once: true,
+    });
+    // Autoplay can be blocked (e.g. low-power mode); the poster then stays.
+    video.play().catch(() => {});
+    // Keep it running: resume if the browser paused it while the tab was hidden.
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden && video.paused) video.play().catch(() => {});
+    });
+  }
+</script>

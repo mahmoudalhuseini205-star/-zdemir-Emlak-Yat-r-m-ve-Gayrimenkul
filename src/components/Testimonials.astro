@@ -1,0 +1,102 @@
+---
+import { site, t, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+
+const initials = (name: string) =>
+  name
+    .split(' ')
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join('')
+    .toLocaleUpperCase(lang === 'tr' ? 'tr-TR' : 'en-US');
+---
+
+<section class="section-y bg-surface">
+  <div class="container-page">
+    <h2 class="max-w-2xl" data-reveal>{s.testimonials.title}</h2>
+
+    <div class="mt-6 flex flex-wrap items-center gap-3" data-reveal>
+      <a
+        href={site.maps}
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 h-11 px-4 border border-line text-sm font-medium"
+      >
+        {s.testimonials.badge}
+        <span class="text-graphite font-normal">· {s.testimonials.readOn}</span>
+      </a>
+      <!-- TODO(client): total Google review count for the badge. -->
+      <span class="text-xs text-graphite">{s.testimonials.badgeCount}</span>
+    </div>
+
+    <!-- The first quote (earthquake) carries the most trust, so it's set large on its own.
+         The other three sit below in a row: 3 columns on md+, scroll-snap on mobile. -->
+    {
+      (() => {
+        const [lead] = s.testimonials.items;
+        return (
+          <figure class="mt-14 md:mt-20 max-w-5xl" data-reveal>
+            <p class="text-accent tracking-[0.2em]">
+              <span class="sr-only">5/5</span>
+              <span aria-hidden="true">★★★★★</span>
+            </p>
+            <blockquote class="mt-6 font-display italic font-medium text-[clamp(2.25rem,5.5vw,4.75rem)] leading-[1.1] pb-1 text-accent-strong">
+              “{lead.quote}”
+            </blockquote>
+            <figcaption class="mt-8 flex items-center gap-3 text-sm">
+              <span
+                aria-hidden="true"
+                class="w-10 h-10 shrink-0 halo rounded-full bg-brand text-white text-xs font-semibold inline-flex items-center justify-center"
+                >{initials(lead.name)}</span
+              >
+              <span>
+                <span class="block font-medium">{lead.name}</span>
+                <a href={site.maps} target="_blank" rel="noopener" class="inline-flex items-center min-h-11 min-w-11 text-graphite text-xs underline">
+                  {s.testimonials.source}
+                  {s.testimonials.translated ? ` · ${s.testimonials.translated}` : ''}
+                </a>
+              </span>
+            </figcaption>
+          </figure>
+        );
+      })()
+    }
+
+    <ul
+      class="mt-16 flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 md:grid md:grid-cols-3 md:gap-10 md:overflow-visible md:pb-0"
+    >
+      {
+        s.testimonials.items.slice(1).map((item) => (
+          <li class="min-w-[85%] snap-center md:min-w-0 border-t border-fg pt-6 flex flex-col" data-reveal>
+            <p class="text-accent text-sm">
+              <span class="sr-only">5/5</span>
+              <span aria-hidden="true">★★★★★</span>
+            </p>
+            <blockquote class="mt-4 flex-1 font-display italic text-xl leading-snug">
+              “{item.quote}”
+            </blockquote>
+            <div class="mt-6 flex items-center gap-3">
+              <span
+                aria-hidden="true"
+                class="w-10 h-10 shrink-0 halo rounded-full bg-brand text-white text-xs font-semibold inline-flex items-center justify-center"
+                >{initials(item.name)}</span
+              >
+              <span class="text-sm">
+                <span class="block font-medium">{item.name}</span>
+                <a href={site.maps} target="_blank" rel="noopener" class="inline-flex items-center min-h-11 min-w-11 text-graphite text-xs underline">
+                  {s.testimonials.source}
+                  {s.testimonials.translated ? ` · ${s.testimonials.translated}` : ''}
+                </a>
+              </span>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

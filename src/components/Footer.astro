@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets';
+import logoWhite from '../assets/brand/logo-white.png';
+import Socials from './Socials.astro';
+import { site, t, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+
+const stores = [
+  { href: site.sahibinden, label: s.projects.sahibinden },
+  { href: site.hepsiemlak, label: s.projects.hepsiemlak },
+];
+---
+
+<footer class="bg-ink text-white on-dark border-t border-white/10">
+  <div class="container-page py-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <Image src={logoWhite} alt={site.name} widths={[280]} sizes="140px" class="h-10 w-auto" loading="lazy" />
+      <p class="mt-4 text-sm text-white/70">{s.footer.tagline}</p>
+    </div>
+
+    <div>
+      <p class="eyebrow text-white/60">{s.nav.contact}</p>
+      <ul class="mt-4 text-sm">
+        <li><a href={site.officePhone.href} class="inline-flex items-center min-h-11 hover:text-white/70">{site.officePhone.display}</a></li>
+        <li><a href={site.mobilePhone.href} class="inline-flex items-center min-h-11 hover:text-white/70">{site.mobilePhone.display}</a></li>
+        <!-- TODO(client): full street address -->
+        <li class="text-white/70">{s.contact.addressValue}</li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="eyebrow text-white/60">{s.footer.social}</p>
+      <Socials
+        label={s.footer.social}
+        class="mt-4"
+        itemClass="halo border-white/30 text-white hover:bg-white hover:text-ink hover:border-white"
+      />
+    </div>
+
+    <div>
+      <p class="eyebrow text-white/60">{s.footer.listings}</p>
+      <ul class="mt-4 text-sm">
+        {
+          stores.map((l) => (
+            <li>
+              <a href={l.href} target="_blank" rel="noopener" class="inline-flex items-center min-h-11 hover:text-white/70">
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-white/15">
+    <div class="container-page py-6 flex flex-col sm:flex-row gap-2 sm:items-center justify-between text-xs text-white/60">
+      <p>© {new Date().getFullYear()} {site.name}. {s.footer.rights}</p>
+      <p>
+        <!-- TODO(client): KVKK aydınlatma metni -->
+        <span>{s.footer.legal}: {s.footer.legalTodo}</span>
+        <span class="ml-2">{s.footer.credits}</span>
+      </p>
+    </div>
+  </div>
+</footer>

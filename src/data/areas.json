@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "sariseki",
+    "name": "Sarıseki",
+    "image": "sariseki.jpg",
+    "tr": "İskenderun'un kuzeyinde, sahil şeridi boyunca uzanan bir yerleşim.",
+    "en": "A settlement north of İskenderun, stretching along the coastline.",
+    "credit": "funda izgi",
+    "source": "https://www.pexels.com/photo/aerial-view-of-scenic-coastline-in-antalya-turkiye-28518784/",
+    "license": "Pexels License",
+    "altTr": "Akdeniz kıyısından kuşbakışı görünüm (temsili)",
+    "altEn": "Aerial view of the Mediterranean coast (illustrative)"
+  },
+  {
+    "slug": "denizciler",
+    "name": "Denizciler",
+    "image": "denizciler.jpg",
+    "tr": "Sahile yakın, konut ağırlıklı bir bölge.",
+    "en": "A largely residential area close to the shore.",
+    "credit": "Kadir Akman",
+    "source": "https://www.pexels.com/photo/aerial-view-of-antalya-turkey-13220361/",
+    "license": "Pexels License",
+    "altTr": "Deniz kıyısındaki bir şehrin kuşbakışı görünümü (temsili)",
+    "altEn": "Aerial view of a coastal town (illustrative)"
+  },
+  {
+    "slug": "karaagac",
+    "name": "Karaağaç",
+    "image": "karaagac.jpg",
+    "tr": "İskenderun çevresindeki yerleşimlerden biri.",
+    "en": "One of the settlements around İskenderun.",
+    "credit": "Atlantic Ambience",
+    "source": "https://www.pexels.com/photo/aerial-view-of-the-coast-of-antalya-turkey-12932928/",
+    "license": "Pexels License",
+    "altTr": "Kıyı şeridi ve deniz (temsili)",
+    "altEn": "Coastline and sea (illustrative)"
+  },
+  {
+    "slug": "modernevler",
+    "name": "Modernevler",
+    "image": "modernevler.jpg",
+    "tr": "İskenderun'un konut bölgelerinden biri.",
+    "en": "One of İskenderun's residential districts.",
+    "credit": "Ahmet Arıkaya",
+    "source": "https://www.pexels.com/photo/aerial-view-of-coastal-landscape-in-antalya-31255703/",
+    "license": "Pexels License",
+    "altTr": "Kıyı manzarası (temsili)",
+    "altEn": "Coastal landscape (illustrative)"
+  },
+  {
+    "slug": "arsuz",
+    "name": "Arsuz",
+    "image": "arsuz.jpg",
+    "tr": "Hatay'ın sahil ilçelerinden biri; İskenderun'a komşudur.",
+    "en": "A coastal district of Hatay, neighbouring İskenderun.",
+    "credit": "Aleksey Kuprikov",
+    "source": "https://www.pexels.com/photo/palm-trees-on-beach-at-sunset-3493814/",
+    "license": "Pexels License",
+    "altTr": "Gün batımında sahil ve palmiyeler (temsili)",
+    "altEn": "Seafront with palm trees at sunset (illustrative)"
+  }
+]

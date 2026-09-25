@@ -1,0 +1,299 @@
+{
+  "meta": {
+    "title": "MAJÖR GAYRİMENKUL | 16+ years of real estate expertise in İskenderun",
+    "description": "Sales, rentals, valuation and investment advice in İskenderun and Hatay. With more than 16 years of experience, we find the home you've been dreaming of.",
+    "ogAlt": "Mediterranean sea view from the İskenderun coast"
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "projects": "Projects",
+    "areas": "Areas",
+    "about": "About",
+    "contact": "Contact",
+    "menu": "Open menu",
+    "menuClose": "Close menu",
+    "langLabel": "Language selection",
+    "skip": "Skip to content",
+    "theme": "Dark theme"
+  },
+  "hero": {
+    "title": "We find the home *you've been dreaming of.*",
+    "subtitle": "More than 16 years of real estate expertise in İskenderun.",
+    "ctaPrimary": "Message us on WhatsApp",
+    "ctaSecondary": "See the projects",
+    "scroll": "Scroll down"
+  },
+  "counters": {
+    "years": "years of expertise",
+    "followers": "Instagram followers",
+    "city": "İskenderun, Hatay",
+    "cityLabel": "Service area"
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "End-to-end real estate support",
+    "intro": "We're with you at every step of buying, selling, renting and investing.",
+    "items": [
+      {
+        "title": "For sale",
+        "text": "We go through our homes, commercial units and land together to find the right fit."
+      },
+      {
+        "title": "For rent",
+        "text": "We handle listing, viewings and the contract process for homes and commercial units."
+      },
+      {
+        "title": "Valuation",
+        "text": "We offer appraisal advice so you know what your property is worth today."
+      },
+      {
+        "title": "Investment advice",
+        "text": "We work out the area and property type that match your budget and goals."
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Example projects",
+    "title": "Pick the type of home you're after",
+    "intro": "The images below are examples that illustrate the property types we work with. They are not real listings and carry no price or address. For current listings, visit our listing stores.",
+    "stockNote": "Example image",
+    "open": "Open gallery",
+    "allListings": "All current listings",
+    "sahibinden": "sahibinden store",
+    "hepsiemlak": "hepsiemlak office",
+    "modal": {
+      "close": "Close",
+      "prev": "Previous image",
+      "next": "Next image",
+      "counter": "{current} / {total}",
+      "whatsapp": "Ask about this type on WhatsApp",
+      "photoCredit": "Photo"
+    }
+  },
+  "valuation": {
+    "title": "Find out what your home is worth, free",
+    "text": "Let's look at the current market value of your property together. Free, with no obligation.",
+    "cta": "Request a free valuation"
+  },
+  "areas": {
+    "eyebrow": "Area guide",
+    "title": "İskenderun and around",
+    "intro": "The areas we're asked about most. If yours isn't listed, just ask.",
+    "ask": "Ask about listings here",
+    "todo": "The featured areas are awaiting client confirmation."
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "An İskenderun address for over 16 years",
+    "founderName": "Zeki Teymur",
+    "founderRole": "Founder · Real estate consultant",
+    "bio": "MAJÖR GAYRİMENKUL has been handling sales, rentals and valuations in İskenderun for more than 16 years.",
+    "bioTodo": "The founder biography is awaiting client approval.",
+    "linkedin": "View the LinkedIn profile",
+    "officeAlt": "MAJÖR GAYRİMENKUL office front and sign",
+    "portraitTodo": "Portrait photo pending"
+  },
+  "testimonials": {
+    "eyebrow": "References",
+    "title": "What our clients say",
+    "badge": "5.0 ★ on Google",
+    "badgeCount": "review count awaiting confirmation",
+    "source": "Google",
+    "readOn": "Read the reviews on Google",
+    "translated": "translated from Turkish",
+    "items": [
+      {
+        "name": "Recep A.",
+        "quote": "They kept working without a hitch even after the earthquake."
+      },
+      {
+        "name": "Kemal Türker U. (Assoc. Prof.)",
+        "quote": "Şehmuz bey is trustworthy, attentive and really knows his trade. He helps with the technical side and with finding the right property. I recommend them."
+      },
+      {
+        "name": "Mesut K.",
+        "quote": "If you're looking for a place to rent or buy, this is the right address. The staff are very attentive and all of them are courteous."
+      },
+      {
+        "name": "Mazlum U.",
+        "quote": "An outfit that really knows real estate."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Get in touch",
+    "intro": "Answer a few short questions and your request reaches our office directly on WhatsApp as a clear, structured message.",
+    "consent": "I agree to my personal data being processed for contact purposes under Turkish data protection law (KVKK).",
+    "consentLink": "Privacy notice",
+    "officePhone": "Office",
+    "mobilePhone": "Mobile / WhatsApp",
+    "address": "Address",
+    "addressValue": "İskenderun, Hatay",
+    "addressTodo": "The full street address is awaiting client confirmation.",
+    "hours": "Opening hours",
+    "hoursTodo": "Opening hours pending.",
+    "mapCta": "Load the map",
+    "mapNote": "The map is loaded from Google Maps.",
+    "mapTitle": "MAJÖR GAYRİMENKUL location",
+    "openMaps": "Open in Google Maps"
+  },
+  "request": {
+    "greeting": "Hello {office},",
+    "heading": "New real-estate request",
+    "serviceLabel": "Service",
+    "clientHeading": "Client details",
+    "step": "Step {current} of {total}",
+    "steps": [
+      "How can we help?",
+      "A few details",
+      "Your details",
+      "Review and send"
+    ],
+    "services": {
+      "rent": "Rent a property",
+      "buy": "Buy a property",
+      "sell": "Sell my property",
+      "letOut": "Let my property",
+      "manage": "Property management",
+      "consult": "Consultation / callback"
+    },
+    "serviceNotes": {
+      "rent": "Rentals that fit your budget and area.",
+      "buy": "Find the right home or investment together.",
+      "sell": "The right price and the right buyer for your property.",
+      "letOut": "Finding a reliable tenant and handling the contract.",
+      "manage": "Tenants, rent collection and upkeep.",
+      "consult": "Questions about valuation, investment or the process."
+    },
+    "labels": {
+      "propertyType": "Property type",
+      "city": "City",
+      "district": "District / area",
+      "rooms": "Rooms",
+      "budget": "Budget",
+      "furnished": "Furnishing",
+      "moveIn": "Move-in",
+      "size": "Approximate size (m²)",
+      "askingPrice": "Asking price",
+      "expectedRent": "Expected rent",
+      "available": "Available now",
+      "location": "Location",
+      "units": "Number of units",
+      "management": "Current management",
+      "challenge": "Main need",
+      "topic": "Topic",
+      "callTime": "Best time to call",
+      "notes": "Notes",
+      "name": "Name",
+      "phone": "Mobile",
+      "method": "Preferred contact",
+      "email": "Email"
+    },
+    "options": {
+      "propertyType": {
+        "apartment": "Apartment",
+        "villa": "Villa",
+        "townhouse": "House",
+        "land": "Land",
+        "office": "Office",
+        "shop": "Shop",
+        "building": "Building",
+        "other": "Other"
+      },
+      "furnished": {
+        "yes": "Furnished",
+        "no": "Unfurnished",
+        "any": "No preference"
+      },
+      "moveIn": {
+        "now": "Right away",
+        "month": "Within a month",
+        "quarter": "In 1–3 months",
+        "later": "After 3 months",
+        "flexible": "Flexible"
+      },
+      "available": {
+        "yes": "Yes",
+        "no": "No"
+      },
+      "management": {
+        "self": "I manage it myself",
+        "agency": "Another company manages it",
+        "vacant": "Vacant / newly delivered",
+        "other": "Other"
+      },
+      "topic": {
+        "valuation": "Valuation",
+        "investment": "Investment",
+        "process": "Buying or selling process",
+        "other": "Other"
+      },
+      "callTime": {
+        "morning": "Morning",
+        "afternoon": "Afternoon",
+        "evening": "Evening",
+        "any": "Any time"
+      },
+      "method": {
+        "whatsapp": "WhatsApp",
+        "call": "Phone call"
+      }
+    },
+    "placeholders": {
+      "city": "İskenderun",
+      "district": "e.g. Sarıseki, Arsuz",
+      "budget": "e.g. 25,000 TL / month",
+      "size": "e.g. 120",
+      "askingPrice": "e.g. 4,500,000 TL",
+      "expectedRent": "e.g. 20,000 TL / month",
+      "location": "Google Maps link or address",
+      "units": "e.g. 4",
+      "phone": "+90 530 123 45 67"
+    },
+    "select": "Select",
+    "optional": "optional",
+    "next": "Continue",
+    "back": "Back",
+    "review": "Check your details before sending. The message opens ready in WhatsApp and only reaches us once you send it.",
+    "send": "Send on WhatsApp",
+    "photosNote": "You can attach property photos directly in WhatsApp after sending.",
+    "sentTitle": "WhatsApp opened",
+    "sentText": "Your message is ready. Tap send in WhatsApp so your request reaches us.",
+    "fallbackTitle": "WhatsApp didn't open?",
+    "fallbackText": "Copy the message and send it on WhatsApp to {phone}, or give us a call.",
+    "copy": "Copy message",
+    "copied": "Copied",
+    "copyFailed": "Couldn't copy. Select the text and copy it.",
+    "restart": "Start a new request",
+    "noscript": "The request form needs JavaScript. You can message us on WhatsApp or call us directly.",
+    "errors": {
+      "required": "Please fill in this field.",
+      "choose": "Please choose an option.",
+      "phone": "Please enter a valid phone number (e.g. +90 530 123 45 67).",
+      "email": "Please enter a valid email address.",
+      "consent": "Please tick the box to continue."
+    }
+  },
+  "footer": {
+    "tagline": "Real estate consultancy in İskenderun.",
+    "social": "Social media",
+    "listings": "Listing stores",
+    "legal": "Privacy notice (KVKK)",
+    "legalTodo": "The privacy notice is awaiting client approval.",
+    "rights": "All rights reserved.",
+    "credits": "Example project and area images: Pexels.",
+    "follow": "Follow us"
+  },
+  "whatsapp": {
+    "label": "Message us on WhatsApp",
+    "message": "Hello, I'm contacting you from your website. I'd like information about a property.",
+    "projectMessage": "Hello, I'd like information about options similar to \"{title}\".",
+    "areaMessage": "Hello, I'd like information about your listings in {area}."
+  },
+  "common": {
+    "placeholderLabel": "Image pending",
+    "call": "Call"
+  }
+}

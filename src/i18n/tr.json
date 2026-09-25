@@ -1,0 +1,299 @@
+{
+  "meta": {
+    "title": "MAJÖR GAYRİMENKUL | İskenderun'da 16 yılı aşkın gayrimenkul uzmanlığı",
+    "description": "İskenderun ve Hatay'da satılık, kiralık, değerleme ve yatırım danışmanlığı. 16 yılı aşkın deneyimle hayalinizdeki evi sizin için buluyoruz.",
+    "ogAlt": "İskenderun kıyısından Akdeniz manzarası"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "services": "Hizmetler",
+    "projects": "Projeler",
+    "areas": "Bölgeler",
+    "about": "Hakkımızda",
+    "contact": "İletişim",
+    "menu": "Menüyü aç",
+    "menuClose": "Menüyü kapat",
+    "langLabel": "Dil seçimi",
+    "skip": "İçeriğe geç",
+    "theme": "Koyu tema"
+  },
+  "hero": {
+    "title": "Hayalinizdeki evi *sizin için* buluyoruz.",
+    "subtitle": "İskenderun'da 16 yılı aşkın gayrimenkul uzmanlığı.",
+    "ctaPrimary": "WhatsApp'tan Yazın",
+    "ctaSecondary": "Projeleri İnceleyin",
+    "scroll": "Aşağı kaydırın"
+  },
+  "counters": {
+    "years": "yıl uzmanlık",
+    "followers": "Instagram takipçisi",
+    "city": "İskenderun, Hatay",
+    "cityLabel": "Hizmet bölgesi"
+  },
+  "services": {
+    "eyebrow": "Hizmetler",
+    "title": "Gayrimenkulde uçtan uca destek",
+    "intro": "Alım, satım, kiralama ve yatırım süreçlerinin her adımında yanınızdayız.",
+    "items": [
+      {
+        "title": "Satılık",
+        "text": "Konut, işyeri ve arsa portföyümüzden size uygun olanı birlikte seçiyoruz."
+      },
+      {
+        "title": "Kiralık",
+        "text": "Konut ve işyeri kiralamalarında ilan, gösterim ve sözleşme sürecini yönetiyoruz."
+      },
+      {
+        "title": "Değerleme",
+        "text": "Gayrimenkulünüzün güncel piyasa değeri için ekspertiz danışmanlığı sunuyoruz."
+      },
+      {
+        "title": "Yatırım Danışmanlığı",
+        "text": "Bütçenize ve hedefinize uygun bölge ve gayrimenkul tipini birlikte belirliyoruz."
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Proje Örnekleri",
+    "title": "Aradığınız ev tipini seçin",
+    "intro": "Aşağıdaki görseller, çalıştığımız gayrimenkul tiplerini anlatan örnek görsellerdir. Gerçek ilan, fiyat veya adres bilgisi içermez. Güncel ilanlar için ilan mağazalarımıza göz atın.",
+    "stockNote": "Örnek görsel",
+    "open": "Galeriyi aç",
+    "allListings": "Tüm güncel ilanlar",
+    "sahibinden": "sahibinden mağazası",
+    "hepsiemlak": "hepsiemlak ofisi",
+    "modal": {
+      "close": "Kapat",
+      "prev": "Önceki görsel",
+      "next": "Sonraki görsel",
+      "counter": "{current} / {total}",
+      "whatsapp": "Bu tip için WhatsApp'tan yazın",
+      "photoCredit": "Fotoğraf"
+    }
+  },
+  "valuation": {
+    "title": "Evinizin değerini ücretsiz öğrenin",
+    "text": "Gayrimenkulünüzün güncel piyasa değerini birlikte değerlendirelim. Ücretsiz ve bağlayıcı değil.",
+    "cta": "Ücretsiz değerleme isteyin"
+  },
+  "areas": {
+    "eyebrow": "Bölge Rehberi",
+    "title": "İskenderun ve çevresi",
+    "intro": "Sıkça sorulan bölgeler. Aradığınız bölge listede yoksa da bize yazın.",
+    "ask": "Bu bölgede ilan sor",
+    "todo": "Öne çıkacak bölgeler müşteri onayı bekliyor."
+  },
+  "about": {
+    "eyebrow": "Hakkımızda",
+    "title": "İskenderun'da 16 yılı aşkın bir adres",
+    "founderName": "Zeki Teymur",
+    "founderRole": "Kurucu · Emlak Danışmanı",
+    "bio": "MAJÖR GAYRİMENKUL, İskenderun'da 16 yılı aşkın süredir alım, satım, kiralama ve değerleme hizmeti veriyor.",
+    "bioTodo": "Kurucu biyografisi müşteri onayı bekliyor.",
+    "linkedin": "LinkedIn profilini görün",
+    "officeAlt": "MAJÖR GAYRİMENKUL ofis cephesi ve tabelası",
+    "portraitTodo": "Portre fotoğrafı bekleniyor"
+  },
+  "testimonials": {
+    "eyebrow": "Referanslar",
+    "title": "Müşterilerimiz ne diyor?",
+    "badge": "Google'da 5,0 ★",
+    "badgeCount": "yorum sayısı onay bekliyor",
+    "source": "Google",
+    "readOn": "Google'da yorumları okuyun",
+    "items": [
+      {
+        "name": "Recep A.",
+        "quote": "Deprem sonrası bile işlerini aksatmadılar."
+      },
+      {
+        "name": "Kemal Türker U. (Doç. Dr.)",
+        "quote": "Güvenilir ve yakın ilgisi ile Şehmuz bey işinin ehli bir emlakçı. Teknik destek ve uygun emlak alımında yardımcı bir emlakçı. Tavsiye ederim."
+      },
+      {
+        "name": "Mesut K.",
+        "quote": "Kiralık veya satılık evler arıyorsanız doğru adres burası çalışanları çok ilgili hepside çok nazik"
+      },
+      {
+        "name": "Mazlum U.",
+        "quote": "Gayri menkul konusunda uzman bir kuruluş."
+      }
+    ],
+    "translated": ""
+  },
+  "contact": {
+    "eyebrow": "İletişim",
+    "title": "Bize ulaşın",
+    "intro": "Birkaç kısa soruyu yanıtlayın; talebiniz düzenli bir mesaj olarak WhatsApp üzerinden doğrudan ofisimize ulaşsın.",
+    "consent": "Kişisel verilerimin KVKK kapsamında iletişim amacıyla işlenmesini kabul ediyorum.",
+    "consentLink": "KVKK Aydınlatma Metni",
+    "officePhone": "Ofis",
+    "mobilePhone": "Cep / WhatsApp",
+    "address": "Adres",
+    "addressValue": "İskenderun, Hatay",
+    "addressTodo": "Açık adres müşteri onayı bekliyor.",
+    "hours": "Çalışma saatleri",
+    "hoursTodo": "Çalışma saatleri bekleniyor.",
+    "mapCta": "Haritayı yükle",
+    "mapNote": "Harita Google Maps üzerinden yüklenir.",
+    "mapTitle": "MAJÖR GAYRİMENKUL konumu",
+    "openMaps": "Google Maps'te aç"
+  },
+  "request": {
+    "greeting": "Merhaba {office},",
+    "heading": "Yeni gayrimenkul talebi",
+    "serviceLabel": "Hizmet",
+    "clientHeading": "Müşteri bilgileri",
+    "step": "Adım {current} / {total}",
+    "steps": [
+      "Nasıl yardımcı olabiliriz?",
+      "Biraz detay verin",
+      "İletişim bilgileriniz",
+      "Kontrol edip gönderin"
+    ],
+    "services": {
+      "rent": "Kiralık arıyorum",
+      "buy": "Satın almak istiyorum",
+      "sell": "Mülkümü satmak istiyorum",
+      "letOut": "Mülkümü kiraya vermek istiyorum",
+      "manage": "Mülk yönetimi",
+      "consult": "Danışmanlık / geri arama"
+    },
+    "serviceNotes": {
+      "rent": "Bütçenize ve bölgenize uygun kiralık seçenekler.",
+      "buy": "Oturum ya da yatırım için doğru mülkü birlikte bulalım.",
+      "sell": "Mülkünüzü doğru fiyatla ve doğru alıcıyla buluşturalım.",
+      "letOut": "Güvenilir kiracı bulma ve sözleşme süreci.",
+      "manage": "Kiracı, tahsilat ve bakım takibi.",
+      "consult": "Değerleme, yatırım veya süreçle ilgili sorularınız."
+    },
+    "labels": {
+      "propertyType": "Emlak tipi",
+      "city": "Şehir",
+      "district": "Semt / bölge",
+      "rooms": "Oda sayısı",
+      "budget": "Bütçe",
+      "furnished": "Eşya durumu",
+      "moveIn": "Taşınma zamanı",
+      "size": "Yaklaşık büyüklük (m²)",
+      "askingPrice": "Satış fiyatı beklentisi",
+      "expectedRent": "Kira beklentisi",
+      "available": "Mülk şu an müsait mi",
+      "location": "Konum",
+      "units": "Birim sayısı",
+      "management": "Mevcut yönetim",
+      "challenge": "Ana ihtiyaç",
+      "topic": "Konu",
+      "callTime": "Aranmak istediğiniz zaman",
+      "notes": "Notlar",
+      "name": "Ad Soyad",
+      "phone": "Telefon",
+      "method": "Tercih edilen iletişim",
+      "email": "E-posta"
+    },
+    "options": {
+      "propertyType": {
+        "apartment": "Daire",
+        "villa": "Villa",
+        "townhouse": "Müstakil ev",
+        "land": "Arsa",
+        "office": "Ofis",
+        "shop": "Dükkan",
+        "building": "Bina",
+        "other": "Diğer"
+      },
+      "furnished": {
+        "yes": "Eşyalı",
+        "no": "Eşyasız",
+        "any": "Fark etmez"
+      },
+      "moveIn": {
+        "now": "Hemen",
+        "month": "1 ay içinde",
+        "quarter": "1–3 ay içinde",
+        "later": "3 aydan sonra",
+        "flexible": "Esnek"
+      },
+      "available": {
+        "yes": "Evet",
+        "no": "Hayır"
+      },
+      "management": {
+        "self": "Kendim yönetiyorum",
+        "agency": "Başka bir firma yönetiyor",
+        "vacant": "Boş / yeni teslim",
+        "other": "Diğer"
+      },
+      "topic": {
+        "valuation": "Değerleme",
+        "investment": "Yatırım",
+        "process": "Alım-satım süreci",
+        "other": "Diğer"
+      },
+      "callTime": {
+        "morning": "Sabah",
+        "afternoon": "Öğleden sonra",
+        "evening": "Akşam",
+        "any": "Fark etmez"
+      },
+      "method": {
+        "whatsapp": "WhatsApp",
+        "call": "Telefon araması"
+      }
+    },
+    "placeholders": {
+      "city": "İskenderun",
+      "district": "ör. Sarıseki, Arsuz",
+      "budget": "ör. 25.000 TL / ay",
+      "size": "ör. 120",
+      "askingPrice": "ör. 4.500.000 TL",
+      "expectedRent": "ör. 20.000 TL / ay",
+      "location": "Google Maps bağlantısı veya adres",
+      "units": "ör. 4",
+      "phone": "0530 123 45 67"
+    },
+    "select": "Seçin",
+    "optional": "isteğe bağlı",
+    "next": "Devam",
+    "back": "Geri",
+    "review": "Göndermeden önce bilgilerinizi kontrol edin. Mesaj WhatsApp'ta hazır açılır; siz gönderene kadar bize ulaşmaz.",
+    "send": "WhatsApp ile gönder",
+    "photosNote": "Mülk fotoğraflarını gönderdikten sonra doğrudan WhatsApp'tan ekleyebilirsiniz.",
+    "sentTitle": "WhatsApp açıldı",
+    "sentText": "Mesajınız hazır. Talebinizin bize ulaşması için WhatsApp'ta gönder tuşuna dokunun.",
+    "fallbackTitle": "WhatsApp açılmadı mı?",
+    "fallbackText": "Mesajı kopyalayıp {phone} numarasına WhatsApp'tan gönderin ya da bizi arayın.",
+    "copy": "Mesajı kopyala",
+    "copied": "Kopyalandı",
+    "copyFailed": "Kopyalanamadı. Metni seçip kopyalayın.",
+    "restart": "Yeni talep oluştur",
+    "noscript": "Talep formu için JavaScript gerekiyor. Bize doğrudan WhatsApp'tan yazabilir veya arayabilirsiniz.",
+    "errors": {
+      "required": "Bu alanı doldurun.",
+      "choose": "Lütfen bir seçenek belirleyin.",
+      "phone": "Lütfen geçerli bir telefon numarası yazın (ör. 0530 123 45 67).",
+      "email": "Lütfen geçerli bir e-posta adresi yazın.",
+      "consent": "Devam etmek için onay kutusunu işaretleyin."
+    }
+  },
+  "footer": {
+    "tagline": "İskenderun'da gayrimenkul danışmanlığı.",
+    "social": "Sosyal medya",
+    "listings": "İlan mağazaları",
+    "legal": "KVKK Aydınlatma Metni",
+    "legalTodo": "KVKK metni müşteri onayı bekliyor.",
+    "rights": "Tüm hakları saklıdır.",
+    "credits": "Örnek proje ve bölge görselleri: Pexels.",
+    "follow": "Bizi takip edin"
+  },
+  "whatsapp": {
+    "label": "WhatsApp'tan yazın",
+    "message": "Merhaba, web sitenizden ulaşıyorum. Bir gayrimenkul hakkında bilgi almak istiyorum.",
+    "projectMessage": "Merhaba, \"{title}\" projesine benzer seçenekler hakkında bilgi almak istiyorum.",
+    "areaMessage": "Merhaba, {area} bölgesindeki ilanlarınız hakkında bilgi almak istiyorum."
+  },
+  "common": {
+    "placeholderLabel": "Görsel bekleniyor",
+    "call": "Ara"
+  }
+}

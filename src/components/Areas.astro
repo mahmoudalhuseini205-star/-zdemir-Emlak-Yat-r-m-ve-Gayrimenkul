@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import areas from '../data/areas.json';
+import { t, waLink, fill, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/areas/*.jpg', { eager: true });
+
+// TODO(client): confirm areas — this list is provisional.
+const cards = areas.map((a) => ({
+  ...a,
+  src: files[`../assets/areas/${a.image}`]?.default ?? null,
+  text: a[lang],
+  alt: lang === 'tr' ? a.altTr : a.altEn,
+}));
+---
+
+<section id="bolgeler" class="section-y bg-surface scroll-mt-20">
+  <div class="container-page">
+    <h2 class="max-w-2xl" data-reveal>{s.areas.title}</h2>
+    <p class="mt-4 max-w-xl text-graphite" data-reveal>{s.areas.intro}</p>
+
+    <!-- Desktop (lg+): accordion strip. Hovering or focusing a panel widens it; the first is open by default.
+         Below lg: horizontal scroll-snap row with every panel fully shown. -->
+    <ul
+      class="areas mt-12 -mx-4 px-4 scroll-px-4 sm:-mx-6 sm:px-6 sm:scroll-px-6 flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4 [scrollbar-width:none] lg:mx-0 lg:px-0 lg:pb-0 lg:overflow-visible lg:h-[34rem]"
+      data-reveal
+    >
+      {
+        cards.map((area) => (
+          <li class="area group relative shrink-0 w-[82%] sm:w-[48%] h-[28rem] snap-start overflow-hidden bg-ink text-white lg:w-auto lg:h-auto lg:shrink">
+            {area.src ? (
+              <Image
+                src={area.src}
+                alt={area.alt}
+                widths={[500, 1000]}
+                sizes="(min-width: 1024px) 640px, 82vw"
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[var(--ease-out)] group-hover:scale-[1.04]"
+                loading="lazy"
+              />
+            ) : (
+              /* TODO(image): area {area.slug} */
+              <div class="absolute inset-0 flex items-center justify-center bg-paper text-graphite text-xs uppercase tracking-[0.2em]">
+                {s.common.placeholderLabel}
+              </div>
+            )}
+            <div
+              class="absolute inset-0"
+              style="background: linear-gradient(to top, rgb(17 19 24 / .85) 0%, rgb(17 19 24 / .2) 55%, rgb(17 19 24 / .05) 100%);"
+            />
+            <div class="on-photo absolute inset-x-0 bottom-0 p-6 lg:p-4 xl:p-6">
+              <h3 class="text-3xl lg:text-2xl whitespace-nowrap">{area.name}</h3>
+              <div class="area-body">
+              <p class="mt-2 max-w-sm text-sm text-white/85">{area.text}</p>
+              <a
+                href={waLink(fill(s.whatsapp.areaMessage, { area: area.name }))}
+                target="_blank"
+                rel="noopener"
+                class="mt-3 inline-flex items-center h-11 text-sm font-medium text-white link-line"
+              >
+                {s.areas.ask}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4 ml-2" aria-hidden="true">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </a>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-8 text-xs text-graphite" data-reveal>{s.areas.todo}</p>
+  </div>
+</section>
+
+<style>
+  @media (min-width: 1024px) {
+    .area {
+      flex: 1 1 0;
+      transition: flex-grow 800ms var(--ease-out);
+    }
+    /* Collapsed panels hide the body entirely so every name sits on the same baseline. */
+    .area-body {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 700ms var(--ease-out), opacity 400ms var(--ease-out);
+    }
+    /* Open panel: the hovered/focused one, or the first while nothing is hovered. */
+    .area:hover,
+    .area:focus-within,
+    .areas:not(:hover, :focus-within) .area:first-child {
+      flex-grow: 3;
+    }
+    .area:hover .area-body,
+    .area:focus-within .area-body,
+    .areas:not(:hover, :focus-within) .area:first-child .area-body {
+      max-height: 12rem;
+      opacity: 1;
+      transition-delay: 150ms;
+    }
+  }
+</style>

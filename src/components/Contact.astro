@@ -1,0 +1,95 @@
+---
+import Socials from './Socials.astro';
+import RequestForm from './RequestForm.astro';
+import { site, t, type Lang } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const s = t(lang);
+const c = s.contact;
+
+const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent('MAJÖR GAYRİMENKUL İskenderun Hatay')}&output=embed`;
+---
+
+<section id="iletisim" class="section-y bg-paper scroll-mt-20">
+  <div class="container-page grid gap-12 lg:grid-cols-2">
+    <div data-reveal>
+      <p class="eyebrow">{c.eyebrow}</p>
+      <h2 class="mt-4">{c.title}</h2>
+      <p class="mt-4 text-graphite">{c.intro}</p>
+
+      <RequestForm lang={lang} />
+    </div>
+
+    <div class="grid gap-8 content-start" data-reveal>
+      <dl class="grid gap-6">
+        <div>
+          <dt class="text-sm text-graphite">{c.officePhone}</dt>
+          <dd class="font-display text-2xl">
+            <a href={site.officePhone.href} class="inline-flex items-center min-h-11 hover:text-accent transition-colors">{site.officePhone.display}</a>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-sm text-graphite">{c.mobilePhone}</dt>
+          <dd class="font-display text-2xl">
+            <a href={site.mobilePhone.href} class="inline-flex items-center min-h-11 hover:text-accent">{site.mobilePhone.display}</a>
+          </dd>
+        </div>
+        <div>
+          <dt class="text-sm text-graphite">{c.address}</dt>
+          <!-- TODO(client): full street address (Bakü Cd. vs Savaş …). City only until confirmed. -->
+          <dd>{c.addressValue}</dd>
+          <dd class="text-xs text-graphite">{c.addressTodo}</dd>
+        </div>
+        <div>
+          <dt class="text-sm text-graphite">{c.hours}</dt>
+          <!-- TODO(client): working hours -->
+          <dd class="text-xs text-graphite">{c.hoursTodo}</dd>
+        </div>
+        <div>
+          <dt class="text-sm text-graphite">{s.footer.follow}</dt>
+          <dd class="mt-2">
+            <Socials
+              label={s.footer.follow}
+              itemClass="halo border-line bg-surface text-accent hover:bg-brand hover:text-white hover:border-brand"
+            />
+          </dd>
+        </div>
+      </dl>
+
+      <div class="border border-line bg-surface">
+        <div data-map class="aspect-[4/3] bg-paper flex flex-col items-center justify-center gap-3 p-6 text-center">
+          <p class="text-sm text-graphite">{c.mapNote}</p>
+          <button
+            type="button"
+            data-map-load
+            data-src={mapsEmbed}
+            data-title={c.mapTitle}
+            class="inline-flex items-center h-12 px-6 border border-fg text-sm font-medium transition-shadow hover:shadow-[0_0_0_4px_var(--halo)]">{c.mapCta}</button
+          >
+          <a href={site.maps} target="_blank" rel="noopener" class="inline-flex items-center min-h-11 text-sm text-accent underline"
+            >{c.openMaps}</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Click-to-load map: no Google request until the visitor asks for it.
+  document.querySelector<HTMLButtonElement>('[data-map-load]')?.addEventListener('click', (e) => {
+    const btn = e.currentTarget as HTMLButtonElement;
+    const holder = document.querySelector<HTMLElement>('[data-map]');
+    if (!holder) return;
+    const iframe = document.createElement('iframe');
+    iframe.src = btn.dataset.src!;
+    iframe.title = btn.dataset.title!;
+    iframe.loading = 'lazy';
+    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.className = 'w-full h-full border-0';
+    holder.replaceChildren(iframe);
+  });
+</script>
