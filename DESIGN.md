@@ -86,7 +86,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 
 ## Motion
 - **Signature:** the logo's M stroke. It draws itself over the hero video on load (2.4s), and again in the valuation band, where scroll position drives it (CSS `animation-timeline: view()`, static where unsupported).
-- Hero: headline words rise out of masks with a 70ms stagger, and the phrase marked `*...*` in i18n is set in Cormorant italic. The video settles from scale 1.08 to 1. Once the M has drawn, a small point of light travels along it in a 5s loop (`.m-comet`). The M shows on mobile too.
+- Hero: headline words rise out of masks with a 70ms stagger, and the phrase marked `*...*` in i18n is set in Cormorant italic. The video settles from scale 1.08 to 1. Once the M has drawn, a small point of light travels along it 3 times over 5s each, then stops (`.m-comet`), so it doesn't repaint forever. The M shows on mobile too.
 - Sections fade in and rise 24px, 700ms `cubic-bezier(0.16,1,0.3,1)`. Photos use `data-reveal="clip"` (uncovered bottom-up). Built with IntersectionObserver + CSS, no animation library.
 - Buttons (`btn` utility): the fill sweeps in from the left on hover, with a 1px press on `:active`. Links (`link-line`): the underline grows from the left.
 - Nav: IntersectionObserver sentinel (no scroll listener), plus a 1px brand reading-progress line (scroll timeline).

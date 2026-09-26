@@ -44,7 +44,7 @@ const m = s.projects.modal;
             data-strip
             class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
-            {card.images.map((img, i) => (
+            {card.images.map((img) => (
               <figure class="min-w-full snap-center">
                 <Image
                   src={img.src!}
@@ -52,7 +52,7 @@ const m = s.projects.modal;
                   widths={[800, 1200]}
                   sizes="(min-width: 1024px) 68rem, 100vw"
                   class="w-full aspect-[3/2] object-cover bg-paper"
-                  loading={i === 0 ? 'eager' : 'lazy'}
+                  loading="lazy"
                 />
                 <figcaption class="px-4 sm:px-6 py-2 text-xs text-graphite">
                   {m.photoCredit}: {img.credit} ·{' '}

@@ -16,7 +16,7 @@ const words = s.hero.title
     const em = part.startsWith('*');
     return part.replace(/\*/g, '').trim().split(/\s+/).filter(Boolean).map((w) => ({ w, em }));
   });
-const socialOnVideo = 'halo border-white/60 text-white bg-black/30 backdrop-blur-sm hover:bg-white hover:text-ink hover:border-white';
+const socialOnVideo = 'halo border-white/60 text-white bg-black/40 hover:bg-white hover:text-ink hover:border-white';
 
 // Keep the last two words together so the headline never ends on a lone word.
 if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
@@ -114,29 +114,46 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
   const saveData = (navigator as any).connection?.saveData === true;
 
   if (video && !reduced && !saveData) {
-    const mobile = matchMedia('(max-width: 767px)').matches;
-    const add = (src: string, type: string) => {
-      const el = document.createElement('source');
-      el.src = src;
-      el.type = type;
-      video.appendChild(el);
+    const hero = document.getElementById('hero')!;
+    let onScreen = true;
+    const start = () => {
+      const mobile = matchMedia('(max-width: 767px)').matches;
+      const add = (src: string, type: string) => {
+        const el = document.createElement('source');
+        el.src = src;
+        el.type = type;
+        video.appendChild(el);
+      };
+      if (mobile) {
+        add('/video/hero-720.mp4', 'video/mp4');
+      } else {
+        add('/video/hero-1080.webm', 'video/webm');
+        add('/video/hero-1080.mp4', 'video/mp4');
+      }
+      video.preload = 'metadata';
+      video.load();
+      video.addEventListener('playing', () => video.classList.replace('opacity-0', 'opacity-100'), {
+        once: true,
+      });
+      // Autoplay can be blocked (e.g. low-power mode); the poster then stays.
+      if (onScreen) video.play().catch(() => {});
     };
-    if (mobile) {
-      add('/video/hero-720.mp4', 'video/mp4');
-    } else {
-      add('/video/hero-1080.webm', 'video/webm');
-      add('/video/hero-1080.mp4', 'video/mp4');
-    }
-    video.preload = 'metadata';
-    video.load();
-    video.addEventListener('playing', () => video.classList.replace('opacity-0', 'opacity-100'), {
-      once: true,
-    });
-    // Autoplay can be blocked (e.g. low-power mode); the poster then stays.
-    video.play().catch(() => {});
-    // Keep it running: resume if the browser paused it while the tab was hidden.
+    // Start well after load: on fast connections load can fire before the headline (LCP) paints,
+    // and the 1 MB video would then compete with it. The poster covers the wait.
+    const later = () => setTimeout(start, 1500);
+    if (document.readyState === 'complete') later();
+    else addEventListener('load', later, { once: true });
+
+    // Stop decoding video while the hero is scrolled out of view.
+    new IntersectionObserver(([e]) => {
+      onScreen = e.isIntersecting;
+      if (!video.firstChild) return;
+      if (onScreen) video.play().catch(() => {});
+      else video.pause();
+    }).observe(hero);
+    // Resume if the browser paused it while the tab was hidden.
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && video.paused) video.play().catch(() => {});
+      if (!document.hidden && onScreen && video.paused && video.firstChild) video.play().catch(() => {});
     });
   }
 </script>

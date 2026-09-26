@@ -25,8 +25,10 @@ const fmt = (n: number) => new Intl.NumberFormat(locale).format(n);
       items.map((item) => (
         <div class="py-8 sm:py-10 px-6 sm:px-10">
           <p class="font-display text-5xl md:text-6xl text-accent-strong leading-none">
-            <span data-count={item.value} data-locale={locale}>
-              {fmt(item.value)}
+            <!-- An invisible copy of the final value reserves the width, so counting up doesn't shift the layout. -->
+            <span class="inline-grid tabular-nums">
+              <span class="invisible [grid-area:1/1]" aria-hidden="true">{fmt(item.value)}</span>
+              <span class="[grid-area:1/1]" data-count={item.value} data-locale={locale}>{fmt(item.value)}</span>
             </span>
             {item.suffix}
           </p>

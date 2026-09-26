@@ -18,8 +18,8 @@
   /* Form borders: ≥ 3:1 against the field and the section behind it (WCAG 1.4.11). */
   --color-field: #85888F;
 
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Montserrat", system-ui, sans-serif;
+  --font-display: "Cormorant Garamond Variable", Georgia, serif;
+  --font-sans: "Montserrat Variable", system-ui, sans-serif;
 
   --radius-none: 0px;
 }
@@ -197,7 +197,7 @@
   .hero-in .hero-fade { opacity: 0; animation: fade-up 900ms var(--ease-out) forwards; animation-delay: calc(500ms + var(--i, 0) * 100ms); }
   .hero-in .m-draw path:not(.m-comet) { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2400ms var(--ease-out) 300ms forwards; }
   .hero-in .hero-media { animation: settle 2600ms var(--ease-out) forwards; }
-  .hero-in .m-comet { visibility: visible; stroke-dasharray: 0.07 1; animation: comet 5s linear 2700ms infinite both; }
+  .hero-in .m-comet { visibility: visible; stroke-dasharray: 0.07 1; animation: comet 5s linear 2700ms 3 both; }
 }
 /* WhatsApp FAB: pops in after the hero settles, then a soft ring pulses a few times. */
 @media (prefers-reduced-motion: no-preference) {

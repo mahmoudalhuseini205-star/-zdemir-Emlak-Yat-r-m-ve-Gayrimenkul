@@ -1,18 +1,17 @@
 ---
-import '@fontsource/cormorant-garamond/500.css';
-import '@fontsource/cormorant-garamond/600.css';
-import '@fontsource/cormorant-garamond/500-italic.css';
-import '@fontsource/montserrat/400.css';
-import '@fontsource/montserrat/500.css';
-import '@fontsource/montserrat/600.css';
+import '@fontsource-variable/cormorant-garamond/wght.css';
+import '@fontsource-variable/cormorant-garamond/wght-italic.css';
+import '@fontsource-variable/montserrat/wght.css';
 import '../styles/global.css';
 
 // Above-the-fold faces are preloaded so the hero doesn't reflow on font swap.
-// latin-ext carries the Turkish characters.
-import cormorant600 from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2?url';
-import cormorant600Ext from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-ext-600-normal.woff2?url';
-import montserrat400 from '@fontsource/montserrat/files/montserrat-latin-400-normal.woff2?url';
-import montserrat400Ext from '@fontsource/montserrat/files/montserrat-latin-ext-400-normal.woff2?url';
+// Variable fonts: one file per subset covers every weight. latin-ext carries the Turkish characters.
+import cormorant from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2?url';
+import cormorantExt from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-ext-wght-normal.woff2?url';
+// The italic words in the hero headline.
+import cormorantItalic from '@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-italic.woff2?url';
+import montserrat from '@fontsource-variable/montserrat/files/montserrat-latin-wght-normal.woff2?url';
+import montserratExt from '@fontsource-variable/montserrat/files/montserrat-latin-ext-wght-normal.woff2?url';
 
 import { getImage } from 'astro:assets';
 import ogSource from '../assets/og/share.jpg';
@@ -75,7 +74,7 @@ const jsonLd = {
     <link rel="alternate" hreflang="x-default" href={altTr} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     {
-      [cormorant600, cormorant600Ext, montserrat400, montserrat400Ext].map((href) => (
+      [cormorant, cormorantExt, cormorantItalic, montserrat, montserratExt].map((href) => (
         <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />
       ))
     }
