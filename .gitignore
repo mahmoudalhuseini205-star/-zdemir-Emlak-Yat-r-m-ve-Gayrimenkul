@@ -9,4 +9,9 @@ dist/
 # 4K original (53 MB) — web encodes live in asset/hero video/web/
 asset/hero video/16605654_3840_2160_30fps.mp4
 graphify-out/
-.claude/settings.local.json
+# AI / editor tooling (local only)
+.claude/
+.codex/
+.serena/
+AGENTS.md
+CLAUDE.md

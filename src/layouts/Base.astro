@@ -117,17 +117,22 @@ const jsonLd = {
       if ('IntersectionObserver' in window && items.length) {
         const io = new IntersectionObserver(
           (entries) => {
+            // Stagger only the elements that enter together; the delay is cleared
+            // afterwards so it never slows down later hover transitions.
+            let n = 0;
             for (const e of entries) {
               if (!e.isIntersecting) continue;
-              (e.target as HTMLElement).classList.add('is-in');
-              io.unobserve(e.target);
+              const el = e.target as HTMLElement;
+              el.style.transitionDelay = `${n++ * 90}ms`;
+              el.classList.add('is-in');
+              el.addEventListener('transitionend', () => (el.style.transitionDelay = ''), { once: true });
+              io.unobserve(el);
             }
           },
           { rootMargin: '0px 0px -10% 0px' }
         );
-        items.forEach((el, i) => {
+        items.forEach((el) => {
           el.classList.add('reveal');
-          el.style.transitionDelay = `${(i % 4) * 60}ms`;
           io.observe(el);
         });
       }

@@ -140,6 +140,11 @@
   transition: clip-path 1100ms var(--ease-out);
 }
 .reveal[data-reveal="clip"].is-in { clip-path: inset(0 0 0 0); }
+/* ...and the photo settles from a slight zoom as it is uncovered, echoing the hero video. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal[data-reveal="clip"] img { transition-property: transform, scale; transition-duration: 1600ms; transition-timing-function: var(--ease-out); }
+  .reveal[data-reveal="clip"]:not(.is-in) img { transform: scale(1.12); }
+}
 
 /* Buttons: a fill sweeps in from the left on hover, a 1px press on :active. */
 @utility btn {
@@ -226,6 +231,11 @@
 /* Social icons lift on hover; the colors come from each placement. */
 .social-link { transition: transform 400ms var(--ease-out), background-color 300ms, color 300ms, border-color 300ms, box-shadow 300ms; }
 @media (hover: hover) { .social-link:hover { transform: translateY(-3px); box-shadow: 0 0 0 6px var(--halo); } }
+
+/* Listing-portal links: lift + halo on hover, like the social icons. */
+.portal-link { transition: transform 400ms var(--ease-out), border-color 300ms, box-shadow 300ms; }
+@media (hover: hover) { .portal-link:hover { transform: translateY(-3px); border-color: var(--color-fg); box-shadow: 0 0 0 6px var(--halo); } }
+.portal-link:active { transform: translateY(1px); }
 
 /* Scroll-driven effects: progressive enhancement, skipped where unsupported. */
 @supports (animation-timeline: view()) {

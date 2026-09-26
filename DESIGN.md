@@ -35,6 +35,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - Primary CTA: `--brand` background, white text (≈15:1). Hover: `--brand-mark`.
 - Secondary CTA: 1px `--ink` outline, ink text. On the video, use a 1px white outline with white text.
 - WhatsApp green `#25D366` is allowed **only** on WhatsApp buttons (FAB, modal, cards).
+- sahibinden yellow `#FFE800` and hepsiemlak red `#E4312B` are allowed **only** inside their portal logos (`PortalLogo.astro`), so visitors recognise the stores at a glance.
 - Video/photo overlay: `linear-gradient(to top, rgb(17 19 24 / .75), rgb(17 19 24 / .25))` so white text stays ≥ 4.5:1 on every frame.
 
 ## Typography

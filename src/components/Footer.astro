@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import logoWhite from '../assets/brand/logo-white.png';
 import Socials from './Socials.astro';
+import PortalLogo from './PortalLogo.astro';
 import { site, t, type Lang } from '../site';
 
 interface Props {
@@ -11,9 +12,9 @@ const { lang } = Astro.props;
 const s = t(lang);
 
 const stores = [
-  { href: site.sahibinden, label: s.projects.sahibinden },
-  { href: site.hepsiemlak, label: s.projects.hepsiemlak },
-];
+  { name: 'sahibinden', href: site.sahibinden, label: s.projects.sahibinden },
+  { name: 'hepsiemlak', href: site.hepsiemlak, label: s.projects.hepsiemlak },
+] as const;
 ---
 
 <footer class="bg-ink text-white on-dark border-t border-white/10">
@@ -48,7 +49,8 @@ const stores = [
         {
           stores.map((l) => (
             <li>
-              <a href={l.href} target="_blank" rel="noopener" class="inline-flex items-center min-h-11 hover:text-white/70">
+              <a href={l.href} target="_blank" rel="noopener" class="inline-flex items-center gap-3 min-h-11 hover:text-white/70">
+                <PortalLogo name={l.name} class="w-7 h-7 shrink-0" />
                 {l.label}
               </a>
             </li>
