@@ -2,7 +2,7 @@
   {
     "slug": "sariseki",
     "name": "Sarıseki",
-    "image": "sariseki.jpg",
+    "image": "sariseki.webp",
     "tr": "İskenderun'un kuzeyinde, sahil şeridi boyunca uzanan bir yerleşim.",
     "en": "A settlement north of İskenderun, stretching along the coastline.",
     "credit": "funda izgi",
@@ -14,7 +14,7 @@
   {
     "slug": "denizciler",
     "name": "Denizciler",
-    "image": "denizciler.jpg",
+    "image": "denizciler.webp",
     "tr": "Sahile yakın, konut ağırlıklı bir bölge.",
     "en": "A largely residential area close to the shore.",
     "credit": "Kadir Akman",
@@ -26,7 +26,7 @@
   {
     "slug": "karaagac",
     "name": "Karaağaç",
-    "image": "karaagac.jpg",
+    "image": "karaagac.webp",
     "tr": "İskenderun çevresindeki yerleşimlerden biri.",
     "en": "One of the settlements around İskenderun.",
     "credit": "Atlantic Ambience",
@@ -38,7 +38,7 @@
   {
     "slug": "modernevler",
     "name": "Modernevler",
-    "image": "modernevler.jpg",
+    "image": "modernevler.webp",
     "tr": "İskenderun'un konut bölgelerinden biri.",
     "en": "One of İskenderun's residential districts.",
     "credit": "Ahmet Arıkaya",
@@ -50,7 +50,7 @@
   {
     "slug": "arsuz",
     "name": "Arsuz",
-    "image": "arsuz.jpg",
+    "image": "arsuz.webp",
     "tr": "Hatay'ın sahil ilçelerinden biri; İskenderun'a komşudur.",
     "en": "A coastal district of Hatay, neighbouring İskenderun.",
     "credit": "Aleksey Kuprikov",

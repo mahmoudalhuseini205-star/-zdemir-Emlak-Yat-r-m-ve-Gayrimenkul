@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import office from '../assets/office/office-exterior.png';
+import office from '../assets/office/office-exterior.webp';
 import Placeholder from './Placeholder.astro';
 import { site, t, type Lang } from '../site';
 
@@ -45,6 +45,7 @@ const s = t(lang);
         widths={[600, 1000]}
         sizes="(min-width: 1024px) 600px, 100vw"
         class="parallax w-full h-full object-cover"
+        quality={70}
         loading="lazy"
       />
     </div>

@@ -4,10 +4,10 @@
     "tr": { "title": "Deniz Manzaralı Rezidans", "desc": "Geniş balkonlu, manzaraya açılan ferah yaşam alanları." },
     "en": { "title": "Sea-View Residence", "desc": "Airy living spaces with wide balconies opening to the view." },
     "images": [
-      { "file": "1.jpg", "credit": "Mitchell", "source": "https://www.pexels.com/photo/modern-building-building-exterior-modern-architecture-white-building-3050782/", "license": "Pexels License", "tr": "Modern beyaz cepheli bina", "en": "Modern building with a white facade" },
-      { "file": "2.jpg", "credit": "Max Vakhtbovycn", "source": "https://www.pexels.com/photo/light-living-room-in-luxury-apartment-in-daytime-7534561/", "license": "Pexels License", "tr": "Aydınlık, geniş oturma odası", "en": "Bright, spacious living room" },
-      { "file": "3.jpg", "credit": "Aykut Koyuncu", "source": "https://www.pexels.com/photo/apartment-with-a-balcony-a-view-of-the-sea-22042390/", "license": "Pexels License", "tr": "Denize bakan balkon", "en": "Balcony overlooking the sea" },
-      { "file": "4.jpg", "credit": "alleksana", "source": "https://www.pexels.com/photo/apartment-with-view-at-the-sea-15172873/", "license": "Pexels License", "tr": "Deniz manzaralı oda", "en": "Room with a sea view" }
+      { "file": "1.webp", "credit": "Mitchell", "source": "https://www.pexels.com/photo/modern-building-building-exterior-modern-architecture-white-building-3050782/", "license": "Pexels License", "tr": "Modern beyaz cepheli bina", "en": "Modern building with a white facade" },
+      { "file": "2.webp", "credit": "Max Vakhtbovycn", "source": "https://www.pexels.com/photo/light-living-room-in-luxury-apartment-in-daytime-7534561/", "license": "Pexels License", "tr": "Aydınlık, geniş oturma odası", "en": "Bright, spacious living room" },
+      { "file": "3.webp", "credit": "Aykut Koyuncu", "source": "https://www.pexels.com/photo/apartment-with-a-balcony-a-view-of-the-sea-22042390/", "license": "Pexels License", "tr": "Denize bakan balkon", "en": "Balcony overlooking the sea" },
+      { "file": "4.webp", "credit": "alleksana", "source": "https://www.pexels.com/photo/apartment-with-view-at-the-sea-15172873/", "license": "Pexels License", "tr": "Deniz manzaralı oda", "en": "Room with a sea view" }
     ]
   },
   {
@@ -15,10 +15,10 @@
     "tr": { "title": "Şehir Merkezinde Daire", "desc": "Okul, çarşı ve ulaşıma yürüme mesafesinde daireler." },
     "en": { "title": "City-Centre Apartment", "desc": "Apartments within walking distance of schools, shops and transport." },
     "images": [
-      { "file": "1.jpg", "credit": "Volker Thimm", "source": "https://www.pexels.com/photo/a-modern-apartment-building-with-balconies-and-balconies-27307397/", "license": "Pexels License", "tr": "Balkonlu modern apartman bloğu", "en": "Modern apartment block with balconies" },
-      { "file": "2.jpg", "credit": "Max Vakhtbovycn", "source": "https://www.pexels.com/photo/interior-of-kitchen-with-modern-furniture-6301168/", "license": "Pexels License", "tr": "Modern mutfak", "en": "Modern kitchen" },
-      { "file": "3.jpg", "credit": "Lisa Anna", "source": "https://www.pexels.com/photo/interior-of-a-modern-minimalist-bedroom-with-a-single-bed-19836795/", "license": "Pexels License", "tr": "Sade yatak odası", "en": "Minimalist bedroom" },
-      { "file": "4.jpg", "credit": "Max Vakhtbovych", "source": "https://www.pexels.com/photo/modern-studio-apartment-with-white-furniture-and-mirror-in-sunlight-6890395/", "license": "Pexels License", "tr": "Aydınlık stüdyo daire", "en": "Bright studio apartment" }
+      { "file": "1.webp", "credit": "Volker Thimm", "source": "https://www.pexels.com/photo/a-modern-apartment-building-with-balconies-and-balconies-27307397/", "license": "Pexels License", "tr": "Balkonlu modern apartman bloğu", "en": "Modern apartment block with balconies" },
+      { "file": "2.webp", "credit": "Max Vakhtbovycn", "source": "https://www.pexels.com/photo/interior-of-kitchen-with-modern-furniture-6301168/", "license": "Pexels License", "tr": "Modern mutfak", "en": "Modern kitchen" },
+      { "file": "3.webp", "credit": "Lisa Anna", "source": "https://www.pexels.com/photo/interior-of-a-modern-minimalist-bedroom-with-a-single-bed-19836795/", "license": "Pexels License", "tr": "Sade yatak odası", "en": "Minimalist bedroom" },
+      { "file": "4.webp", "credit": "Max Vakhtbovych", "source": "https://www.pexels.com/photo/modern-studio-apartment-with-white-furniture-and-mirror-in-sunlight-6890395/", "license": "Pexels License", "tr": "Aydınlık stüdyo daire", "en": "Bright studio apartment" }
     ]
   },
   {
@@ -26,10 +26,10 @@
     "tr": { "title": "Bahçeli Müstakil Villa", "desc": "Kendi bahçesi ve özel alanı olan müstakil yaşam." },
     "en": { "title": "Detached Villa with Garden", "desc": "Detached living with its own garden and private space." },
     "images": [
-      { "file": "1.jpg", "credit": "Joachim Hoholm", "source": "https://www.pexels.com/photo/modern-luxury-villa-with-pool-in-sunlit-garden-29453302/", "license": "Pexels License", "tr": "Havuzlu modern villa", "en": "Modern villa with a pool" },
-      { "file": "2.jpg", "credit": "Max Vakhtbovych", "source": "https://www.pexels.com/photo/a-modern-house-with-swimming-pool-8134745/", "license": "Pexels License", "tr": "Havuzlu modern ev", "en": "Modern house with a swimming pool" },
-      { "file": "3.jpg", "credit": "Souranshi Fashion and Lifestyle Magazine", "source": "https://www.pexels.com/photo/a-villa-with-pool-and-garden-4497544/", "license": "Pexels License", "tr": "Bahçeli villa", "en": "Villa with a garden" },
-      { "file": "4.jpg", "credit": "Max Vakhtbovych", "source": "https://www.pexels.com/photo/modern-villa-on-green-lawn-near-pond-7031605/", "license": "Pexels License", "tr": "Yeşil alan içinde villa", "en": "Villa set in greenery" }
+      { "file": "1.webp", "credit": "Joachim Hoholm", "source": "https://www.pexels.com/photo/modern-luxury-villa-with-pool-in-sunlit-garden-29453302/", "license": "Pexels License", "tr": "Havuzlu modern villa", "en": "Modern villa with a pool" },
+      { "file": "2.webp", "credit": "Max Vakhtbovych", "source": "https://www.pexels.com/photo/a-modern-house-with-swimming-pool-8134745/", "license": "Pexels License", "tr": "Havuzlu modern ev", "en": "Modern house with a swimming pool" },
+      { "file": "3.webp", "credit": "Souranshi Fashion and Lifestyle Magazine", "source": "https://www.pexels.com/photo/a-villa-with-pool-and-garden-4497544/", "license": "Pexels License", "tr": "Bahçeli villa", "en": "Villa with a garden" },
+      { "file": "4.webp", "credit": "Max Vakhtbovych", "source": "https://www.pexels.com/photo/modern-villa-on-green-lawn-near-pond-7031605/", "license": "Pexels License", "tr": "Yeşil alan içinde villa", "en": "Villa set in greenery" }
     ]
   },
   {
@@ -37,10 +37,10 @@
     "tr": { "title": "Yeni Yapı Site Konutu", "desc": "Otopark ve ortak alanları olan yeni site projeleri." },
     "en": { "title": "New-Build Complex Home", "desc": "New complex projects with parking and shared facilities." },
     "images": [
-      { "file": "1.jpg", "credit": "Kuan-yu Huang", "source": "https://www.pexels.com/photo/urban-street-scene-with-modern-high-rise-buildings-29831546/", "license": "Pexels License", "tr": "Modern binaların olduğu şehir caddesi", "en": "City street with modern buildings" },
-      { "file": "2.jpg", "credit": "Deivis Sandoval", "source": "https://www.pexels.com/photo/modern-apartment-exterior-design-21284473/", "license": "Pexels License", "tr": "Balkonlu apartman cephesi", "en": "Apartment facade with balconies" },
-      { "file": "3.jpg", "credit": "Tima Miroshnichenko", "source": "https://www.pexels.com/photo/low-angle-shot-of-a-high-rise-building-under-construction-7168457/", "license": "Pexels License", "tr": "Yapım aşamasındaki yüksek bina", "en": "High-rise building under construction" },
-      { "file": "4.jpg", "credit": "Blue Arauz", "source": "https://www.pexels.com/photo/low-angle-shot-of-a-high-rise-building-under-the-blue-sky-10682521/", "license": "Pexels License", "tr": "Mavi gökyüzü altında yüksek bina", "en": "High-rise building under a blue sky" }
+      { "file": "1.webp", "credit": "Kuan-yu Huang", "source": "https://www.pexels.com/photo/urban-street-scene-with-modern-high-rise-buildings-29831546/", "license": "Pexels License", "tr": "Modern binaların olduğu şehir caddesi", "en": "City street with modern buildings" },
+      { "file": "2.webp", "credit": "Deivis Sandoval", "source": "https://www.pexels.com/photo/modern-apartment-exterior-design-21284473/", "license": "Pexels License", "tr": "Balkonlu apartman cephesi", "en": "Apartment facade with balconies" },
+      { "file": "3.webp", "credit": "Tima Miroshnichenko", "source": "https://www.pexels.com/photo/low-angle-shot-of-a-high-rise-building-under-construction-7168457/", "license": "Pexels License", "tr": "Yapım aşamasındaki yüksek bina", "en": "High-rise building under construction" },
+      { "file": "4.webp", "credit": "Blue Arauz", "source": "https://www.pexels.com/photo/low-angle-shot-of-a-high-rise-building-under-the-blue-sky-10682521/", "license": "Pexels License", "tr": "Mavi gökyüzü altında yüksek bina", "en": "High-rise building under a blue sky" }
     ]
   },
   {
@@ -48,10 +48,10 @@
     "tr": { "title": "Ofis ve İşyeri", "desc": "İşletmeniz için konumu ve büyüklüğü uygun ticari alanlar." },
     "en": { "title": "Office & Commercial Space", "desc": "Commercial space with the location and size your business needs." },
     "images": [
-      { "file": "1.jpg", "credit": "Bohdan K.", "source": "https://www.pexels.com/photo/empty-modern-interior-of-an-office-12526862/", "license": "Pexels License", "tr": "Boş modern ofis alanı", "en": "Empty modern office space" },
-      { "file": "2.jpg", "credit": "cottonbro studio", "source": "https://www.pexels.com/photo/interior-design-of-an-office-5483233/", "license": "Pexels License", "tr": "Açık ofis düzeni", "en": "Open-plan office layout" },
-      { "file": "3.jpg", "credit": "Marcus", "source": "https://www.pexels.com/photo/interior-of-a-modern-office-space-18033178/", "license": "Pexels License", "tr": "Modern ofis içi", "en": "Modern office interior" },
-      { "file": "4.jpg", "credit": "Ryan Pilato", "source": "https://www.pexels.com/photo/modern-office-interior-8606292/", "license": "Pexels License", "tr": "Toplantı alanı", "en": "Meeting area" }
+      { "file": "1.webp", "credit": "Bohdan K.", "source": "https://www.pexels.com/photo/empty-modern-interior-of-an-office-12526862/", "license": "Pexels License", "tr": "Boş modern ofis alanı", "en": "Empty modern office space" },
+      { "file": "2.webp", "credit": "cottonbro studio", "source": "https://www.pexels.com/photo/interior-design-of-an-office-5483233/", "license": "Pexels License", "tr": "Açık ofis düzeni", "en": "Open-plan office layout" },
+      { "file": "3.webp", "credit": "Marcus", "source": "https://www.pexels.com/photo/interior-of-a-modern-office-space-18033178/", "license": "Pexels License", "tr": "Modern ofis içi", "en": "Modern office interior" },
+      { "file": "4.webp", "credit": "Ryan Pilato", "source": "https://www.pexels.com/photo/modern-office-interior-8606292/", "license": "Pexels License", "tr": "Toplantı alanı", "en": "Meeting area" }
     ]
   },
   {
@@ -59,10 +59,10 @@
     "tr": { "title": "Teraslı Dubleks", "desc": "Üst kat terası ve iki katlı kullanım sunan dubleksler." },
     "en": { "title": "Duplex with Terrace", "desc": "Duplexes with a top-floor terrace and two-storey living." },
     "images": [
-      { "file": "1.jpg", "credit": "Matheus Bertelli", "source": "https://www.pexels.com/photo/modern-villa-with-terrace-and-balcony-in-perspective-13871334/", "license": "Pexels License", "tr": "Teraslı ve balkonlu yapı", "en": "Building with terrace and balcony" },
-      { "file": "2.jpg", "credit": "Max Vakhtbovych", "source": "https://www.pexels.com/photo/interior-of-modern-minimalist-studio-apartment-with-living-room-and-bedroom-7060814/", "license": "Pexels License", "tr": "Sade iç mekân", "en": "Minimalist interior" },
-      { "file": "3.jpg", "credit": "Lisa Anna", "source": "https://www.pexels.com/photo/empty-kitchen-interior-with-white-furniture-19899084/", "license": "Pexels License", "tr": "Beyaz mutfak", "en": "White kitchen" },
-      { "file": "4.jpg", "credit": "Peter Vang", "source": "https://www.pexels.com/photo/modern-minimalist-bedroom-with-natural-light-37192232/", "license": "Pexels License", "tr": "Doğal ışıklı yatak odası", "en": "Bedroom with natural light" }
+      { "file": "1.webp", "credit": "Matheus Bertelli", "source": "https://www.pexels.com/photo/modern-villa-with-terrace-and-balcony-in-perspective-13871334/", "license": "Pexels License", "tr": "Teraslı ve balkonlu yapı", "en": "Building with terrace and balcony" },
+      { "file": "2.webp", "credit": "Max Vakhtbovych", "source": "https://www.pexels.com/photo/interior-of-modern-minimalist-studio-apartment-with-living-room-and-bedroom-7060814/", "license": "Pexels License", "tr": "Sade iç mekân", "en": "Minimalist interior" },
+      { "file": "3.webp", "credit": "Lisa Anna", "source": "https://www.pexels.com/photo/empty-kitchen-interior-with-white-furniture-19899084/", "license": "Pexels License", "tr": "Beyaz mutfak", "en": "White kitchen" },
+      { "file": "4.webp", "credit": "Peter Vang", "source": "https://www.pexels.com/photo/modern-minimalist-bedroom-with-natural-light-37192232/", "license": "Pexels License", "tr": "Doğal ışıklı yatak odası", "en": "Bedroom with natural light" }
     ]
   }
 ]

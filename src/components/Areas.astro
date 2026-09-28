@@ -10,7 +10,7 @@ interface Props {
 const { lang } = Astro.props;
 const s = t(lang);
 
-const files = import.meta.glob<{ default: ImageMetadata }>('../assets/areas/*.jpg', { eager: true });
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/areas/*.webp', { eager: true });
 
 // TODO(client): confirm areas — this list is provisional.
 const cards = areas.map((a) => ({
@@ -42,6 +42,7 @@ const cards = areas.map((a) => ({
                 widths={[500, 1000]}
                 sizes="(min-width: 1024px) 640px, 82vw"
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[var(--ease-out)] group-hover:scale-[1.04]"
+                quality={70}
                 loading="lazy"
               />
             ) : (
