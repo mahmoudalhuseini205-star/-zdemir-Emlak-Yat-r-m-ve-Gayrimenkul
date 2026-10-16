@@ -18,7 +18,7 @@ const DETAILS: Record<Service, string[]> = {
 const RESIDENTIAL = ['apartment', 'villa', 'townhouse', 'other'];
 const HOME_ONLY = ['rooms', 'furnished'];
 
-export const CONTACT_FIELDS = ['name', 'phone', 'method', 'email'];
+export const CONTACT_FIELDS = ['name', 'phone', 'method'];
 
 export function visibleFields(service: Service, propertyType: string) {
   return DETAILS[service].filter((f) => !HOME_ONLY.includes(f) || RESIDENTIAL.includes(propertyType));

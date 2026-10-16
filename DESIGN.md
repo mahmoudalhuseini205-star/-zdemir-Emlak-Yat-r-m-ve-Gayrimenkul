@@ -35,7 +35,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - Primary CTA: `--brand` background, white text (≈15:1). Hover: `--brand-mark`.
 - Secondary CTA: 1px `--ink` outline, ink text. On the video, use a 1px white outline with white text.
 - WhatsApp green `#25D366` is allowed **only** on WhatsApp buttons (FAB, modal, cards).
-- sahibinden yellow `#FFE800` and hepsiemlak red `#E4312B` are allowed **only** inside their portal logos (`PortalLogo.astro`), so visitors recognise the stores at a glance.
+- Emlakjet green `#09E524` and hepsiemlak red `#E4312B` are allowed **only** inside their portal logos (`PortalLogo.astro`), so visitors recognise the stores at a glance.
 - Video/photo overlay: `linear-gradient(to top, rgb(17 19 24 / .75), rgb(17 19 24 / .25))` so white text stays ≥ 4.5:1 on every frame.
 
 ## Typography
@@ -56,14 +56,14 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 2. **Hero video:** full-viewport, muted, looping video + overlay. h1 "Hayalinizdeki evi sizin için buluyoruz." (from the client's IG). Subhead: "İskenderun'da 16 yılı aşkın gayrimenkul uzmanlığı." CTAs: "WhatsApp'tan Yazın" (primary) and "Projeleri İnceleyin" (secondary). A small scroll cue sits at the bottom.
 3. **Counters:** 3–4 numbers in a thin band. They count up the first time they come into view. Only verified figures: **16+ yıl**, **7.500+ Instagram takipçi**. Everything else is `TODO(client)`.
 4. **Services:** Satılık, Kiralık, Değerleme, Yatırım Danışmanlığı, each with a Lucide icon, a title, and 2 lines of text.
-5. **Proje Örnekleri:** 6 static cards (stock photo, project type, and a short descriptor such as "Deniz manzaralı 3+1 rezidans"). **No prices, addresses, or listing claims**: these are example projects, and the section intro says so. Clicking a card opens the gallery modal. The section ends with a "Tüm güncel ilanlar" CTA linking to the sahibinden and hepsiemlak stores.
+5. **Proje Örnekleri:** 6 static cards (stock photo, project type, and a short descriptor such as "Deniz manzaralı 3+1 rezidans"). **No prices, addresses, or listing claims**: these are example projects, and the section intro says so. Clicking a card opens the gallery modal. The section ends with a "Tüm güncel ilanlar" CTA linking to the hepsiemlak and Emlakjet offices.
 6. **Valuation CTA band:** full-width `--brand` background, h2 "Evinizin değerini ücretsiz öğrenin", and a button that scrolls to the contact form on Consultation with the topic set to Valuation (`data-request-preset="consult:valuation"`).
 7. **Neighbourhood guide:** 4–6 İskenderun area cards (image, name, 2 lines, and a "Bu bölgede ilan sor" WhatsApp link). The area list is `TODO(client)`.
-8. **About / founder:** Zeki Teymur portrait, short story, a LinkedIn link, and the office photo (`asset/branding/Screenshot 2026-09-24 103805.png` until a better one arrives).
+8. **About / founder:** Zeki Teymur portrait, short story, and the office photo (`asset/branding/Screenshot 2026-09-24 103805.png` until a better one arrives).
 9. **Testimonials:** the Google reviews from CLIENT.md. Show 3 cards on desktop (Recep A. first; the earthquake quote carries the most trust), and let the 4th scroll in via a scroll-snap row on mobile. Each card has 5 stars, the quote in Cormorant italic, and the name with a small "Google" source label. For the avatar, show initials in a `--brand` circle. Don't use fake photos. Above the cards, add a "Google'da 5.0 ★ · N yorum" badge linking to the Google reviews (N = `TODO(client)`).
 10. **Contact:** form on the left. On the right: office and mobile phones, address, hours, and the map (click-to-load facade).
 11. **Footer:** `--ink` background, white logo, name/address/phone, social icons, KVKK link, ©.
-    Social icons (Instagram, Facebook, LinkedIn; `Socials.astro`) also appear as a vertical rail on the hero (a row under the CTAs on mobile) and in the contact details.
+    Social icons (Instagram, Facebook; `Socials.astro`) also appear as a vertical rail on the hero (a row under the CTAs on mobile) and in the contact details.
 12. **WhatsApp FAB:** bottom-right, 56px, respects the safe area, always visible on mobile.
 
 ## Components

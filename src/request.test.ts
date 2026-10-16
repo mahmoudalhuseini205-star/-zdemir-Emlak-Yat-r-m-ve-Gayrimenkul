@@ -47,7 +47,6 @@ test('rent message: labelled lines, option labels, no empty fields, notes last',
       name: 'Ahmet Ali',
       phone: '0530 000 00 00',
       method: 'whatsapp',
-      email: '',
     },
     text(tr)
   );
@@ -87,14 +86,14 @@ test('every service path builds a message with contact details', () => {
     propertyType: 'office', city: 'İskenderun', district: 'Merkez', budget: '1', moveIn: 'now', size: '120',
     askingPrice: '3M TL', expectedRent: '20.000 TL', available: 'yes', location: 'https://maps.app.goo.gl/x',
     units: '4', management: 'self', challenge: 'Kiracı bulmak', topic: 'valuation', callTime: 'morning',
-    name: 'Ayşe K.', phone: '+90 530 000 00 00', method: 'call', email: 'a@b.co',
+    name: 'Ayşe K.', phone: '+90 530 000 00 00', method: 'call',
   };
   for (const s of SERVICES) {
     const msg = buildMessage(s, values, text(en));
     assert.match(msg, new RegExp(`Service: ${en.request.services[s]}`));
     assert.match(msg, /Name: Ayşe K\./);
     assert.match(msg, /Preferred contact: Phone call/);
-    assert.match(msg, /Email: a@b\.co/);
+    assert.doesNotMatch(msg, /Email/);
     assert.doesNotMatch(msg, /: *$/m, `${s}: no empty values`);
   }
 });

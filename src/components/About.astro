@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import office from '../assets/office/office-exterior.webp';
 import Placeholder from './Placeholder.astro';
-import { site, t, type Lang } from '../site';
+import { t, type Lang } from '../site';
 
 interface Props {
   lang: Lang;
@@ -25,13 +25,6 @@ const s = t(lang);
         <div>
           <p class="font-display text-2xl">{s.about.founderName}</p>
           <p class="text-sm text-graphite">{s.about.founderRole}</p>
-          <a
-            href={site.linkedin}
-            target="_blank"
-            rel="noopener"
-            class="mt-1 inline-flex items-center h-11 text-sm font-medium text-accent link-line"
-            >{s.about.linkedin}</a
-          >
         </div>
       </div>
     </div>

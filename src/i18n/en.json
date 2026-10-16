@@ -60,8 +60,8 @@
     "stockNote": "Example image",
     "open": "Open gallery",
     "allListings": "All current listings",
-    "sahibinden": "sahibinden store",
     "hepsiemlak": "hepsiemlak office",
+    "emlakjet": "Emlakjet office",
     "modal": {
       "close": "Close",
       "prev": "Previous image",
@@ -90,7 +90,6 @@
     "founderRole": "Founder · Real estate consultant",
     "bio": "MAJÖR GAYRİMENKUL has been handling sales, rentals and valuations in İskenderun for more than 16 years.",
     "bioTodo": "The founder biography is awaiting client approval.",
-    "linkedin": "View the LinkedIn profile",
     "officeAlt": "MAJÖR GAYRİMENKUL office front and sign",
     "portraitTodo": "Portrait photo pending"
   },
@@ -128,7 +127,7 @@
     "consent": "I agree to my personal data being processed for contact purposes under Turkish data protection law (KVKK).",
     "consentLink": "Privacy notice",
     "officePhone": "Office",
-    "mobilePhone": "Mobile / WhatsApp",
+    "whatsappNote": "Mobile / WhatsApp",
     "address": "Address",
     "addressValue": "İskenderun, Hatay",
     "addressTodo": "The full street address is awaiting client confirmation.",
@@ -188,8 +187,7 @@
       "notes": "Notes",
       "name": "Name",
       "phone": "Mobile",
-      "method": "Preferred contact",
-      "email": "Email"
+      "method": "Preferred contact"
     },
     "options": {
       "propertyType": {
@@ -272,7 +270,6 @@
       "required": "Please fill in this field.",
       "choose": "Please choose an option.",
       "phone": "Please enter a valid phone number (e.g. +90 530 123 45 67).",
-      "email": "Please enter a valid email address.",
       "consent": "Please tick the box to continue."
     }
   },

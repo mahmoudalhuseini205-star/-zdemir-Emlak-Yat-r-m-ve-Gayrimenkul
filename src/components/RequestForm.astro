@@ -58,7 +58,7 @@ const optionLabel = (field: string, value: string) =>
   (r.options as Record<string, Record<string, string>>)[field]?.[value] ?? value;
 
 const chip =
-  'inline-flex items-center h-12 px-5 border border-field bg-surface text-sm cursor-pointer transition-colors hover:border-fg has-[:checked]:bg-brand has-[:checked]:border-brand has-[:checked]:text-white has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-strong';
+  'inline-flex items-center h-12 px-5 border border-field bg-surface text-sm cursor-pointer transition-[color,background-color,border-color,scale] active:scale-[0.97] hover:border-fg has-[:checked]:bg-brand has-[:checked]:border-brand has-[:checked]:text-white has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-strong';
 const heading = 'font-display text-3xl leading-tight focus:outline-none';
 
 // Only this language's copy goes to the browser; request.ts turns it into the message.
@@ -69,7 +69,7 @@ const text = JSON.stringify({ ...r, office: site.name });
   <div class="flex items-center gap-4">
     <p class="eyebrow shrink-0" data-step-label>{r.step.replace('{current}', '1').replace('{total}', '4')}</p>
     <span class="relative h-px flex-1 bg-line" aria-hidden="true">
-      <span data-progress class="absolute inset-y-0 left-0 w-1/4 bg-accent-strong transition-[width] duration-500 ease-[var(--ease-out)]"></span>
+      <span data-progress class="absolute inset-0 origin-left scale-x-25 bg-accent-strong transition-transform duration-500 ease-[var(--ease-out)]"></span>
     </span>
   </div>
 
@@ -82,7 +82,7 @@ const text = JSON.stringify({ ...r, office: site.name });
       <div class="mt-6 grid gap-3 sm:grid-cols-2">
         {
           SERVICES.map((svc) => (
-            <label class="group flex items-start gap-4 p-5 border border-line bg-surface cursor-pointer transition-[border-color,box-shadow] duration-300 hover:border-fg has-[:checked]:border-accent-strong has-[:checked]:shadow-[0_0_0_1px_var(--color-accent-strong),0_0_0_6px_var(--halo)] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-strong">
+            <label class="group flex items-start gap-4 p-5 border border-line bg-surface cursor-pointer transition-[border-color,box-shadow,scale] duration-300 active:scale-[0.98] active:duration-150 hover:border-fg has-[:checked]:border-accent-strong has-[:checked]:shadow-[0_0_0_1px_var(--color-accent-strong),0_0_0_6px_var(--halo)] has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-accent-strong">
               <input type="radio" name="service" value={svc} required class="sr-only" aria-describedby="rq-service-error" />
               <span
                 class="w-11 h-11 shrink-0 inline-flex items-center justify-center border border-line bg-paper text-accent transition-colors duration-300 group-has-[:checked]:bg-brand group-has-[:checked]:border-brand group-has-[:checked]:text-white"
@@ -182,7 +182,7 @@ const text = JSON.stringify({ ...r, office: site.name });
         <input id="rq-name" name="name" type="text" required autocomplete="name" aria-describedby="rq-name-error" class="h-12 px-4 field" />
         <p id="rq-name-error" class="text-sm text-accent" data-error-for="name" hidden></p>
       </div>
-      <div class="grid gap-2 content-start">
+      <div class="grid gap-2 content-start sm:col-span-2">
         <label for="rq-phone" class="text-sm font-medium">{r.labels.phone}</label>
         <input
           id="rq-phone"
@@ -196,13 +196,6 @@ const text = JSON.stringify({ ...r, office: site.name });
           class="h-12 px-4 field"
         />
         <p id="rq-phone-error" class="text-sm text-accent" data-error-for="phone" hidden></p>
-      </div>
-      <div class="grid gap-2 content-start">
-        <label for="rq-email" class="text-sm font-medium">
-          {r.labels.email} <span class="font-normal text-graphite">({r.optional})</span>
-        </label>
-        <input id="rq-email" name="email" type="email" autocomplete="email" aria-describedby="rq-email-error" class="h-12 px-4 field" />
-        <p id="rq-email-error" class="text-sm text-accent" data-error-for="email" hidden></p>
       </div>
       <fieldset class="grid gap-2 sm:col-span-2">
         <legend class="text-sm font-medium mb-2">{r.labels.method}</legend>
@@ -280,13 +273,13 @@ const text = JSON.stringify({ ...r, office: site.name });
 
     <div class="mt-8 border-l-2 border-accent-strong pl-5">
       <p class="font-medium">{r.fallbackTitle}</p>
-      <p class="mt-1 text-sm text-graphite">{r.fallbackText.replace('{phone}', site.mobilePhone.display)}</p>
+      <p class="mt-1 text-sm text-graphite">{r.fallbackText.replace('{phone}', site.phones[0].display)}</p>
       <label for="rq-message" class="sr-only">{r.heading}</label>
       <textarea id="rq-message" data-message readonly rows="8" class="mt-4 w-full p-4 field text-sm"></textarea>
       <div class="mt-3 flex flex-wrap items-center gap-3">
         <button type="button" data-copy class="inline-flex items-center h-12 px-5 border border-fg text-sm font-medium">{r.copy}</button>
-        <a href={site.mobilePhone.href} class="inline-flex items-center h-12 px-5 border border-line text-sm font-medium">
-          {s.common.call}: {site.mobilePhone.display}
+        <a href={site.phones[0].href} class="inline-flex items-center h-12 px-5 border border-line text-sm font-medium">
+          {s.common.call}: {site.phones[0].display}
         </a>
         <p data-copy-status aria-live="polite" class="text-sm text-graphite"></p>
       </div>
@@ -303,8 +296,8 @@ const text = JSON.stringify({ ...r, office: site.name });
       <a href={waLink(s.whatsapp.message)} target="_blank" rel="noopener" class="inline-flex items-center h-12 px-5 bg-whatsapp text-ink text-sm font-medium">
         {s.whatsapp.label}
       </a>
-      <a href={site.mobilePhone.href} class="inline-flex items-center h-12 px-5 border border-fg text-sm font-medium">
-        {s.common.call}: {site.mobilePhone.display}
+      <a href={site.phones[0].href} class="inline-flex items-center h-12 px-5 border border-fg text-sm font-medium">
+        {s.common.call}: {site.phones[0].display}
       </a>
     </p>
   </div>
@@ -318,7 +311,7 @@ const text = JSON.stringify({ ...r, office: site.name });
     steps: string[];
     copied: string;
     copyFailed: string;
-    errors: Record<'required' | 'choose' | 'phone' | 'email' | 'consent', string>;
+    errors: Record<'required' | 'choose' | 'phone' | 'consent', string>;
   };
   type Control = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
 
@@ -367,7 +360,6 @@ const text = JSON.stringify({ ...r, office: site.name });
         const digits = value.replace(/\D/g, '').length;
         if (/[^\d\s+().-]/.test(value) || digits < 10 || digits > 13) return text.errors.phone;
       }
-      if (c.type === 'email' && value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return text.errors.email;
       return '';
     }
 
@@ -431,7 +423,7 @@ const text = JSON.stringify({ ...r, office: site.name });
       current = step;
       steps.forEach((el, i) => (el.hidden = i + 1 !== step));
       $('[data-step-label]').textContent = text.step.replace('{current}', String(step)).replace('{total}', String(total));
-      $('[data-progress]').style.width = `${(step / total) * 100}%`;
+      $('[data-progress]').style.scale = `${step / total} 1`;
       back.hidden = step === 1;
       next.hidden = step === total;
       send.hidden = step !== total;
@@ -506,3 +498,21 @@ const text = JSON.stringify({ ...r, office: site.name });
     syncFields();
   }
 </script>
+
+<style>
+  /* Each step (and the sent panel) eases in when it is un-hidden, so the swap doesn't teleport.
+     Entry-only, so a keyframe is fine. Reduced motion is handled globally in global.css. */
+  [data-step]:not([hidden]),
+  [data-sent]:not([hidden]) {
+    animation: step-in 320ms var(--ease-out);
+  }
+  [data-error-for]:not([hidden]) {
+    animation: error-in 200ms var(--ease-out);
+  }
+  @keyframes step-in {
+    from { opacity: 0; transform: translateY(12px); }
+  }
+  @keyframes error-in {
+    from { opacity: 0; transform: translateY(-4px); }
+  }
+</style>

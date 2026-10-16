@@ -8,7 +8,7 @@ Single source of truth for business facts. Claude must not invent anything that 
 - **Experience:** 16+ yıl uzmanlık (16+ years of expertise)
 - **Founder / broker:** Zeki Teymur
 - **Address:** ⚠️ conflict. Instagram says "Bakü Cd. No-6 …" but Google Maps says "Savaş … İskenderun/Hatay". TODO(client): which one is current? Also fix the outdated one on that platform.
-- **Staff:** "Şehmuz bey" is named in a Google review. TODO(client): role, and should he appear in the team section?
+- **Staff:** Şehmuz Sönmez (0532 170 63 58, also named in a Google review as "Şehmuz bey") and Nazmiye Küyük (0532 271 10 93). TODO(client): their roles, and should they appear in a team section?
 - **Tagline (from Instagram):** "Hayalinizdeki evi sizin için buluyoruz."
 - **Instagram:** 7,500 followers (as of 2026-09-24). The bio also says "خدمة عقارية" (Arabic, "real estate service"), so they have Arabic-speaking clients.
 
@@ -20,10 +20,12 @@ Single source of truth for business facts. Claude must not invent anything that 
 | Channel | Display | Link |
 |---|---|---|
 | Office phone | (0326) 614 15 55 | `tel:+903266141555` |
-| Mobile | 0530 854 39 00 | `tel:+905308543900` |
-| WhatsApp | 0530 854 39 00 | `https://wa.me/905308543900` |
+| Şehmuz Sönmez | 0532 170 63 58 | `tel:+905321706358` |
+| Nazmiye Küyük | 0532 271 10 93 | `tel:+905322711093` |
+| WhatsApp (Şehmuz Sönmez) | 0532 170 63 58 | `https://wa.me/905321706358` |
 | Google Maps | — | https://maps.app.goo.gl/BicvFDZdN4DZuDTS6 |
-| Form email | TODO(client) | — |
+
+No public email and no LinkedIn (removed at the client's request).
 
 WhatsApp prefilled text:
 - TR: `Merhaba, web sitenizden ulaşıyorum. Bir gayrimenkul hakkında bilgi almak istiyorum.`
@@ -32,9 +34,8 @@ WhatsApp prefilled text:
 ## Online presence
 - Instagram: https://www.instagram.com/major_gayrimenkul
 - Facebook: https://www.facebook.com/iskenderunmajor/
-- LinkedIn (founder): https://www.linkedin.com/in/zeki-teymur-2b55235a/
-- Sahibinden store: https://majorgayrimenkul.sahibinden.com/
 - Hepsiemlak office: https://www.hepsiemlak.com/emlak-ofisi/major-gayrimenkul-32877
+- Emlakjet office: https://www.emlakjet.com/emlak-ofisleri/major-gayrimenkul-606934
 
 ## Testimonials (Google reviews, all 5/5)
 Source: `asset/testimonials/google-reviews.png`. These are quoted verbatim, including the original spelling. On the site, show them as first name + last initial, and link each card to the Google Maps reviews page.
@@ -71,7 +72,6 @@ Not needed: property photos (the example projects use stock) and hero photos (th
 - Yatırım danışmanlığı
 
 ## Open questions — client to answer
-- [ ] **Form recipient email** (and create a free Web3Forms access key with it: https://web3forms.com)
 - [ ] Full street address (for the footer, JSON-LD, and map)
 - [ ] Working hours (weekdays / Saturday / Sunday)
 - [ ] Confirm the services list above; anything to add or remove?
@@ -79,7 +79,7 @@ Not needed: property photos (the example projects use stock) and hero photos (th
 - [ ] Short founder bio (3–4 sentences) and approval to use the photo
 - [ ] Google overall rating + total review count (for the "Google'da 5.0 ★ · N yorum" badge) + direct reviews link
 - [ ] Current address: Bakü Cd. or Savaş …? (see Business)
-- [ ] Şehmuz bey: role, include in the team section?
+- [ ] Şehmuz Sönmez and Nazmiye Küyük: roles, include in a team section?
 - [ ] After launch: add the website URL to the Google Business profile (it currently shows "Add website")
 - [ ] KVKK aydınlatma metni (privacy notice). Get it from a lawyer/accountant or approve a standard template
 - [ ] Domain name (buy or transfer?) and who owns the Vercel account

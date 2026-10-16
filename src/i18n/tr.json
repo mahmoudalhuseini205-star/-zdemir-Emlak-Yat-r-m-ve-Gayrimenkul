@@ -60,8 +60,8 @@
     "stockNote": "Örnek görsel",
     "open": "Galeriyi aç",
     "allListings": "Tüm güncel ilanlar",
-    "sahibinden": "sahibinden mağazası",
     "hepsiemlak": "hepsiemlak ofisi",
+    "emlakjet": "Emlakjet ofisi",
     "modal": {
       "close": "Kapat",
       "prev": "Önceki görsel",
@@ -90,7 +90,6 @@
     "founderRole": "Kurucu · Emlak Danışmanı",
     "bio": "MAJÖR GAYRİMENKUL, İskenderun'da 16 yılı aşkın süredir alım, satım, kiralama ve değerleme hizmeti veriyor.",
     "bioTodo": "Kurucu biyografisi müşteri onayı bekliyor.",
-    "linkedin": "LinkedIn profilini görün",
     "officeAlt": "MAJÖR GAYRİMENKUL ofis cephesi ve tabelası",
     "portraitTodo": "Portre fotoğrafı bekleniyor"
   },
@@ -128,7 +127,7 @@
     "consent": "Kişisel verilerimin KVKK kapsamında iletişim amacıyla işlenmesini kabul ediyorum.",
     "consentLink": "KVKK Aydınlatma Metni",
     "officePhone": "Ofis",
-    "mobilePhone": "Cep / WhatsApp",
+    "whatsappNote": "Cep / WhatsApp",
     "address": "Adres",
     "addressValue": "İskenderun, Hatay",
     "addressTodo": "Açık adres müşteri onayı bekliyor.",
@@ -188,8 +187,7 @@
       "notes": "Notlar",
       "name": "Ad Soyad",
       "phone": "Telefon",
-      "method": "Tercih edilen iletişim",
-      "email": "E-posta"
+      "method": "Tercih edilen iletişim"
     },
     "options": {
       "propertyType": {
@@ -272,7 +270,6 @@
       "required": "Bu alanı doldurun.",
       "choose": "Lütfen bir seçenek belirleyin.",
       "phone": "Lütfen geçerli bir telefon numarası yazın (ör. 0530 123 45 67).",
-      "email": "Lütfen geçerli bir e-posta adresi yazın.",
       "consent": "Devam etmek için onay kutusunu işaretleyin."
     }
   },

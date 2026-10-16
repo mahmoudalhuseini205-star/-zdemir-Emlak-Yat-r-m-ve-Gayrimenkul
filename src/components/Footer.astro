@@ -12,8 +12,8 @@ const { lang } = Astro.props;
 const s = t(lang);
 
 const stores = [
-  { name: 'sahibinden', href: site.sahibinden, label: s.projects.sahibinden },
   { name: 'hepsiemlak', href: site.hepsiemlak, label: s.projects.hepsiemlak },
+  { name: 'emlakjet', href: site.emlakjet, label: s.projects.emlakjet },
 ] as const;
 ---
 
@@ -28,7 +28,15 @@ const stores = [
       <p class="eyebrow text-white/60">{s.nav.contact}</p>
       <ul class="mt-4 text-sm">
         <li><a href={site.officePhone.href} class="inline-flex items-center min-h-11 hover:text-white/70">{site.officePhone.display}</a></li>
-        <li><a href={site.mobilePhone.href} class="inline-flex items-center min-h-11 hover:text-white/70">{site.mobilePhone.display}</a></li>
+        {
+          site.phones.map((p) => (
+            <li>
+              <a href={p.href} class="inline-flex items-center gap-2 min-h-11 hover:text-white/70">
+                {p.display} <span class="text-white/60">· {p.name}</span>
+              </a>
+            </li>
+          ))
+        }
         <!-- TODO(client): full street address -->
         <li class="text-white/70">{s.contact.addressValue}</li>
       </ul>

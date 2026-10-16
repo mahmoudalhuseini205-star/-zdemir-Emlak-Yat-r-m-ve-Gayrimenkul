@@ -31,12 +31,19 @@ const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent('MAJÖR G
             <a href={site.officePhone.href} class="inline-flex items-center min-h-11 hover:text-accent transition-colors">{site.officePhone.display}</a>
           </dd>
         </div>
-        <div>
-          <dt class="text-sm text-graphite">{c.mobilePhone}</dt>
-          <dd class="font-display text-2xl">
-            <a href={site.mobilePhone.href} class="inline-flex items-center min-h-11 hover:text-accent">{site.mobilePhone.display}</a>
-          </dd>
-        </div>
+        {
+          site.phones.map((p, i) => (
+            <div>
+              <dt class="text-sm text-graphite">
+                {p.name}
+                {i === 0 && ` · ${c.whatsappNote}`}
+              </dt>
+              <dd class="font-display text-2xl">
+                <a href={p.href} class="inline-flex items-center min-h-11 hover:text-accent transition-colors">{p.display}</a>
+              </dd>
+            </div>
+          ))
+        }
         <div>
           <dt class="text-sm text-graphite">{c.address}</dt>
           <!-- TODO(client): full street address (Bakü Cd. vs Savaş …). City only until confirmed. -->
