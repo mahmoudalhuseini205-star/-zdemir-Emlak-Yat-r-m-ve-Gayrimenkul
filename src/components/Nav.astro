@@ -34,7 +34,7 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
       <Image
         src={logoWhite}
         alt={site.name}
-        widths={[240]}
+        widths={[120, 240]}
         sizes="120px"
         class="h-9 w-auto nav-logo-light"
         loading="eager"
@@ -42,7 +42,7 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
       <Image
         src={logo}
         alt=""
-        widths={[240]}
+        widths={[120, 240]}
         sizes="120px"
         class="h-9 w-auto nav-logo-dark hidden"
         loading="eager"
@@ -118,11 +118,11 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
     id="mobile-menu"
     data-menu
     hidden
-    class="lg:hidden fixed inset-0 z-50 bg-surface flex flex-col"
+    class="lg:hidden fixed inset-0 z-50 bg-surface flex flex-col overflow-y-auto"
   >
-    <div class="container-page flex items-center justify-between h-20 border-b border-line">
-      <Image src={logo} alt={site.name} widths={[240]} sizes="120px" class="h-9 w-auto dark:hidden" loading="eager" />
-      <Image src={logoWhite} alt={site.name} widths={[240]} sizes="120px" class="h-9 w-auto hidden dark:block" loading="eager" />
+    <div class="container-page flex items-center justify-between h-20 shrink-0 border-b border-line">
+      <Image src={logo} alt={site.name} widths={[240]} sizes="120px" class="h-9 w-auto dark:hidden" loading="lazy" />
+      <Image src={logoWhite} alt={site.name} widths={[240]} sizes="120px" class="h-9 w-auto hidden dark:block" loading="lazy" />
       <button
         type="button"
         data-menu-close
@@ -134,7 +134,7 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
         >
       </button>
     </div>
-    <nav class="container-page flex-1 flex flex-col justify-center gap-2" aria-label={s.nav.menu}>
+    <nav class="container-page my-auto py-6 flex flex-col gap-2" aria-label={s.nav.menu}>
       {
         links.map((l, i) => (
           <a href={l.href} data-menu-link style={`--i:${i}`} class="font-display text-4xl py-3 text-fg">
@@ -151,6 +151,28 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
       >
     </nav>
   </div>
+
+  <!-- No JS means no .is-solid: keep the nav readable on the white page. -->
+  <noscript>
+    <style is:inline>
+      [data-nav] {
+        background: var(--color-surface);
+        color: var(--color-fg);
+        border-bottom-color: var(--color-line);
+      }
+      [data-nav] .nav-logo-light {
+        display: none;
+      }
+      [data-nav] .nav-logo-dark {
+        display: block;
+      }
+      [data-nav] .nav-link,
+      [data-nav] .nav-link svg {
+        text-shadow: none !important;
+        filter: none !important;
+      }
+    </style>
+  </noscript>
 </header>
 
 <style>
@@ -192,6 +214,10 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
   [data-nav]:not(.is-solid) .nav-link svg,
   [data-nav]:not(.is-solid) .nav-logo-light {
     filter: drop-shadow(0 0 4px rgb(0 0 0 / 0.5));
+  }
+  /* Default focus ring is dark blue: invisible on the video. Menu panel is white, so it keeps the default. */
+  [data-nav]:not(.is-solid) > .container-page :focus-visible {
+    outline-color: #fff;
   }
   @media (prefers-reduced-motion: no-preference) {
     [data-menu]:not([hidden]) [data-menu-link] {
@@ -245,6 +271,8 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
     menu.hidden = !open;
     toggle.setAttribute('aria-expanded', String(open));
     document.body.style.overflow = open ? 'hidden' : '';
+    // The menu covers the page, so keep its content out of the tab order and a11y tree.
+    document.querySelectorAll<HTMLElement>('main, footer, .fab, [data-nav] > .container-page').forEach((el) => (el.inert = open));
     if (label) label.textContent = open ? closeText : openText;
     if (open) menu.querySelector<HTMLAnchorElement>('[data-menu-link]')?.focus();
     else toggle.focus();
@@ -255,5 +283,9 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
   menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
   addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menu && !menu.hidden) setMenu(false);
+  });
+  // Rotating/resizing to desktop width hides the menu button: don't leave the scroll lock stuck.
+  matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+    if (e.matches && menu && !menu.hidden) setMenu(false);
   });
 </script>

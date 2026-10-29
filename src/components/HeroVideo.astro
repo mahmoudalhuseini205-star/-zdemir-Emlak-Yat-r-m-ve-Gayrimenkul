@@ -25,7 +25,8 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
 }
 ---
 
-<section id="hero" class="hero-in relative min-h-[100svh] flex items-end overflow-hidden on-dark">
+<!-- vh first, then svh: browsers without svh support keep the vh value. -->
+<section id="hero" class="hero-in relative flex items-end overflow-hidden on-dark" style="min-height:100vh;min-height:100svh">
   <!-- Decorative background. The poster is the LCP element; the video is added by JS. -->
   <div class="absolute inset-0 -z-10 overflow-hidden">
     <div class="hero-media absolute inset-0">
@@ -67,7 +68,8 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
   >
     <path d="M8 76 L33 24 L50 58 L67 24 L92 76" pathLength="1" fill="none" stroke="currentColor" stroke-width="0.35" />
     <!-- A light travels along the stroke once it has drawn (global.css → .m-comet). -->
-    <path class="m-comet" d="M8 76 L33 24 L50 58 L67 24 L92 76" pathLength="1" fill="none" stroke="#fff" stroke-width="0.7" stroke-linecap="round" style="filter: drop-shadow(0 0 1.5px #fff)" />
+    <path class="m-comet" d="M8 76 L33 24 L50 58 L67 24 L92 76" pathLength="1" fill="none" stroke="#fff" stroke-opacity="0.25" stroke-width="2.2" stroke-linecap="round" />
+    <path class="m-comet" d="M8 76 L33 24 L50 58 L67 24 L92 76" pathLength="1" fill="none" stroke="#fff" stroke-width="0.7" stroke-linecap="round" />
   </svg>
 
   <div class="on-photo container-page pb-40 md:pb-44 pt-24 text-white">
@@ -111,13 +113,14 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
   const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const saveData = (navigator as any).connection?.saveData === true;
+  const conn = (navigator as any).connection;
+  const saveData = conn?.saveData === true || ['slow-2g', '2g', '3g'].includes(conn?.effectiveType);
 
   if (video && !reduced && !saveData) {
     const hero = document.getElementById('hero')!;
     let onScreen = true;
     const start = () => {
-      const mobile = matchMedia('(max-width: 767px)').matches;
+      const mobile = matchMedia('(max-width: 1279px)').matches;
       const add = (src: string, type: string) => {
         const el = document.createElement('source');
         el.src = src;
@@ -127,7 +130,6 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
       if (mobile) {
         add('/video/hero-720.mp4', 'video/mp4');
       } else {
-        add('/video/hero-1080.webm', 'video/webm');
         add('/video/hero-1080.mp4', 'video/mp4');
       }
       video.preload = 'metadata';

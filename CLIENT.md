@@ -81,7 +81,7 @@ Not needed: property photos (the example projects use stock) and hero photos (th
 - [ ] Current address: Bakü Cd. or Savaş …? (see Business)
 - [ ] Şehmuz Sönmez and Nazmiye Küyük: roles, include in a team section?
 - [ ] After launch: add the website URL to the Google Business profile (it currently shows "Add website")
-- [ ] KVKK aydınlatma metni (privacy notice). Get it from a lawyer/accountant or approve a standard template
+- [ ] KVKK aydınlatma metni (privacy notice). Get it from a lawyer/accountant or approve a standard template. **Needed before launch:** the footer currently shows a placeholder and the form consent checkbox has no linked notice (the `consentLink` i18n key is unused)
 - [ ] Domain name (buy or transfer?) and who owns the Vercel account
 - [ ] **Vector logo** (SVG/AI/PDF) plus a white/negative version. Only raster webp exists now. Also confirm the exact brand blue (HEX/Pantone)
 - [ ] Neighbourhoods to feature in the guide (4–6), each with 1–2 lines on why buyers like it

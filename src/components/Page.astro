@@ -22,7 +22,7 @@ const { lang } = Astro.props;
 
 <Base lang={lang}>
   <Nav lang={lang} />
-  <main id="main">
+  <main id="main" tabindex="-1" class="focus:outline-none">
     <HeroVideo lang={lang} />
     <Counters lang={lang} />
     <Services lang={lang} />

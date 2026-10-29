@@ -95,7 +95,7 @@ const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent('MAJÖR G
     iframe.src = btn.dataset.src!;
     iframe.title = btn.dataset.title!;
     iframe.loading = 'lazy';
-    iframe.referrerPolicy = 'no-referrer-when-downgrade';
+    iframe.referrerPolicy = 'strict-origin-when-cross-origin';
     iframe.className = 'w-full h-full border-0';
     holder.replaceChildren(iframe);
   });

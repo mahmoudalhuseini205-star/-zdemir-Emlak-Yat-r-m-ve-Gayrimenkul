@@ -61,6 +61,13 @@ const jsonLd = {
         document.documentElement.dataset.theme =
           localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       } catch (e) {}
+      // Reveal items are hidden from first paint via .js; if the reveal script never confirms (.reveal-ready), show everything after 3s.
+      if ('IntersectionObserver' in window) {
+        document.documentElement.classList.add('js');
+        setTimeout(() => {
+          if (!document.documentElement.classList.contains('reveal-ready')) document.documentElement.classList.remove('js');
+        }, 3000);
+      }
       // A reload starts at the top: no restored scroll position, no jump to a leftover #section hash.
       history.scrollRestoration = 'manual';
       if (performance.getEntriesByType('navigation')[0]?.type === 'reload' && location.hash)
@@ -113,7 +120,9 @@ const jsonLd = {
     <script>
       // Section reveal. Applied from JS so no-JS visitors never see hidden content.
       const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
-      if ('IntersectionObserver' in window && items.length) {
+      // Skipped if the 3s fallback in <head> already removed .js, so late-loading JS never re-hides visible content.
+      if ('IntersectionObserver' in window && items.length && document.documentElement.classList.contains('js')) {
+        document.documentElement.classList.add('reveal-ready');
         const io = new IntersectionObserver(
           (entries) => {
             // Stagger only the elements that enter together; the delay is cleared

@@ -20,9 +20,9 @@ const m = s.projects.modal;
 <dialog
   data-gallery-dialog
   aria-label={s.projects.eyebrow}
-  class="w-[min(100vw-2rem,68rem)] max-w-none p-0 bg-surface text-fg"
+  class="m-auto max-w-none p-0 bg-surface text-fg"
 >
-  <div class="flex items-center justify-between gap-4 px-4 sm:px-6 h-16 border-b border-line">
+  <div class="sticky top-0 z-10 bg-surface flex items-center justify-between gap-4 px-4 sm:px-6 h-16 border-b border-line">
     <p class="font-display text-xl truncate" data-gallery-title></p>
     <button
       type="button"
@@ -42,7 +42,7 @@ const m = s.projects.modal;
         <div class="relative">
           <div
             data-strip
-            class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            class="flex overflow-x-auto snap-x snap-mandatory motion-safe:scroll-smooth overscroll-x-contain [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {card.images.map((img) => (
               <figure class="min-w-full snap-center">
@@ -51,7 +51,7 @@ const m = s.projects.modal;
                   alt={img.alt}
                   widths={[800, 1200]}
                   sizes="(min-width: 1024px) 68rem, 100vw"
-                  class="w-full aspect-[3/2] object-cover bg-paper"
+                  class="w-full aspect-[3/2] max-h-[calc(100svh-13rem)] object-cover bg-paper"
                   quality={70}
                   loading="lazy"
                 />
@@ -134,8 +134,18 @@ const m = s.projects.modal;
   dialog?.querySelector('[data-gallery-close]')?.addEventListener('click', () => dialog.close());
 
   // Backdrop click: the dialog element itself only receives clicks outside its content box.
+  // Press and release must both land there, so a drag that ends on the backdrop doesn't close it.
+  let downOnBackdrop = false;
+  dialog?.addEventListener('pointerdown', (e) => {
+    downOnBackdrop = e.target === dialog;
+  });
+  // A press that starts on the backdrop but is released inside the dialog is not a backdrop click.
+  dialog?.addEventListener('pointerup', (e) => {
+    if (e.target !== dialog) downOnBackdrop = false;
+  });
   dialog?.addEventListener('click', (e) => {
-    if (e.target === dialog) dialog.close();
+    if (e.target === dialog && downOnBackdrop) dialog.close();
+    downOnBackdrop = false;
   });
 
   dialog?.addEventListener('close', () => {
@@ -151,18 +161,35 @@ const m = s.projects.modal;
     const total = strip.children.length;
     const template = counter?.textContent?.trim() ?? '';
 
+    const current = () => Math.round(strip.scrollLeft / strip.clientWidth);
+    // Index a button-driven smooth scroll is heading to, so rapid taps each step exactly one photo.
+    let target: number | null = null;
+    let shown = -1;
+
     const update = () => {
-      const index = Math.round(strip.scrollLeft / strip.clientWidth);
+      const index = current();
+      if (index === target) target = null;
+      // Only write when the photo changes: this text sits in an aria-live region.
+      if (index === shown) return;
+      shown = index;
       if (counter) counter.textContent = template.replace(/^\d+/, String(index + 1));
     };
     const go = (dir: number) => {
-      const index = Math.round(strip.scrollLeft / strip.clientWidth) + dir;
-      strip.scrollTo({ left: Math.min(Math.max(index, 0), total - 1) * strip.clientWidth });
+      target = Math.min(Math.max((target ?? current()) + dir, 0), total - 1);
+      strip.scrollTo({ left: target * strip.clientWidth });
+    };
+    const manual = () => {
+      target = null;
     };
 
     panel.querySelector('[data-strip-prev]')?.addEventListener('click', () => go(-1));
     panel.querySelector('[data-strip-next]')?.addEventListener('click', () => go(1));
     strip.addEventListener('scroll', update, { passive: true });
+    // A manual swipe/wheel or a finished scroll hands control back to the real position.
+    strip.addEventListener('pointerdown', manual, { passive: true });
+    strip.addEventListener('wheel', manual, { passive: true });
+    strip.addEventListener('scrollend', manual);
+    dialog?.addEventListener('close', manual);
     // Arrow keys page through the visible panel's photos.
     dialog?.addEventListener('keydown', (e) => {
       if (panel.hidden || (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight')) return;
@@ -173,36 +200,48 @@ const m = s.projects.modal;
 </script>
 
 <style>
-  /* Open: fade + lift. @starting-style is ignored by older browsers, which just open instantly. */
+  /* Notch-safe width; calc() inside a Tailwind arbitrary value can't take env() reliably. */
   [data-gallery-dialog] {
-    transition:
-      opacity 400ms var(--ease-out),
-      transform 500ms var(--ease-out),
-      overlay 400ms allow-discrete,
-      display 400ms allow-discrete;
-    opacity: 0;
-    transform: translateY(24px) scale(0.98);
+    width: min(100vw - 2rem - env(safe-area-inset-left) - env(safe-area-inset-right), 68rem);
   }
-  [data-gallery-dialog][open] {
-    opacity: 1;
-    transform: none;
-  }
-  @starting-style {
-    [data-gallery-dialog][open] {
+  /* Open/close: fade + lift. Gated on `overlay` support (Chromium); other browsers open and close instantly. */
+  @supports (overlay: auto) {
+    [data-gallery-dialog] {
+      transition:
+        opacity 400ms var(--ease-out),
+        transform 500ms var(--ease-out),
+        overlay 400ms allow-discrete,
+        display 400ms allow-discrete;
       opacity: 0;
       transform: translateY(24px) scale(0.98);
     }
-  }
-  [data-gallery-dialog]::backdrop {
-    transition: background-color 400ms, overlay 400ms allow-discrete, display 400ms allow-discrete;
-    background-color: rgb(17 19 24 / 0);
-  }
-  [data-gallery-dialog][open]::backdrop {
-    background-color: rgb(17 19 24 / 0.85);
-  }
-  @starting-style {
-    [data-gallery-dialog][open]::backdrop {
+    [data-gallery-dialog][open] {
+      opacity: 1;
+      transform: none;
+    }
+    @starting-style {
+      [data-gallery-dialog][open] {
+        opacity: 0;
+        transform: translateY(24px) scale(0.98);
+      }
+    }
+    [data-gallery-dialog]::backdrop {
+      transition: background-color 400ms, overlay 400ms allow-discrete, display 400ms allow-discrete;
       background-color: rgb(17 19 24 / 0);
+    }
+    [data-gallery-dialog][open]::backdrop {
+      background-color: rgb(17 19 24 / 0.85);
+    }
+    @starting-style {
+      [data-gallery-dialog][open]::backdrop {
+        background-color: rgb(17 19 24 / 0);
+      }
+    }
+  }
+  /* Without the animated rules above the backdrop still needs its dim. */
+  @supports not (overlay: auto) {
+    [data-gallery-dialog]::backdrop {
+      background-color: rgb(17 19 24 / 0.85);
     }
   }
 </style>

@@ -47,8 +47,13 @@
   html {
     color-scheme: light;
     scroll-behavior: smooth;
+    /* The gutter keeps layout still when a dialog hides the scrollbar. (Sections clear the nav via scroll-mt-20.) */
+    scrollbar-gutter: stable;
     -webkit-text-size-adjust: 100%;
   }
+  /* CSS scroll lock while a modal is open (backup to the JS lock). */
+  dialog { overscroll-behavior: contain; }
+  html:has(dialog[open]) { overflow: hidden; }
   body {
     font-family: var(--font-sans);
     color: var(--color-fg);
@@ -116,30 +121,34 @@
   background: var(--color-surface);
   border: 1px solid var(--color-field);
   transition: border-color 200ms, box-shadow 250ms var(--ease-out);
-  &:hover { border-color: var(--color-fg); }
+  /* A focused invalid field scrolls into view below the fixed nav. */
+  scroll-margin-top: 6rem;
+  @media (hover: hover) { &:hover { border-color: var(--color-fg); } }
   &:focus { outline: none; border-color: var(--color-accent-strong); box-shadow: 0 0 0 1px var(--color-accent-strong), 0 0 0 5px var(--halo); }
   &[aria-invalid="true"] { border-color: var(--color-accent-strong); box-shadow: 0 0 0 4px var(--halo); }
 }
 
-/* Reveal on scroll. .reveal is added by JS only when IO is supported,
-   so no-JS visitors always see content. */
+/* Reveal on scroll. The head script adds .js (only when IO is supported) so items are hidden from first
+   paint; the reveal script then adds .reveal + html.reveal-ready. If that never happens, the head script
+   drops .js after 3s. No-JS visitors always see content. */
 :root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
 
-.reveal {
+.reveal, .js [data-reveal]:not(.is-in) {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
 }
+.reveal { transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
 .reveal.is-in { opacity: 1; transform: none; }
 
 /* Image variant: the photo is uncovered bottom-up like a lifted sheet. */
-.reveal[data-reveal="clip"] {
+.reveal[data-reveal="clip"], .js [data-reveal="clip"]:not(.is-in) {
   opacity: 1;
   transform: none;
   clip-path: inset(100% 0 0 0);
-  transition: clip-path 1100ms var(--ease-out);
 }
-.reveal[data-reveal="clip"].is-in { clip-path: inset(0 0 0 0); }
+.reveal[data-reveal="clip"] { transition: clip-path 1100ms var(--ease-out); }
+/* -8px so the focus ring of buttons inside the revealed block isn't clipped. */
+.reveal[data-reveal="clip"].is-in { clip-path: inset(-8px); }
 /* ...and the photo settles from a slight zoom as it is uncovered, echoing the hero video. */
 @media (prefers-reduced-motion: no-preference) {
   .reveal[data-reveal="clip"] img { transition-property: transform, scale; transition-duration: 1600ms; transition-timing-function: var(--ease-out); }
@@ -197,7 +206,7 @@
   .hero-in .hero-fade { opacity: 0; animation: fade-up 900ms var(--ease-out) forwards; animation-delay: calc(500ms + var(--i, 0) * 100ms); }
   .hero-in .m-draw path:not(.m-comet) { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2400ms var(--ease-out) 300ms forwards; }
   .hero-in .hero-media { animation: settle 2600ms var(--ease-out) forwards; }
-  .hero-in .m-comet { visibility: visible; stroke-dasharray: 0.07 1; animation: comet 5s linear 2700ms 3 both; }
+  .hero-in .m-comet { visibility: visible; stroke-dasharray: 0.07 1; animation: comet 5s linear 2700ms 1 both; }
 }
 /* WhatsApp FAB: pops in after the hero settles, then a soft ring pulses a few times. */
 @media (prefers-reduced-motion: no-preference) {
@@ -251,16 +260,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .reveal.is-in { opacity: 1; transform: none; clip-path: none; transition: none; }
+  .reveal, .reveal.is-in, .reveal[data-reveal="clip"], .js [data-reveal]:not(.is-in), .js [data-reveal="clip"]:not(.is-in) { opacity: 1; transform: none; clip-path: none; transition: none; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-/* Below-the-fold sections are skipped during the first layout so the hero paints sooner. */
-main > section:not(#hero, [data-overlap]) {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 720px;
 }

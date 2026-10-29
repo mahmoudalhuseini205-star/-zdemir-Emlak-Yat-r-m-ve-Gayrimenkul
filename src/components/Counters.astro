@@ -17,13 +17,13 @@ const items = [
 const fmt = (n: number) => new Intl.NumberFormat(locale).format(n);
 ---
 
-<!-- Overlaps the hero's bottom edge; excluded from content-visibility in global.css so it isn't clipped. -->
+<!-- Overlaps the hero's bottom edge (negative margin). -->
 <section data-overlap class="relative z-10 -mt-24" aria-label={s.counters.cityLabel}>
   <div class="container-page">
-  <div data-reveal class="bg-surface shadow-[0_0_0_6px_var(--halo),0_10px_24px_-20px_rgb(10_10_128/0.35)] grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-line">
+  <div data-reveal class="bg-surface shadow-[0_0_0_6px_var(--halo),0_10px_24px_-20px_rgb(10_10_128/0.35)] grid grid-cols-1 lg:grid-cols-[1fr_1fr_1.5fr] divide-y lg:divide-y-0 lg:divide-x divide-line">
     {
       items.map((item) => (
-        <div class="py-8 sm:py-10 px-6 sm:px-10">
+        <div class="py-8 lg:py-10 px-6 lg:px-10">
           <p class="font-display text-5xl md:text-6xl text-accent-strong leading-none">
             <!-- An invisible copy of the final value reserves the width, so counting up doesn't shift the layout. -->
             <span class="inline-grid tabular-nums">
@@ -36,8 +36,8 @@ const fmt = (n: number) => new Intl.NumberFormat(locale).format(n);
         </div>
       ))
     }
-    <div class="py-8 sm:py-10 px-6 sm:px-10">
-      <p class="font-display text-4xl md:text-5xl text-accent-strong leading-none">{s.counters.city}</p>
+    <div class="py-8 lg:py-10 px-6 lg:px-10">
+      <p class="font-display text-4xl xl:text-5xl text-accent-strong leading-none">{s.counters.city}</p>
       <p class="mt-3 text-sm text-graphite">{s.counters.cityLabel}</p>
     </div>
   </div>
