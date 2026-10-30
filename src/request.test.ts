@@ -1,7 +1,7 @@
 // Run with `npm test` (Node's built-in runner; Node ≥ 22.18 strips the types).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { SERVICES, visibleFields, buildEntries, buildMessage, type MessageText } from './request.ts';
+import { SERVICES, isPhone, visibleFields, buildEntries, buildMessage, type MessageText } from './request.ts';
 import tr from './i18n/tr.json' with { type: 'json' };
 import en from './i18n/en.json' with { type: 'json' };
 
@@ -13,6 +13,13 @@ test('rooms and furnishing only show for residential types', () => {
   assert.ok(!visibleFields('rent', 'land').includes('rooms'));
   assert.ok(!visibleFields('rent', 'shop').includes('furnished'));
   assert.ok(!visibleFields('buy', 'apartment').includes('furnished'));
+});
+
+test('phone accepts local, +90, 0090 and foreign formats, rejects junk', () => {
+  for (const ok of ['0553 971 53 53', '553 971 53 53', '+90 (553) 971-53-53', '0090 553 971 53 53', '+49 1512 3456789', '0049 1512 3456789'])
+    assert.ok(isPhone(ok), ok);
+  for (const bad of ['', '12345', '0553 971 53 5x', '+90 553 971 53 53 12345 6'])
+    assert.ok(!isPhone(bad), bad);
 });
 
 test('each service shows only its own fields', () => {

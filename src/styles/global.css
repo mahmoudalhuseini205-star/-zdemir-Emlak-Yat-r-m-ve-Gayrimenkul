@@ -221,7 +221,7 @@
 }
 /* Phones: the hero already has a WhatsApp pill, so the FAB tucks away until the visitor has scrolled past it
    (WhatsAppFab.astro). translate/visibility, not opacity/transform, which the fab-in animation holds. */
-:root { --fab-after: 4rem; }
+:root { --fab-after: 100svh; }
 :root.scrub { --fab-after: 45svh; }
 @media (max-width: 767px) {
   .fab { transition-property: transform, translate, scale, visibility; transition-duration: 300ms, 300ms, 300ms, 0s; }

@@ -20,6 +20,12 @@ const HOME_ONLY = ['rooms', 'furnished'];
 
 export const CONTACT_FIELDS = ['name', 'phone', 'method'];
 
+/** Lenient on formatting (spaces, dashes, brackets, +90 or 0090), strict on length: 10 digits up to E.164's 15. */
+export function isPhone(value: string) {
+  const digits = value.replace(/\D/g, '').replace(/^00/, '').length;
+  return !/[^\d\s+().-]/.test(value) && digits >= 10 && digits <= 15;
+}
+
 export function visibleFields(service: Service, propertyType: string) {
   return DETAILS[service].filter((f) => !HOME_ONLY.includes(f) || RESIDENTIAL.includes(propertyType));
 }

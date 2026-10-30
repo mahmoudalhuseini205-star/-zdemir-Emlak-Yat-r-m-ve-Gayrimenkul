@@ -308,7 +308,7 @@ const text = JSON.stringify({ ...r, office: site.name });
 </noscript>
 
 <script>
-  import { visibleFields, buildEntries, clientEntries, buildMessage, type Service, type MessageText } from '../request';
+  import { isPhone, visibleFields, buildEntries, clientEntries, buildMessage, type Service, type MessageText } from '../request';
 
   type Text = MessageText & {
     step: string;
@@ -365,11 +365,7 @@ const text = JSON.stringify({ ...r, office: site.name });
       if (c instanceof HTMLInputElement && c.type === 'radio')
         return c.required && !(field(c.name) as RadioNodeList).value ? text.errors.choose : '';
       if (c.required && !value) return c instanceof HTMLSelectElement ? text.errors.choose : text.errors.required;
-      if (c.type === 'tel') {
-        // Lenient on formatting (spaces, dashes, +90, brackets), strict on length.
-        const digits = value.replace(/\D/g, '').length;
-        if (/[^\d\s+().-]/.test(value) || digits < 10 || digits > 13) return text.errors.phone;
-      }
+      if (c.type === 'tel' && !isPhone(value)) return text.errors.phone;
       return '';
     }
 

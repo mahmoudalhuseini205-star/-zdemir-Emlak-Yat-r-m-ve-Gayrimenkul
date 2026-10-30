@@ -21,8 +21,7 @@
     "title": "Hayalinizdeki evi *sizin için* buluyoruz.",
     "subtitle": "İznik ve Bursa'da güvenilir gayrimenkul danışmanlığı.",
     "ctaPrimary": "WhatsApp'tan Yazın",
-    "ctaSecondary": "Projeleri İnceleyin",
-    "scroll": "Aşağı kaydırın"
+    "ctaSecondary": "Projeleri İnceleyin"
   },
   "counters": {
     "years": "yıl uzmanlık",
@@ -95,7 +94,7 @@
   "testimonials": {
     "eyebrow": "Referanslar",
     "title": "Müşterilerimiz ne diyor?",
-    "badge": "Google'da 5,0 ★",
+    "badge": "TODO(client): doğrulanmış Google puanı",
     "badgeCount": "yorum sayısı onay bekliyor",
     "source": "Google",
     "readOn": "Google'da yorumları okuyun",

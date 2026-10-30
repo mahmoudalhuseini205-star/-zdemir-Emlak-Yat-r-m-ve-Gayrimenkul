@@ -20,9 +20,8 @@
   "hero": {
     "title": "We find the home *you've been dreaming of.*",
     "subtitle": "Trusted real estate advice in İznik and Bursa.",
-    "ctaPrimary": "Message us on WhatsApp",
-    "ctaSecondary": "See the projects",
-    "scroll": "Scroll down"
+    "ctaPrimary": "WhatsApp us",
+    "ctaSecondary": "See the projects"
   },
   "counters": {
     "years": "years of expertise",
@@ -95,7 +94,7 @@
   "testimonials": {
     "eyebrow": "References",
     "title": "What our clients say",
-    "badge": "5.0 ★ on Google",
+    "badge": "TODO(client): verified Google rating",
     "badgeCount": "review count awaiting confirmation",
     "source": "Google",
     "readOn": "Read the reviews on Google",
