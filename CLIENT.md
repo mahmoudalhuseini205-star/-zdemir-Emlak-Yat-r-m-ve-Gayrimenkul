@@ -21,7 +21,7 @@ The site was handed over from a previous client (MAJÖR GAYRİMENKUL, İskenderu
 |---|---|---|
 | Phone / WhatsApp | 0553 971 53 53 | `tel:+905539715353` · `https://wa.me/905539715353` |
 | Email | isaozdmr0616@gmail.com | `mailto:isaozdmr0616@gmail.com` |
-| Google Maps | — | https://maps.app.goo.gl/Lq6Xus7d4Wi966vj7 |
+| Google Maps | — | https://maps.app.goo.gl/NGtUj9LzfZPRw8Ae6 |
 
 The phone above is the only number on the site.
 

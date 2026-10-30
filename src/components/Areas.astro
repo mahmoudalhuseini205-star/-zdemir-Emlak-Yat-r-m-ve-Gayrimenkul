@@ -3,6 +3,7 @@ import { Picture } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import areas from '../data/areas.json';
 import { t, waLink, fill, type Lang } from '../site';
+import { placeholder } from '../lqip';
 
 interface Props {
   lang: Lang;
@@ -13,12 +14,12 @@ const s = t(lang);
 const files = import.meta.glob<{ default: ImageMetadata }>('../assets/areas/*.webp', { eager: true });
 
 // TODO(client): confirm areas — this list is provisional.
-const cards = areas.map((a) => ({
-  ...a,
-  src: files[`../assets/areas/${a.image}`]?.default ?? null,
-  text: a[lang],
-  alt: lang === 'tr' ? a.altTr : a.altEn,
-}));
+const cards = await Promise.all(
+  areas.map(async (a) => {
+    const src = files[`../assets/areas/${a.image}`]?.default ?? null;
+    return { ...a, src, ph: src ? await placeholder(src) : undefined, text: a[lang], alt: lang === 'tr' ? a.altTr : a.altEn };
+  })
+);
 ---
 
 <section id="bolgeler" class="section-y bg-surface scroll-mt-20">
@@ -34,7 +35,7 @@ const cards = areas.map((a) => ({
     >
       {
         cards.map((area) => (
-          <li class="area group relative shrink-0 w-[82%] sm:w-[48%] h-[28rem] snap-start overflow-hidden bg-ink text-white lg:w-auto lg:h-auto lg:shrink">
+          <li class="area group relative shrink-0 w-[82%] sm:w-[48%] h-[28rem] snap-start overflow-hidden bg-ink text-white lg:w-auto lg:h-auto lg:shrink" style={area.ph}>
             {area.src ? (
               <Picture
                 src={area.src}

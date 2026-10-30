@@ -10,8 +10,8 @@ const { lang } = Astro.props;
 const s = t(lang);
 const c = s.contact;
 
-// Exact pin of the business (what site.maps resolves to); an address text search lands on a different spot.
-const mapsEmbed = 'https://maps.google.com/maps?q=40.4300973,29.7183999&z=17&output=embed';
+// The business itself (name anchored at the pin site.maps resolves to): shows its card, not a bare coordinate pin.
+const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(site.name)}&ll=40.4300973,29.7183999&z=17&output=embed`;
 ---
 
 <section id="iletisim" class="section-y bg-paper scroll-mt-20">

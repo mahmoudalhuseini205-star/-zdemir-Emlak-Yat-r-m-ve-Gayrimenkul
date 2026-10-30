@@ -3,12 +3,14 @@ import { Picture } from 'astro:assets';
 import Placeholder from './Placeholder.astro';
 import office from '../assets/office/office.webp';
 import { t, type Lang } from '../site';
+import { placeholder } from '../lqip';
 
 interface Props {
   lang: Lang;
 }
 const { lang } = Astro.props;
 const s = t(lang);
+const officePh = await placeholder(office);
 ---
 
 <section id="hakkimizda" class="section-y bg-paper scroll-mt-20">
@@ -29,7 +31,7 @@ const s = t(lang);
       </div>
     </div>
 
-    <div class="overflow-hidden aspect-[4/3] lg:col-span-6 lg:col-start-7" data-reveal="clip">
+    <div class="overflow-hidden aspect-[4/3] lg:col-span-6 lg:col-start-7" data-reveal="clip" style={officePh}>
       <Picture
         src={office}
         alt={s.about.officeAlt}

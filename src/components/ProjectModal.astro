@@ -6,7 +6,7 @@ import { t, waLink, fill, type Lang } from '../site';
 interface Card {
   slug: string;
   copy: { title: string; desc: string };
-  images: { src: ImageMetadata | null; alt: string; credit: string; source: string }[];
+  images: { src: ImageMetadata | null; alt: string; credit: string; source: string; ph: string }[];
 }
 interface Props {
   lang: Lang;
@@ -53,6 +53,7 @@ const m = s.projects.modal;
                   widths={[800, 1200]}
                   sizes="(min-width: 1024px) 68rem, 100vw"
                   class="w-full aspect-[3/2] max-h-[calc(100svh-13rem)] object-cover bg-paper"
+                  style={img.ph}
                   quality={60}
                   loading="lazy"
                 />

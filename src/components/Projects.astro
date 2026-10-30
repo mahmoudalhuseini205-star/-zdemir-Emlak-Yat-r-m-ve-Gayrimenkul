@@ -5,6 +5,7 @@ import projects from '../data/projects.json';
 import ProjectModal from './ProjectModal.astro';
 import PortalLogo from './PortalLogo.astro';
 import { site, t, type Lang } from '../site';
+import { placeholder } from '../lqip';
 
 interface Props {
   lang: Lang;
@@ -21,13 +22,16 @@ function pick(slug: string, file: string) {
   return files[`../assets/projects/${slug}/${file}`]?.default ?? null;
 }
 
-const cards = projects.map((p) => {
-  const copy = p[lang];
-  const images = p.images
-    .map((img) => ({ ...img, src: pick(p.slug, img.file), alt: img[lang] }))
-    .filter((img) => img.src);
-  return { ...p, copy, images };
-});
+const cards = await Promise.all(
+  projects.map(async (p) => {
+    const copy = p[lang];
+    const found = p.images
+      .map((img) => ({ ...img, src: pick(p.slug, img.file), alt: img[lang] }))
+      .filter((img) => img.src);
+    const images = await Promise.all(found.map(async (img) => ({ ...img, ph: await placeholder(img.src!) })));
+    return { ...p, copy, images };
+  })
+);
 
 const portals = [{ name: 'sahibinden', href: site.sahibinden, label: s.projects.sahibinden }] as const;
 ---
@@ -56,6 +60,7 @@ const portals = [{ name: 'sahibinden', href: site.sahibinden, label: s.projects.
               class="group relative block w-full h-full min-h-[20rem] lg:min-h-0 text-left overflow-hidden bg-ink text-white focus-visible:outline-2"
               data-open-gallery={card.slug}
               aria-haspopup="dialog"
+              style={card.images[0]?.ph}
             >
               {card.images[0]?.src ? (
                 <Picture

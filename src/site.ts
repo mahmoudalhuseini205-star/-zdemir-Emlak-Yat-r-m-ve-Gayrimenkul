@@ -29,7 +29,7 @@ export const site = {
   email: 'isaozdmr0616@gmail.com',
   /** Monday–Saturday; closed on Sunday. */
   hours: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '09:00', closes: '17:00' },
-  maps: 'https://maps.app.goo.gl/Lq6Xus7d4Wi966vj7',
+  maps: 'https://maps.app.goo.gl/NGtUj9LzfZPRw8Ae6',
   instagram: 'https://www.instagram.com/ozdemir.yatirimgayrimenkull',
   facebook: 'https://www.facebook.com/p/%C3%96zdemir-Yat%C4%B1r%C4%B1m-ve-Gayrimenkul-100063630309136/',
   sahibinden: 'https://ozdemiryatirimgayrimenkul.sahibinden.com/',
