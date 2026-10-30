@@ -1,0 +1,11 @@
+---
+// Line motif taken from the logo's roof line (eave, beam, ridge). Decorative only.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<svg viewBox="0 0 100 100" aria-hidden="true" focusable="false" class={className}>
+  <path d="M3 64 L37 61 L69 37 L97 64" fill="none" stroke="currentColor" stroke-width="6" />
+</svg>

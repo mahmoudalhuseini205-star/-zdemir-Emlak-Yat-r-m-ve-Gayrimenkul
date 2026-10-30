@@ -1,22 +1,23 @@
-# DESIGN.md: Major Gayrimenkul
+# DESIGN.md: Özdemir Emlak & Yatırım ve Gayrimenkul
 
-## Direction: "blue-M luxury"
-The client's blue geometric **M** logo, dressed in the elegant black-and-white mood of their Instagram.
-Mostly white/off-white and near-black, a serif display face, and large calm imagery. **Brand ultramarine is the only accent**, and it's used sparingly: primary CTAs, the logo, thin rules, and one dark-blue band section.
-It should feel trustworthy and established (16+ years in İskenderun) while still premium, closer to a boutique developer than a property portal.
+## Direction: "navy & roof luxury"
+The client's logo (red geometric roof + navy "Özdemir" script) in a calm black-and-white setting.
+Mostly white/off-white and near-black, a serif display face, and large calm imagery. **Brand navy is the main accent**: primary CTAs, links, icons, and one navy band section. **Logo red is a secondary accent used very sparingly**: the roof mark, thin rules, and the nav reading-progress line. It is never used for buttons, text blocks, or large fills.
+It should feel trustworthy and established (İznik / Bursa) while still premium, closer to a boutique developer than a property portal.
 
 **Avoid:** gold/brass, gradients other than photo overlays, glassmorphism, handshake stock photos, auto-rotating carousels, emoji, and any second accent color.
 
-Brand sources: `asset/branding/` (logo on white, logo on blue, shop sign, Instagram profile).
+Brand source: `asset/logo/new logo.jpg` (3D mock-up photo). The site uses SVGs redrawn from it in `src/assets/brand/`: `logo.svg` (stacked, OG image), `logo-h.svg` / `logo-h-white.svg` (horizontal, nav + footer), and `public/favicon.svg` (roof mark). The wordmark is Damion and the subtitle is Montserrat, both outlined to paths so no font loads.
 
 ## Color tokens
 Define these on `:root` in `src/styles/global.css` and expose them to Tailwind via `@theme`.
-Values were eyeballed from raster logos. **Re-check them against the vector logo when the client sends it.**
+Sampled from the logo photo (navy ≈ #2A374E, red ≈ #9E343A under the photo's lighting) and deepened for contrast. **Re-check them against the vector logo when the client sends it.**
 
 | Token | Hex | Use |
 |---|---|---|
-| `--brand` | `#0A0A80` | Logo-background ultramarine. Primary buttons, valuation band, focus ring |
-| `--brand-mark` | `#2E3192` | M-mark blue. Links, icons, hover states, thin rules |
+| `--brand` | `#22304A` | Logo navy. Primary buttons, valuation band, focus ring |
+| `--brand-mark` | `#34466B` | Lighter navy. Links, icons, hover states |
+| `--brand-red` | `#A62F36` | Logo red. Roof mark, thin rules, reading-progress line only |
 | `--ink` | `#111318` | Headings, body text, footer background |
 | `--graphite` | `#58595B` | Wordmark gray. Secondary text (≈6.5:1 on paper) |
 | `--paper` | `#F7F7F5` | Alternate section background |
@@ -24,7 +25,7 @@ Values were eyeballed from raster logos. **Re-check them against the vector logo
 | `--line` | `#E4E4E7` | Borders, dividers |
 
 ### Dark theme (added 2026-09-24)
-A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaulting to the OS preference). Components use the role tokens `surface`, `fg`, `accent` (icons, eyebrows, links), and `accent-strong` (big brand-coloured text). In dark mode: surface `#0D0F14`, paper `#15181F`, fg `#ECEDEF`, graphite `#A3A6AD`, line `#2A2E38`, accent `#A9AEFF`, accent-strong `#C3C6FF`. `--brand` is unchanged, so buttons and the valuation band keep white-on-ultramarine. Keep `text-white`/`bg-ink` only where they sit on photos, the video, brand blue, or the footer.
+A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaulting to the OS preference). Components use the role tokens `surface`, `fg`, `accent` (icons, eyebrows, links), and `accent-strong` (big brand-coloured text). In dark mode: surface `#0D0F14`, paper `#15181F`, fg `#ECEDEF`, graphite `#A3A6AD`, line `#2A2E38`, accent `#A9B9DE`, accent-strong `#C9D4EE`. `--brand` is unchanged, so buttons and the valuation band keep white-on-navy. Keep `text-white`/`bg-ink` only where they sit on photos, the video, brand blue, or the footer.
 
 ### Halo instead of shadows (2026-09-24)
 - `halo` utility: a 4px ring in `--halo` (brand tint on light, lifted blue in dark, faint white inside `.on-dark`). Use it on icon tiles, social buttons, avatars, and gallery arrows. Hover grows it to 6–7px.
@@ -39,7 +40,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - Video/photo overlay: `linear-gradient(to top, rgb(17 19 24 / .75), rgb(17 19 24 / .25))` so white text stays ≥ 4.5:1 on every frame.
 
 ## Typography
-- **Display:** `Cormorant Garamond` 500/600, echoing the serif MAJÖR on Instagram. Use it for h1–h3 only.
+- **Display:** `Cormorant Garamond` 500/600, for a calm, premium contrast with the script wordmark. Use it for h1–h3 only.
 - **Body/UI:** `Montserrat` 400/500/600. Its geometric shapes match the logo wordmark.
 - **Eyebrows:** Montserrat 500, `0.75rem`, uppercase, letter-spacing `0.3em`, `--brand-mark`. This echoes "G A Y R İ M E N K U L".
 - Both fonts cover Turkish (İ ı Ş ş Ğ ğ Ç ç Ö ö Ü ü). Uppercase needs `lang="tr"` so "i" becomes "İ".
@@ -49,19 +50,19 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - Spacing scale: 8 / 16 / 24 / 32 / 48 / 64 / 96 / 128 px. Sections get 112px padding on desktop and 64px on mobile.
 - Container max 1280px with a 24px gutter (16px under 400px).
 - Radius 0–2px (sharp corners read as premium and match the angular M). Cards have no heavy shadow: a 1px `--line` border, and the image scales to 1.03 on hover.
-- The triangle/stripe motif from the M mark can be used as a subtle section divider or background line pattern (SVG, `--line` color). Use it once or twice at most.
+- The roof-line motif from the logo can be used as a subtle section divider or background line pattern (SVG, `--line` color). Use it once or twice at most.
 
 ## Page sections (in order)
 1. **Nav:** logo on the left (white version over the video, color version once scrolled). Anchor links: Hizmetler, Projeler, Bölgeler, Hakkımızda, İletişim. On the right: TR/EN switch and a WhatsApp button. The nav is transparent over the hero and turns solid white with a bottom border on scroll. Mobile gets a full-screen menu.
-2. **Hero video:** full-viewport, muted, looping video + overlay. h1 "Hayalinizdeki evi sizin için buluyoruz." (from the client's IG). Subhead: "İskenderun'da 16 yılı aşkın gayrimenkul uzmanlığı." CTAs: "WhatsApp'tan Yazın" (primary) and "Projeleri İnceleyin" (secondary). A small scroll cue sits at the bottom.
-3. **Counters:** 3–4 numbers in a thin band. They count up the first time they come into view. Only verified figures: **16+ yıl**, **7.500+ Instagram takipçi**. Everything else is `TODO(client)`.
+2. **Hero video:** full-viewport, muted, looping video + overlay. h1 "Hayalinizdeki evi sizin için buluyoruz." (from the client's IG). Subhead: "İznik ve Bursa'da güvenilir gayrimenkul danışmanlığı." CTAs: "WhatsApp'tan Yazın" (primary) and "Projeleri İnceleyin" (secondary). A small scroll cue sits at the bottom.
+3. **Counters:** 3–4 numbers in a thin band. They count up the first time they come into view. Only verified figures. **Hidden for now** (removed from `Page.astro`) because the new client has supplied none yet: `TODO(client)`.
 4. **Services:** Satılık, Kiralık, Değerleme, Yatırım Danışmanlığı, each with a Lucide icon, a title, and 2 lines of text.
-5. **Proje Örnekleri:** 6 static cards (stock photo, project type, and a short descriptor such as "Deniz manzaralı 3+1 rezidans"). **No prices, addresses, or listing claims**: these are example projects, and the section intro says so. Clicking a card opens the gallery modal. The section ends with a "Tüm güncel ilanlar" CTA linking to the hepsiemlak and Emlakjet offices.
+5. **Proje Örnekleri:** 6 static cards (stock photo, project type, and a short descriptor such as "Deniz manzaralı 3+1 rezidans"). **No prices, addresses, or listing claims**: these are example projects, and the section intro says so. Clicking a card opens the gallery modal. The section ends with a "Tüm güncel ilanlar" CTA linking to the sahibinden.com store.
 6. **Valuation CTA band:** full-width `--brand` background, h2 "Evinizin değerini ücretsiz öğrenin", and a button that scrolls to the contact form on Consultation with the topic set to Valuation (`data-request-preset="consult:valuation"`).
-7. **Neighbourhood guide:** 4–6 İskenderun area cards (image, name, 2 lines, and a "Bu bölgede ilan sor" WhatsApp link). The area list is `TODO(client)`.
-8. **About / founder:** Zeki Teymur portrait, short story, and the office photo (`asset/branding/Screenshot 2026-09-24 103805.png` until a better one arrives).
-9. **Testimonials:** the Google reviews from CLIENT.md. Show 3 cards on desktop (Recep A. first; the earthquake quote carries the most trust), and let the 4th scroll in via a scroll-snap row on mobile. Each card has 5 stars, the quote in Cormorant italic, and the name with a small "Google" source label. For the avatar, show initials in a `--brand` circle. Don't use fake photos. Above the cards, add a "Google'da 5.0 ★ · N yorum" badge linking to the Google reviews (N = `TODO(client)`).
-10. **Contact:** form on the left. On the right: office and mobile phones, address, hours, and the map (click-to-load facade).
+7. **Neighbourhood guide:** 4–6 İznik/Bursa area cards (image, name, 2 lines, and a "Bu bölgede ilan sor" WhatsApp link). The area list is `TODO(client)`.
+8. **About / founder:** founder portrait, short story, and the office photo. All three are placeholders until the client supplies them (`TODO(client)`).
+9. **Testimonials:** hidden (removed from `Page.astro`) until the new client supplies real Google reviews. Layout when restored: the strongest quote large on its own, the rest in a row that scrolls in via a scroll-snap row on mobile. Each card has 5 stars, the quote in Cormorant italic, and the name with a small "Google" source label. For the avatar, show initials in a `--brand` circle. Don't use fake photos. Above the cards, add a "Google'da 5.0 ★ · N yorum" badge linking to the Google reviews (N = `TODO(client)`).
+10. **Contact:** form on the left. On the right: phone/WhatsApp, email, address, hours, and the map (click-to-load facade).
 11. **Footer:** `--ink` background, white logo, name/address/phone, social icons, KVKK link, ©.
     Social icons (Instagram, Facebook; `Socials.astro`) also appear as a vertical rail on the hero (a row under the CTAs on mobile) and in the contact details.
 12. **WhatsApp FAB:** bottom-right, 56px, respects the safe area, always visible on mobile.
@@ -85,8 +86,8 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - The poster is the LCP element: preload it and serve it as AVIF/WebP.
 
 ## Motion
-- **Signature:** the logo's M stroke. It draws itself over the hero video on load (2.4s), and again in the valuation band, where scroll position drives it (CSS `animation-timeline: view()`, static where unsupported).
-- Hero: headline words rise out of masks with a 70ms stagger, and the phrase marked `*...*` in i18n is set in Cormorant italic. The video settles from scale 1.08 to 1. Once the M has drawn, a small point of light travels along it 3 times over 5s each, then stops (`.m-comet`), so it doesn't repaint forever. The M shows on mobile too.
+- **Signature:** the logo's roof line (eave → beam → ridge). It draws itself over the hero video on load (2.4s), and again in the valuation band, where scroll position drives it (CSS `animation-timeline: view()`, static where unsupported).
+- Hero: headline words rise out of masks with a 70ms stagger, and the phrase marked `*...*` in i18n is set in Cormorant italic. The video settles from scale 1.08 to 1. Once the roof line has drawn, a small point of light travels along it 3 times over 5s each, then stops (`.m-comet`), so it doesn't repaint forever. The roof line shows on mobile too.
 - Sections fade in and rise 24px, 700ms `cubic-bezier(0.16,1,0.3,1)`. Photos use `data-reveal="clip"` (uncovered bottom-up). Built with IntersectionObserver + CSS, no animation library.
 - Buttons (`btn` utility): the fill sweeps in from the left on hover, with a 1px press on `:active`. Links (`link-line`): the underline grows from the left.
 - Nav: IntersectionObserver sentinel (no scroll listener), plus a 1px brand reading-progress line (scroll timeline).

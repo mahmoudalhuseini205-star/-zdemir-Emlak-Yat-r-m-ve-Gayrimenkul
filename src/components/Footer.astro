@@ -1,6 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-import logoWhite from '../assets/brand/logo-white.webp';
+import logoWhite from '../assets/brand/logo-h-white.svg?url';
 import Socials from './Socials.astro';
 import PortalLogo from './PortalLogo.astro';
 import { site, t, type Lang } from '../site';
@@ -17,7 +16,7 @@ const stores = [{ name: 'sahibinden', href: site.sahibinden, label: s.projects.s
 <footer class="bg-ink text-white on-dark border-t border-white/10">
   <div class="container-page py-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
     <div>
-      <Image src={logoWhite} alt={site.name} widths={[280]} sizes="140px" class="h-10 w-auto" loading="lazy" />
+      <img src={logoWhite} alt={site.name} width="193" height="70" class="h-16 w-auto" loading="lazy" />
       <p class="mt-4 text-sm text-white/70">{s.footer.tagline}</p>
     </div>
 

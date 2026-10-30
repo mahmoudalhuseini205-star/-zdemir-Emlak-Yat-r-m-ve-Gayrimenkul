@@ -3,8 +3,10 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
-  --color-brand: #0A0A80;
-  --color-brand-mark: #2E3192;
+  --color-brand: #22304A;
+  --color-brand-mark: #34466B;
+  /* Logo red: secondary accent only (thin rules, progress line, roof mark). Never buttons or large fills. */
+  --color-brand-red: #A62F36;
   --color-ink: #111318;
   --color-graphite: #58595B;
   --color-paper: #F7F7F5;
@@ -13,8 +15,8 @@
   /* Theme-aware roles. Light values here, dark values under [data-theme="dark"] below. */
   --color-surface: #FFFFFF;
   --color-fg: #111318;
-  --color-accent: #2E3192;
-  --color-accent-strong: #0A0A80;
+  --color-accent: #34466B;
+  --color-accent-strong: #22304A;
   /* Form borders: ≥ 3:1 against the field and the section behind it (WCAG 1.4.11). */
   --color-field: #85888F;
 
@@ -24,23 +26,23 @@
   --radius-none: 0px;
 }
 
-/* Dark theme: same black-and-white mood, inverted. Brand blue is lifted so text/icons stay ≥ 4.5:1. */
+/* Dark theme: same black-and-white mood, inverted. Brand navy is lifted so text/icons stay ≥ 4.5:1. */
 :root[data-theme="dark"] {
   --color-surface: #0D0F14;
   --color-paper: #15181F;
   --color-fg: #ECEDEF;
   --color-graphite: #A3A6AD;
   --color-line: #2A2E38;
-  --color-accent: #A9AEFF;
-  --color-accent-strong: #C3C6FF;
+  --color-accent: #A9B9DE;
+  --color-accent-strong: #C9D4EE;
   --color-field: #6B7080;
-  --halo: rgb(169 174 255 / 0.2);
+  --halo: rgb(169 185 222 / 0.2);
   color-scheme: dark;
 }
 
 /* Halo: a soft ring (instead of a drop shadow) that lifts icons and fields off their background.
-   Brand-tinted on light surfaces, lifted blue in dark mode, faint white on dark bands. */
-:root { --halo: rgb(46 49 146 / 0.14); }
+   Brand-tinted on light surfaces, lifted navy in dark mode, faint white on dark bands. */
+:root { --halo: rgb(52 70 107 / 0.14); }
 .on-dark { --halo: rgb(255 255 255 / 0.14); }
 
 @layer base {
@@ -197,7 +199,7 @@
   }
 }
 
-/* Hero: words rise out of a mask, then the M stroke draws itself. */
+/* Hero: words rise out of a mask, then the roof line draws itself. */
 .word-mask { display: inline-block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; vertical-align: top; }
 .word { display: inline-block; }
 .m-comet { visibility: hidden; }

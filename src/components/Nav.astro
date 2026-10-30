@@ -1,7 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/brand/logo.webp';
-import logoWhite from '../assets/brand/logo-white.webp';
+import logo from '../assets/brand/logo-h.svg?url';
+import logoWhite from '../assets/brand/logo-h-white.svg?url';
 import { site, t, path, waLink, type Lang } from '../site';
 
 interface Props {
@@ -27,26 +26,12 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
   class="fixed inset-x-0 top-0 z-50 transition-colors duration-300 border-b border-transparent"
 >
   <!-- Reading progress: CSS scroll timeline, hidden where unsupported. -->
-  <span class="scroll-progress absolute left-0 right-0 bottom-[-1px] h-px bg-accent-strong" aria-hidden="true"></span>
+  <span class="scroll-progress absolute left-0 right-0 bottom-[-1px] h-px bg-brand-red" aria-hidden="true"></span>
   <div class="container-page flex items-center justify-between gap-4 h-20">
     <a href={home} class="flex items-center h-11 shrink-0" aria-label={site.name}>
-      <!-- TODO(client): vector logo — both files below are traced from raster art. -->
-      <Image
-        src={logoWhite}
-        alt={site.name}
-        widths={[120, 240]}
-        sizes="120px"
-        class="h-9 w-auto nav-logo-light"
-        loading="eager"
-      />
-      <Image
-        src={logo}
-        alt=""
-        widths={[120, 240]}
-        sizes="120px"
-        class="h-9 w-auto nav-logo-dark hidden"
-        loading="eager"
-      />
+      <!-- SVG redrawn from asset/logo/new logo.jpg. TODO(client): swap for the official vector logo. -->
+      <img src={logoWhite} alt={site.name} width="138" height="50" class="h-11 w-auto nav-logo-light" />
+      <img src={logo} alt="" width="138" height="50" class="h-11 w-auto nav-logo-dark hidden" />
     </a>
 
     <nav class="hidden lg:flex items-center gap-8" aria-label={s.nav.menu}>
@@ -121,8 +106,8 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
     class="lg:hidden fixed inset-0 z-50 bg-surface flex flex-col overflow-y-auto"
   >
     <div class="container-page flex items-center justify-between h-20 shrink-0 border-b border-line">
-      <Image src={logo} alt={site.name} widths={[240]} sizes="120px" class="h-9 w-auto dark:hidden" loading="lazy" />
-      <Image src={logoWhite} alt={site.name} widths={[240]} sizes="120px" class="h-9 w-auto hidden dark:block" loading="lazy" />
+      <img src={logo} alt={site.name} width="138" height="50" class="h-11 w-auto dark:hidden" loading="lazy" />
+      <img src={logoWhite} alt={site.name} width="138" height="50" class="h-11 w-auto hidden dark:block" loading="lazy" />
       <button
         type="button"
         data-menu-close

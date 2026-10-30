@@ -1,5 +1,5 @@
 ---
-import MMark from './MMark.astro';
+import RoofMark from './RoofMark.astro';
 
 interface Props {
   label: string;
@@ -11,6 +11,6 @@ const { label, class: className = '' } = Astro.props;
 <div
   class={`flex flex-col items-center justify-center gap-3 bg-paper border border-line text-graphite ${className}`}
 >
-  <MMark class="w-8 h-8 opacity-40" />
+  <RoofMark class="w-8 h-8 opacity-40" />
   <span class="text-[0.5625rem] uppercase tracking-[0.12em] text-center leading-snug px-1">{label}</span>
 </div>
