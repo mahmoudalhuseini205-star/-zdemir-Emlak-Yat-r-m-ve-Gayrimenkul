@@ -66,20 +66,22 @@ Pexels License: free to use, no attribution required — credited here and on th
 
 | File | Area | Photographer | Licence | Source |
 | --- | --- | --- | --- | --- |
-| `sariseki.jpg` | Sarıseki | funda izgi | Pexels License | https://www.pexels.com/photo/aerial-view-of-scenic-coastline-in-antalya-turkiye-28518784/ |
-| `denizciler.jpg` | Denizciler | Kadir Akman | Pexels License | https://www.pexels.com/photo/aerial-view-of-antalya-turkey-13220361/ |
-| `karaagac.jpg` | Karaağaç | Atlantic Ambience | Pexels License | https://www.pexels.com/photo/aerial-view-of-the-coast-of-antalya-turkey-12932928/ |
-| `modernevler.jpg` | Modernevler | Ahmet Arıkaya | Pexels License | https://www.pexels.com/photo/aerial-view-of-coastal-landscape-in-antalya-31255703/ |
-| `arsuz.jpg` | Arsuz | Aleksey Kuprikov | Pexels License | https://www.pexels.com/photo/palm-trees-on-beach-at-sunset-3493814/ |
+| `iznik-merkez.jpg` | İznik Merkez | Doğan Alpaslan Demir | Pexels License | https://www.pexels.com/photo/modern-apartment-building-in-bornova-izmir-28466932/ |
+| `iznik-golu.jpg` | İznik Gölü | Mehmet Koçyiğit | Pexels License | https://www.pexels.com/photo/house-by-the-lake-17311098/ |
+| `orhangazi.jpg` | Orhangazi | Cihad Yıldız | Pexels License | https://www.pexels.com/photo/modern-villas-in-scenic-mugla-turkey-36466231/ |
+| `osmangazi.jpg` | Osmangazi | Semih Başaran | Pexels License | https://www.pexels.com/photo/scenic-view-of-bursa-s-hillside-urban-landscape-32245101/ |
+| `elbeyli.jpg` | Elbeyli | Ersan Yılmaz | Pexels License | https://www.pexels.com/photo/tranquil-olive-grove-in-tekirdag-turkiye-39135091/ |
+
+Only the Osmangazi photo is actually taken in Bursa. The others are illustrative property types and say so in their alt text ("temsili").
 
 ## Other slots
 
 | Slot | Source |
 | --- | --- |
-| Open Graph share image (`src/assets/og/share.jpg`) | May Vanhille — Pexels License — https://www.pexels.com/photo/aerial-view-of-coastal-town-30720428/ |
-| Hero video + poster (`public/video/`) | Client material — `asset/hero video/web/` (web encodes; the 4K original is never shipped) |
-| Logo (`src/assets/brand/`) | Client material — `asset/branding/`, keyed to transparency with ffmpeg. TODO(client): vector logo |
-| Office photo (`src/assets/office/office-exterior.*`) | Client material — `asset/branding/Screenshot 2026-09-24 103805.png`, cropped to the storefront |
+| Open Graph share image (`src/assets/og/share.jpg`) | Generated from the SVG logo on a paper background |
+| Hero frames + poster (`public/video/`) | Client material — `asset/hero video/hero section v2.mp4`, via `scripts/hero-frames.sh` (the raw clip is never shipped) |
+| Logo (`src/assets/brand/`) | Redrawn as SVG from client material `asset/logo/new logo.jpg`; wordmark outlined from Damion (OFL) and Montserrat (OFL). TODO(client): official vector logo |
+| Office photo | **Placeholder.** TODO(client): office exterior photo |
 | Founder portrait | **Placeholder.** No stock photo of a person is ever used as staff. TODO(image): founder portrait |
 
-Nothing here was taken from Instagram, Facebook, sahibinden, hepsiemlak or Google Maps.
+Nothing here was taken from Instagram, Facebook, sahibinden or Google Maps.
