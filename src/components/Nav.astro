@@ -65,7 +65,7 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
       </button>
       <a
         href={other.href}
-        class="nav-link text-sm font-semibold px-3 h-11 inline-flex items-center"
+        class="nav-link text-sm font-semibold px-3 h-11 min-w-11 inline-flex items-center justify-center"
         aria-label={`${other.code}: ${s.nav.langLabel}`}
         hreflang={other.code.toLowerCase()}>{other.code}</a
       >
@@ -258,7 +258,7 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
     toggle.setAttribute('aria-expanded', String(open));
     document.body.style.overflow = open ? 'hidden' : '';
     // The menu covers the page, so keep its content out of the tab order and a11y tree.
-    document.querySelectorAll<HTMLElement>('main, footer, .fab, [data-nav] > .container-page').forEach((el) => (el.inert = open));
+    document.querySelectorAll<HTMLElement>('body > a[href="#main"], main, footer, .fab, [data-nav] > .container-page').forEach((el) => (el.inert = open));
     if (label) label.textContent = open ? closeText : openText;
     if (open) menu.querySelector<HTMLAnchorElement>('[data-menu-link]')?.focus();
     else toggle.focus();

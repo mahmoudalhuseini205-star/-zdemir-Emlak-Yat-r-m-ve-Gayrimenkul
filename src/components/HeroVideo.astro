@@ -101,7 +101,7 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
     </div>
 
     <!-- Social rail: vertical on the right from md (phones have the footer row). -->
-    <div class="hero-copy absolute right-6 top-1/2 -translate-y-1/2 z-10 hidden md:block">
+    <div class="hero-copy hero-rail absolute right-6 top-1/2 -translate-y-1/2 z-10 hidden md:block">
       <div class="on-photo hero-fade flex flex-col items-center gap-4" style="--i:3">
         <span class="w-px h-16 bg-white/40" aria-hidden="true"></span>
         <Socials label={s.footer.follow} class="flex-col" itemClass={socialOnVideo} />
@@ -250,6 +250,8 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
         schedule();
         maybeLoad();
       }
-    }).observe(hero);
+      // Minus the fixed nav (+1px: an edge that only touches counts as intersecting): a deep link to #hizmetler leaves
+      // the hero's bottom under the nav, which must count as off screen, or `armed` never flips and frames never load.
+    }, { rootMargin: `-${(document.querySelector<HTMLElement>('[data-nav]')?.offsetHeight ?? 80) + 1}px 0px 0px 0px` }).observe(hero);
   }
 </script>

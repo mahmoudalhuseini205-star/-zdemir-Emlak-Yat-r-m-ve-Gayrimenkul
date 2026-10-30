@@ -259,6 +259,16 @@
 :root.scrub .hero-copy:focus-within { opacity: 1; }
 :root.scrub .hero-fore { opacity: calc(1 - var(--p) * 1.6); transform: translateY(calc(var(--p) * -30vh)); }
 
+/* Landscape phones (md+ wide but short): the desktop hero copy would run into the nav, and the social rail into the
+   nav and the FAB. Compact the copy and drop the rail (socials are in the footer). Unlayered, so it beats utilities. */
+@media (min-width: 768px) and (max-height: 500px) {
+  #hero h1 { font-size: 2.5rem; }
+  #hero h1 + p { margin-top: 0.5rem; font-size: 1rem; line-height: 1.5; }
+  #hero h1 + p + div { margin-top: 1rem; }
+  #hero .hero-copy { padding-bottom: 1.5rem; }
+  #hero .hero-rail { display: none; }
+}
+
 /* Phone scroll cue: a hairline with a short light that runs down it (transform only). Static under reduced motion. */
 .scroll-cue { position: relative; width: 1px; height: 2.5rem; overflow: hidden; background: rgb(255 255 255 / 0.35); }
 .scroll-cue::after { content: ""; position: absolute; inset: 0 0 auto; height: 40%; background: #fff; }
