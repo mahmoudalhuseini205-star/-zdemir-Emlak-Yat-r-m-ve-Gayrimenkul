@@ -1,5 +1,5 @@
 ---
-import { Image } from 'astro:assets';
+import { Picture } from 'astro:assets';
 import Placeholder from './Placeholder.astro';
 import office from '../assets/office/office.webp';
 import { t, type Lang } from '../site';
@@ -30,9 +30,11 @@ const s = t(lang);
     </div>
 
     <div class="overflow-hidden aspect-[4/3] lg:col-span-6 lg:col-start-7" data-reveal="clip">
-      <Image
+      <Picture
         src={office}
         alt={s.about.officeAlt}
+        formats={['avif']} fallbackFormat="webp"
+        quality={60}
         widths={[600, 1000, 1400]}
         sizes="(min-width: 1024px) 600px, calc(100vw - 2rem)"
         class="w-full h-full object-cover"

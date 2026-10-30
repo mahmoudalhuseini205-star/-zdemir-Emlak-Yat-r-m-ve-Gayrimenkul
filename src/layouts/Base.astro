@@ -136,6 +136,20 @@ const jsonLd = {
     <slot />
 
     <script>
+      // Once the page has loaded and the browser is idle, fetch the lazy images (cards, areas, office, first photo
+      // of each gallery) so they are ready before the visitor scrolls to them. Save-Data / slow links keep native lazy.
+      const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
+      if (!(conn && (conn.saveData || ['slow-2g', '2g', '3g'].includes(conn.effectiveType ?? '')))) {
+        const warmImages = () =>
+          document.querySelectorAll<HTMLImageElement>('img[loading="lazy"]').forEach((img) => {
+            if (!img.closest('figure:not(:first-child)')) img.loading = 'eager';
+          });
+        const idle = () => ('requestIdleCallback' in window ? requestIdleCallback(warmImages) : setTimeout(warmImages, 1500));
+        document.readyState === 'complete' ? idle() : addEventListener('load', idle, { once: true });
+      }
+    </script>
+
+    <script>
       // Section reveal. Applied from JS so no-JS visitors never see hidden content.
       const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
       // Skipped if the 3s fallback in <head> already removed .js, so late-loading JS never re-hides visible content.
