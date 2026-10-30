@@ -396,7 +396,16 @@ const text = JSON.stringify({ ...r, office: site.name });
         }
         return !showError(c);
       });
-      invalid[0]?.focus();
+      const first = invalid[0];
+      if (first) {
+        // preventScroll: on a phone the service list is taller than the screen, so a plain focus() on its first
+        // radio would scroll the error (below the list, next to the button) out of sight. Keep both in view.
+        first.focus({ preventScroll: true });
+        const msg = form!.querySelector<HTMLElement>(`[data-error-for="${first.name}"]`);
+        // 'instant' like native focus scrolling: two smooth scrolls in a row would retarget each other mid-flight.
+        if (first.type !== 'radio') first.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+        msg?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+      }
       return invalid.length === 0;
     }
 

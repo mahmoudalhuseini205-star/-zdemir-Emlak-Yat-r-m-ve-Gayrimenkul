@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Builds the scroll-scrubbed hero frames from the raw clip.
 # Usage: bash scripts/hero-frames.sh   (needs a full ffmpeg build with libwebp + libaom-av1)
-# Output: public/video/frames/$VER/{d,m}/NNN.{avif,webp} + public/video/hero-poster-{800,1600}.webp
+# Output: public/video/frames/$VER/{d,m}/NNN.{avif,webp} + public/video/hero-poster-{800,1600,m}.webp
 #
 # Each frame ships twice: AVIF (primary, ~35-40% smaller at equal-or-better SSIM) and WebP (fallback for browsers
 # without AVIF; HeroVideo.astro feature-detects once). Measurements: DESIGN.md → Hero scrub.
@@ -63,9 +63,11 @@ encode avif "$TMP/m900" avif "$M_AVIF_CRF" "$OUT/frames/$VER/m"
 encode webp "$TMP/m720" webp "$M_WEBP_Q"   "$OUT/frames/$VER/m"
 
 # Poster = first frame (the LCP image, shown before the frames load and under reduced motion). Stays WebP: it is
-# preloaded and used in <img srcset>, which must work everywhere.
+# preloaded and used in <img srcset>, which must work everywhere. hero-poster-m is the same centre 3:4 crop as the
+# mobile frames (frame 0), so a portrait phone shows it pixel-for-pixel before the canvas takes over.
 ffmpeg -v error -y -i "$SRC" -frames:v 1 -vf scale=1600:900:flags=lanczos -c:v libwebp -quality 72 "$OUT/hero-poster-1600.webp"
 ffmpeg -v error -y -i "$SRC" -frames:v 1 -vf scale=800:450:flags=lanczos -c:v libwebp -quality 72 "$OUT/hero-poster-800.webp"
+ffmpeg -v error -y -i "$SRC" -frames:v 1 -vf crop=1080:1440,scale=900:1200:flags=lanczos -c:v libwebp -quality 72 "$OUT/hero-poster-m.webp"
 
 for d in d m; do
   echo "$d: $(ls "$OUT/frames/$VER/$d"/*.avif | wc -l) avif ($(cat "$OUT/frames/$VER/$d"/*.avif | wc -c) B), $(ls "$OUT/frames/$VER/$d"/*.webp | wc -l) webp ($(cat "$OUT/frames/$VER/$d"/*.webp | wc -c) B)"

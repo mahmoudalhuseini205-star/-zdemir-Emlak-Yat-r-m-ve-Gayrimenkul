@@ -64,8 +64,8 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 9. **Testimonials:** hidden (removed from `Page.astro`) until the new client supplies real Google reviews. Layout when restored: the strongest quote large on its own, the rest in a row that scrolls in via a scroll-snap row on mobile. Each card has 5 stars, the quote in Cormorant italic, and the name with a small "Google" source label. For the avatar, show initials in a `--brand` circle. Don't use fake photos. Above the cards, add a "Google'da 5.0 ★ · N yorum" badge linking to the Google reviews (N = `TODO(client)`).
 10. **Contact:** form on the left. On the right: phone/WhatsApp, email, address, hours, and the map (click-to-load facade).
 11. **Footer:** `--ink` background, white logo, name/address/phone, social icons, KVKK link, ©.
-    Social icons (Instagram, Facebook; `Socials.astro`) also appear as a vertical rail on the hero (a row under the CTAs on mobile) and in the contact details.
-12. **WhatsApp FAB:** bottom-right, 56px, respects the safe area, always visible on mobile.
+    Social icons (Instagram, Facebook; `Socials.astro`) also appear as a vertical rail on the hero (from md; phones keep the hero clear and use the footer row) and in the contact details.
+12. **WhatsApp FAB:** bottom-right, 56px, respects the safe area. On phones it tucks away while the hero's own WhatsApp pill or the request form is on screen (`WhatsAppFab.astro`), so it never covers a primary button.
 
 ## Components
 ### Gallery modal
@@ -92,7 +92,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
   | m | **AVIF (ships)** | 900×1200 | crf 32 | **1.74** | **0.9719** | 9.9 ms |
 
   Rejected: d AVIF crf 36 (2.16 MB, SSIM 0.960, softens marble veins); m AVIF 1080×1440 crf 32 (2.04 MB, only marginally crisper than 900 but decoded bitmaps ≈ 590 MB across 95 frames on a phone vs ≈ 390 MB). Sky gradients show no banding in any shipped set. Visitors with AVIF download ~2.7 MB (desktop) / ~1.8 MB (phone); the fallback is the old ~4.3 / ~2.1 MB.
-- Frames are cached immutable for a year (`vercel.json`), so the version folder (`VER` in the script and in `HeroVideo.astro`) must be bumped whenever the frames are regenerated. The poster stays WebP (q72, 47 KB / 19 KB): it is the LCP and is preloaded, so it must work in every browser.
+- Frames are cached immutable for a year (`vercel.json`), so the version folder (`VER` in the script and in `HeroVideo.astro`) must be bumped whenever the frames are regenerated. The poster stays WebP (q72, 47 KB / 19 KB for the 16:9 pair; `hero-poster-m.webp` 900×1200, 36 KB, is frame 0 of the mobile crop and is served via `<picture>` + a media-split preload to portrait viewports): it is the LCP and is preloaded, so it must work in every browser.
 - The section is 260svh tall with a sticky 100svh stage. JS sets `--p` (0 → 1) from scroll and draws the nearest loaded frame to a `<canvas>` (cover-fit). A `<video>` is not used because it can't seek smoothly.
 - Depth, all from `--p` in global.css: the media tilts back ≤3° and settles from scale 1.12; the copy fades and rises fast; the roof line drifts as a foreground plane; in the last 15% the frame insets slightly like a card. The nav stays transparent for the whole pinned distance (`--hero-travel`).
 - A tiny inline AVIF is decoded once to choose `.avif` or `.webp` for every frame. Frames load only after `load` (coarse-to-fine: every 16th, 8th, …, so the whole range scrubs early). The poster (first frame) is the LCP element.
@@ -100,6 +100,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 
 ## Motion
 - **Signature:** the logo's roof line (eave → beam → ridge). It draws itself over the hero video on load (2.4s), and again in the valuation band, where scroll position drives it (CSS `animation-timeline: view()`, static where unsupported).
+- Phones (< md): the hero copy hugs the bottom so the video keeps ≥ 65% of the screen: smaller headline, one slim WhatsApp pill + a text link with an arrow on the same row, and a hairline scroll cue (a light runs down it; static under reduced motion).
 - Hero: headline words rise out of masks with a 70ms stagger, and the phrase marked `*...*` in i18n is set in Cormorant italic. The media settles from scale 1.08 to 1 on load. Once the roof line has drawn, a small point of light travels along it 3 times over 5s each, then stops (`.m-comet`), so it doesn't repaint forever. The roof line shows on mobile too.
 - Sections fade in and rise 24px, 700ms `cubic-bezier(0.16,1,0.3,1)`. Photos use `data-reveal="clip"` (uncovered bottom-up). Built with IntersectionObserver + CSS, no animation library.
 - Buttons (`btn` utility): the fill sweeps in from the left on hover, with a 1px press on `:active`. Links (`link-line`): the underline grows from the left.

@@ -12,6 +12,7 @@ const s = t(lang);
   href={waLink(s.whatsapp.message)}
   target="_blank"
   rel="noopener"
+  data-fab
   class="fab fixed right-4 z-40 w-14 h-14 inline-flex items-center justify-center rounded-full bg-[#25D366] text-ink shadow-[0_0_0_5px_rgb(37_211_102/0.22),0_4px_10px_-4px_rgb(0_0_0/0.3)] transition-transform duration-300 hover:scale-105"
   style="bottom: calc(1rem + env(safe-area-inset-bottom)); right: calc(1rem + env(safe-area-inset-right));"
 >
@@ -25,3 +26,28 @@ const s = t(lang);
     ></path>
   </svg>
 </a>
+
+<script>
+  // Phones only (the CSS is in global.css, below md): the FAB tucks away while something already offers the same
+  // action and its right edge would sit on top of it: the hero's own WhatsApp button, and the request form
+  // (whose wide "Devam" / send buttons run under the FAB's corner).
+  const fab = document.querySelector<HTMLElement>('[data-fab]');
+  if (fab && 'IntersectionObserver' in window) {
+    const away = new Set<Element>();
+    const watch = (el: Element) =>
+      new IntersectionObserver(([e]) => {
+        e.isIntersecting ? away.add(el) : away.delete(el);
+        fab.toggleAttribute('data-away', away.size > 0);
+      }).observe(el);
+
+    // A sentinel the height of --fab-after at the top of the page: "still on the hero".
+    const sentinel = document.createElement('div');
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:var(--fab-after, 4rem);pointer-events:none';
+    sentinel.setAttribute('aria-hidden', 'true');
+    document.body.prepend(sentinel);
+    watch(sentinel);
+
+    const form = document.querySelector('[data-request]');
+    if (form) watch(form);
+  }
+</script>

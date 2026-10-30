@@ -100,12 +100,15 @@ const jsonLd = {
         <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />
       ))
     }
+    <!-- Portrait phones preload only the 3:4 poster, everything else the 16:9 one (same split as HeroVideo's <picture>). -->
+    <link rel="preload" as="image" href="/video/hero-poster-m.webp" media="(max-aspect-ratio: 1/1)" fetchpriority="high" />
     <link
       rel="preload"
       as="image"
       href="/video/hero-poster-1600.webp"
       imagesrcset="/video/hero-poster-800.webp 800w, /video/hero-poster-1600.webp 1600w"
       imagesizes="100vw"
+      media="not all and (max-aspect-ratio: 1/1)"
       fetchpriority="high"
     />
 

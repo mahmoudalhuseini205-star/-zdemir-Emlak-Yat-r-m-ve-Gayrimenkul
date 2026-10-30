@@ -34,18 +34,22 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
     <div class="absolute inset-0 -z-10 overflow-hidden">
       <div class="hero-media absolute inset-0">
         <div class="hero-depth absolute inset-0">
-          <img
-            src="/video/hero-poster-1600.webp"
-            srcset="/video/hero-poster-800.webp 800w, /video/hero-poster-1600.webp 1600w"
-            sizes="100vw"
-            alt=""
-            aria-hidden="true"
-            width="1600"
-            height="900"
-            fetchpriority="high"
-            decoding="async"
-            class="w-full h-full object-cover"
-          />
+          <!-- Portrait viewports get the 3:4 crop (same as the mobile frames); everything else the 16:9 poster. -->
+          <picture class="contents">
+            <source media="(max-aspect-ratio: 1/1)" srcset="/video/hero-poster-m.webp" />
+            <img
+              src="/video/hero-poster-1600.webp"
+              srcset="/video/hero-poster-800.webp 800w, /video/hero-poster-1600.webp 1600w"
+              sizes="100vw"
+              alt=""
+              aria-hidden="true"
+              width="1600"
+              height="900"
+              fetchpriority="high"
+              decoding="async"
+              class="w-full h-full object-cover"
+            />
+          </picture>
           <canvas data-hero-canvas aria-hidden="true" class="absolute inset-0 w-full h-full opacity-0 transition-opacity duration-500"></canvas>
         </div>
       </div>
@@ -62,8 +66,9 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
       </svg>
     </div>
 
-    <div class="hero-copy on-photo container-page pb-24 md:pb-28 pt-24 text-white">
-      <h1 class="max-w-4xl leading-[1.05]" aria-label={s.hero.title.replace(/\*/g, '')}>
+    <!-- Phones: copy hugs the bottom so the video keeps the screen (headline, one slim pill + a text link). -->
+    <div class="hero-copy on-photo container-page pb-[calc(1.25rem+env(safe-area-inset-bottom))] md:pb-28 pt-24 text-white">
+      <h1 class="max-w-4xl leading-[1.05] text-balance md:text-wrap text-[2.25rem] md:text-[length:clamp(2.75rem,6vw,5.5rem)]" aria-label={s.hero.title.replace(/\*/g, '')}>
         {
           words.map(({ w, em }, i) => (
             <>
@@ -76,21 +81,26 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
           ))
         }
       </h1>
-      <p class="hero-fade mt-6 max-w-xl text-lg text-white/90" style="--i:0">{s.hero.subtitle}</p>
-      <div class="hero-fade mt-10 flex flex-col sm:flex-row gap-4" style="--i:1">
-        <a href={waLink(s.whatsapp.message)} target="_blank" rel="noopener" class="btn bg-brand text-white">
+      <p class="hero-fade mt-3 md:mt-6 max-w-xl text-sm leading-snug text-balance md:text-wrap md:text-lg md:leading-[1.7] text-white/90" style="--i:0">{s.hero.subtitle}</p>
+      <div class="hero-fade mt-5 md:mt-10 flex flex-wrap items-center gap-x-3 gap-y-1 md:flex-nowrap md:items-stretch md:gap-4" style="--i:1">
+        <a href={waLink(s.whatsapp.message)} target="_blank" rel="noopener" class="btn h-11 px-4 text-[0.8125rem] min-[380px]:text-sm rounded-full md:h-14 md:px-8 md:text-base md:rounded-none bg-brand text-white">
           {s.hero.ctaPrimary}
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="hidden md:block w-4 h-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
         </a>
-        <a href="#projeler" class="btn border border-white text-white hover:text-ink [--btn-sweep:#fff]">{s.hero.ctaSecondary}</a>
-      </div>
-      <div class="hero-fade mt-8 flex items-center gap-4 md:hidden" style="--i:2">
-        <span class="text-xs uppercase tracking-[0.3em] text-white/80">{s.footer.follow}</span>
-        <Socials label={s.footer.follow} itemClass={socialOnVideo} />
+        <a href="#projeler" class="inline-flex items-center gap-2 h-11 text-[0.8125rem] min-[380px]:text-sm font-medium text-white md:btn md:h-14 md:px-8 md:text-base md:border md:border-white md:hover:text-ink md:[--btn-sweep:#fff]">
+          {s.hero.ctaSecondary}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4 md:hidden" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
       </div>
     </div>
 
-    <!-- Social rail: vertical on the right from md, a row under the CTAs on mobile. -->
+    <!-- Scroll cue (phones): a thin line with a light running down it, in the empty corner beside the subtitle
+         (level with the CTA row it reads as a stray glyph after the link's arrow). -->
+    <div class="hero-copy pointer-events-none absolute right-5 bottom-[calc(5.75rem+env(safe-area-inset-bottom))] md:hidden" aria-hidden="true">
+      <div class="hero-fade scroll-cue" style="--i:3"></div>
+    </div>
+
+    <!-- Social rail: vertical on the right from md (phones have the footer row). -->
     <div class="hero-copy absolute right-6 top-1/2 -translate-y-1/2 z-10 hidden md:block">
       <div class="on-photo hero-fade flex flex-col items-center gap-4" style="--i:3">
         <span class="w-px h-16 bg-white/40" aria-hidden="true"></span>
