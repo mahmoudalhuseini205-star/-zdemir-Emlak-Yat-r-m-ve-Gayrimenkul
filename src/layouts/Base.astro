@@ -69,6 +69,14 @@ const jsonLd = {
           if (!document.documentElement.classList.contains('reveal-ready')) document.documentElement.classList.remove('js');
         }, 3000);
       }
+      // Opt in to the tall scroll-scrubbed hero (global.css → :root.scrub) only when it will actually play:
+      // JS on, motion allowed, no Save-Data / slow link, and svh support (the pinned distance is in svh).
+      (() => {
+        const c = navigator.connection;
+        const slow = c && (c.saveData || ['slow-2g', '2g', '3g'].includes(c.effectiveType));
+        if (!slow && !matchMedia('(prefers-reduced-motion: reduce)').matches && CSS.supports('height', '1svh'))
+          document.documentElement.classList.add('scrub');
+      })();
       // A reload starts at the top: no restored scroll position, no jump to a leftover #section hash.
       history.scrollRestoration = 'manual';
       if (performance.getEntriesByType('navigation')[0]?.type === 'reload' && location.hash)

@@ -107,16 +107,14 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
   const FRAMES = 95;
   const hero = document.getElementById('hero')!;
   const canvas = hero.querySelector<HTMLCanvasElement>('[data-hero-canvas]')!;
+  const stage = canvas.closest<HTMLElement>('.sticky')!;
   const ctx = canvas.getContext('2d');
+  const root = document.documentElement;
 
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const conn = (navigator as any).connection;
-  const saveData = conn?.saveData === true || ['slow-2g', '2g', '3g'].includes(conn?.effectiveType);
-
-  if (reduced || saveData || !ctx) {
-    // Collapse to a single-screen poster hero (global.css drops the extra scroll height).
-    document.documentElement.classList.add('no-scrub');
-  } else {
+  // html.scrub is decided in <head> (Base.astro): reduced motion, Save-Data, slow links and no-svh browsers
+  // never get it and keep the plain 100svh poster hero.
+  if (!ctx) root.classList.remove('scrub');
+  if (root.classList.contains('scrub') && ctx) {
     const set = matchMedia('(max-aspect-ratio: 1/1)').matches ? 'm' : 'd';
     const frames: (HTMLImageElement | undefined)[] = new Array(FRAMES);
     let target = 0;
@@ -124,14 +122,19 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
     let queued = false;
 
     const progress = () => {
-      const travel = hero.offsetHeight - innerHeight;
+      // Pinned distance = section height minus the sticky stage (100svh), not innerHeight (iOS toolbar).
+      const travel = hero.offsetHeight - stage.offsetHeight;
       return travel > 0 ? Math.min(Math.max(-hero.getBoundingClientRect().top / travel, 0), 1) : 0;
     };
 
     const size = () => {
       const dpr = Math.min(devicePixelRatio || 1, 2);
-      canvas.width = Math.round(canvas.clientWidth * dpr);
-      canvas.height = Math.round(canvas.clientHeight * dpr);
+      const w = Math.round(canvas.clientWidth * dpr);
+      const h = Math.round(canvas.clientHeight * dpr);
+      // Resizing clears the canvas, so skip it when only the mobile toolbar moved and nothing changed.
+      if (w === canvas.width && h === canvas.height) return;
+      canvas.width = w;
+      canvas.height = h;
       drawn = -1;
     };
 
@@ -148,6 +151,7 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
       queued = false;
       const p = progress();
       hero.style.setProperty('--p', p.toFixed(4));
+      hero.classList.toggle('is-faded', p > 0.28);
       target = Math.round(p * (FRAMES - 1));
       const i = nearest(target);
       if (i < 0 || i === drawn) return;
@@ -195,18 +199,31 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
     size();
     addEventListener('resize', () => { size(); schedule(); }, { passive: true });
 
+    // Frames start after load (so ~4 MB never competes with the poster/headline LCP), and only once the hero
+    // is on screen: a deep link to #iletisim doesn't download them until the visitor scrolls back up.
+    let onScreen = false;
+    let loaded = document.readyState === 'complete';
+    let started = false;
+    // A deep link (/#iletisim) scrolls smoothly away from the hero after `load`; wait until the hero has left
+    // the screen once, so the frames only load if the visitor actually comes back up.
+    const target0 = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    let armed = !target0 || hero.contains(target0);
+    const maybeLoad = () => {
+      if (started || !loaded || !onScreen || !armed) return;
+      started = true;
+      setTimeout(() => (onScreen ? load() : (started = false)), 300);
+    };
+    if (!loaded) addEventListener('load', () => { loaded = true; maybeLoad(); }, { once: true });
+
     // Only track scroll while the hero is on screen.
-    let onScreen = true;
     addEventListener('scroll', () => onScreen && schedule(), { passive: true });
     new IntersectionObserver(([e]) => {
       onScreen = e.isIntersecting;
-      if (onScreen) schedule();
+      if (!onScreen) armed = true;
+      if (onScreen) {
+        schedule();
+        maybeLoad();
+      }
     }).observe(hero);
-
-    // Start after load so ~4 MB of frames never compete with the poster/headline (LCP).
-    const start = () => setTimeout(load, 300);
-    if (document.readyState === 'complete') start();
-    else addEventListener('load', start, { once: true });
-    schedule();
   }
 </script>

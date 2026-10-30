@@ -85,7 +85,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - The section is 260svh tall with a sticky 100svh stage. JS sets `--p` (0 → 1) from scroll and draws the nearest loaded frame to a `<canvas>` (cover-fit). A `<video>` is not used because it can't seek smoothly.
 - Depth, all from `--p` in global.css: the media tilts back ≤3° and settles from scale 1.12; the copy fades and rises fast; the roof line drifts as a foreground plane; in the last 15% the frame insets slightly like a card. The nav stays transparent for the whole pinned distance (`--hero-travel`).
 - Frames load only after `load` (coarse-to-fine: every 16th, 8th, …, so the whole range scrubs early). The poster (first frame) is the LCP element.
-- Under `prefers-reduced-motion: reduce` or Save-Data/slow connections: no frames are loaded and the hero is a normal 100svh poster (`html.no-scrub`).
+- Opt-in: an inline `<head>` script adds `html.scrub` only with JS on, motion allowed, no Save-Data/slow link, and `svh` support. Without it (reduced motion, no JS, old browsers) no frames load and the hero is a normal 100svh poster. Frames also wait until the hero is on screen, and faded-out hero links ignore taps (`.is-faded`).
 
 ## Motion
 - **Signature:** the logo's roof line (eave → beam → ridge). It draws itself over the hero video on load (2.4s), and again in the valuation band, where scroll position drives it (CSS `animation-timeline: view()`, static where unsupported).
