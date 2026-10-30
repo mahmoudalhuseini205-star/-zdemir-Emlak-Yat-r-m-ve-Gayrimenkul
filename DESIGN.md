@@ -37,7 +37,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - Secondary CTA: 1px `--ink` outline, ink text. On the video, use a 1px white outline with white text.
 - WhatsApp green `#25D366` is allowed **only** on WhatsApp buttons (FAB, modal, cards).
 - Emlakjet green `#09E524` and hepsiemlak red `#E4312B` are allowed **only** inside their portal logos (`PortalLogo.astro`), so visitors recognise the stores at a glance.
-- Video/photo overlay: `linear-gradient(to top, rgb(17 19 24 / .75), rgb(17 19 24 / .25))` so white text stays ≥ 4.5:1 on every frame.
+- Hero/photo overlay: `linear-gradient(to top, rgb(17 19 24 / .75), rgb(17 19 24 / .25))` so white text stays ≥ 4.5:1 on every frame.
 
 ## Typography
 - **Display:** `Cormorant Garamond` 500/600, for a calm, premium contrast with the script wordmark. Use it for h1–h3 only.
@@ -54,7 +54,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 
 ## Page sections (in order)
 1. **Nav:** logo on the left (white version over the video, color version once scrolled). Anchor links: Hizmetler, Projeler, Bölgeler, Hakkımızda, İletişim. On the right: TR/EN switch and a WhatsApp button. The nav is transparent over the hero and turns solid white with a bottom border on scroll. Mobile gets a full-screen menu.
-2. **Hero video:** full-viewport, muted, looping video + overlay. h1 "Hayalinizdeki evi sizin için buluyoruz." (from the client's IG). Subhead: "İznik ve Bursa'da güvenilir gayrimenkul danışmanlığı." CTAs: "WhatsApp'tan Yazın" (primary) and "Projeleri İnceleyin" (secondary). A small scroll cue sits at the bottom.
+2. **Hero (scroll-scrubbed):** pinned full-viewport stage + overlay; the walk-through advances with scroll (see Components → Hero scrub). h1 "Hayalinizdeki evi sizin için buluyoruz." (from the client's IG). Subhead: "İznik ve Bursa'da güvenilir gayrimenkul danışmanlığı." CTAs: "WhatsApp'tan Yazın" (primary) and "Projeleri İnceleyin" (secondary). A small scroll cue sits at the bottom.
 3. **Counters:** 3–4 numbers in a thin band. They count up the first time they come into view. Only verified figures. **Hidden for now** (removed from `Page.astro`) because the new client has supplied none yet: `TODO(client)`.
 4. **Services:** Satılık, Kiralık, Değerleme, Yatırım Danışmanlığı, each with a Lucide icon, a title, and 2 lines of text.
 5. **Proje Örnekleri:** 6 static cards (stock photo, project type, and a short descriptor such as "Deniz manzaralı 3+1 rezidans"). **No prices, addresses, or listing claims**: these are example projects, and the section intro says so. Clicking a card opens the gallery modal. The section ends with a "Tüm güncel ilanlar" CTA linking to the sahibinden.com store.
@@ -80,14 +80,16 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - IntersectionObserver fires once and runs `requestAnimationFrame` easeOutCubic over 1.6s. Numbers are formatted per locale (`7.500` in TR, `7,500` in EN).
 - Under `prefers-reduced-motion`, the final value renders immediately. The real value is in the HTML (not 0), so it works with no JS and is SEO-safe.
 
-### Hero video
-- `<video autoplay muted loop playsinline preload="metadata" poster>` with sources: `hero-720.mp4` (`media="(max-width: 767px)"`), `hero-1080.webm`, `hero-1080.mp4`.
-- Under `prefers-reduced-motion: reduce` or `navigator.connection.saveData`, show only the poster (don't load the video at all).
-- The poster is the LCP element: preload it and serve it as AVIF/WebP.
+### Hero scrub (Apple-style)
+- Source: `asset/hero video/hero section v2.mp4` (exterior → pool → living room). `scripts/hero-frames.sh` turns it into 95 WebP frames: `public/video/frames/d/` (1600×900) and `frames/m/` (720×960 centre crop, used when the viewport is portrait). ~4.5 MB / ~2.3 MB.
+- The section is 260svh tall with a sticky 100svh stage. JS sets `--p` (0 → 1) from scroll and draws the nearest loaded frame to a `<canvas>` (cover-fit). A `<video>` is not used because it can't seek smoothly.
+- Depth, all from `--p` in global.css: the media tilts back ≤3° and settles from scale 1.12; the copy fades and rises fast; the roof line drifts as a foreground plane; in the last 15% the frame insets slightly like a card. The nav stays transparent for the whole pinned distance (`--hero-travel`).
+- Frames load only after `load` (coarse-to-fine: every 16th, 8th, …, so the whole range scrubs early). The poster (first frame) is the LCP element.
+- Under `prefers-reduced-motion: reduce` or Save-Data/slow connections: no frames are loaded and the hero is a normal 100svh poster (`html.no-scrub`).
 
 ## Motion
 - **Signature:** the logo's roof line (eave → beam → ridge). It draws itself over the hero video on load (2.4s), and again in the valuation band, where scroll position drives it (CSS `animation-timeline: view()`, static where unsupported).
-- Hero: headline words rise out of masks with a 70ms stagger, and the phrase marked `*...*` in i18n is set in Cormorant italic. The video settles from scale 1.08 to 1. Once the roof line has drawn, a small point of light travels along it 3 times over 5s each, then stops (`.m-comet`), so it doesn't repaint forever. The roof line shows on mobile too.
+- Hero: headline words rise out of masks with a 70ms stagger, and the phrase marked `*...*` in i18n is set in Cormorant italic. The media settles from scale 1.08 to 1 on load. Once the roof line has drawn, a small point of light travels along it 3 times over 5s each, then stops (`.m-comet`), so it doesn't repaint forever. The roof line shows on mobile too.
 - Sections fade in and rise 24px, 700ms `cubic-bezier(0.16,1,0.3,1)`. Photos use `data-reveal="clip"` (uncovered bottom-up). Built with IntersectionObserver + CSS, no animation library.
 - Buttons (`btn` utility): the fill sweeps in from the left on hover, with a 1px press on `:active`. Links (`link-line`): the underline grows from the left.
 - Nav: IntersectionObserver sentinel (no scroll listener), plus a 1px brand reading-progress line (scroll timeline).
@@ -102,7 +104,7 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 ## Accessibility checklist
 - Text contrast ≥ 4.5:1 (large text ≥ 3:1), including text over the video on its brightest frame.
 - Every image has alt text in both languages. Decorative images use `alt=""`.
-- The video has `aria-hidden="true"` (it's decorative). No pause button: the client wants it to play continuously (2026-09-24). It is still never loaded under `prefers-reduced-motion` or Save-Data.
+- The hero canvas and poster are `aria-hidden` (decorative). The frames move only when the visitor scrolls, so there is nothing autoplaying to pause. They are never loaded under `prefers-reduced-motion` or Save-Data.
 - Focus ring: 2px `--brand` outline with a 2px offset. Use white on dark sections. Never remove it.
 - Tap targets ≥ 44×44px with ≥ 8px spacing.
 - Form: a `<label>` on every field, errors linked with `aria-describedby`, and status announced via `aria-live="polite"`.

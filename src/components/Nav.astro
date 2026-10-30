@@ -221,10 +221,11 @@ const other = lang === 'tr' ? { code: 'EN', href: '/en/' } : { code: 'TR', href:
   const openText = label?.textContent ?? '';
   const closeText = closeBtn?.querySelector('.sr-only')?.textContent ?? '';
 
-  // Solid once a 24px sentinel at the top of the page leaves the viewport (no scroll listener).
+  // Solid once a sentinel at the top of the page leaves the viewport (no scroll listener).
+  // Its height is the pinned hero's scroll distance (global.css → --hero-travel, 24px when not pinned).
   if (nav && 'IntersectionObserver' in window) {
     const sentinel = document.createElement('div');
-    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:24px;pointer-events:none';
+    sentinel.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:var(--hero-travel, 24px);pointer-events:none';
     sentinel.setAttribute('aria-hidden', 'true');
     document.body.prepend(sentinel);
     new IntersectionObserver(([e]) => nav.classList.toggle('is-solid', !e.isIntersecting)).observe(sentinel);

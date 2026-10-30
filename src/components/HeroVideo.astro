@@ -21,141 +21,192 @@ const socialOnVideo = 'halo border-white/60 text-white bg-black/40 hover:bg-whit
 // Keep the last two words together so the headline never ends on a lone word.
 if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
   const last = words.pop()!;
-  words[words.length - 1].w += ` ${last.w}`;
+  words[words.length - 1].w += ` ${last.w}`;
 }
 ---
 
-<!-- vh first, then svh: browsers without svh support keep the vh value. -->
-<section id="hero" class="hero-in relative flex items-end overflow-hidden on-dark" style="min-height:100vh;min-height:100svh">
-  <!-- Decorative background. The poster is the LCP element; the video is added by JS. -->
-  <div class="absolute inset-0 -z-10 overflow-hidden">
-    <div class="hero-media absolute inset-0">
-    <img
-      src="/video/hero-poster-1600.webp"
-      srcset="/video/hero-poster-800.webp 800w, /video/hero-poster-1600.webp 1600w"
-      sizes="100vw"
-      alt=""
-      aria-hidden="true"
-      width="1920"
-      height="1080"
-      fetchpriority="high"
-      decoding="async"
-      class="w-full h-full object-cover"
-    />
-    <video
-      data-hero-video
-      muted
-      loop
-      playsinline
-      preload="none"
-      aria-hidden="true"
-      tabindex="-1"
-      class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"></video>
+<!-- Scroll-scrubbed hero: the section is taller than the viewport (global.css → .hero-scrub) and the stage
+     sticks while the walk-through frames advance with scroll. Reduced motion / Save-Data: a plain 100svh poster. -->
+<section id="hero" class="hero-scrub hero-in relative on-dark" style="--p:0">
+  <!-- vh first, then svh: browsers without svh support keep the vh value. -->
+  <div class="sticky top-0 flex items-end overflow-hidden" style="height:100vh;height:100svh">
+    <!-- Decorative background. The poster is the LCP element; the canvas takes over once frames load. -->
+    <div class="absolute inset-0 -z-10 overflow-hidden">
+      <div class="hero-media absolute inset-0">
+        <div class="hero-depth absolute inset-0">
+          <img
+            src="/video/hero-poster-1600.webp"
+            srcset="/video/hero-poster-800.webp 800w, /video/hero-poster-1600.webp 1600w"
+            sizes="100vw"
+            alt=""
+            aria-hidden="true"
+            width="1600"
+            height="900"
+            fetchpriority="high"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+          <canvas data-hero-canvas aria-hidden="true" class="absolute inset-0 w-full h-full opacity-0 transition-opacity duration-500"></canvas>
+        </div>
+      </div>
+      <div class="hero-shade absolute inset-0" style="background: linear-gradient(to top, rgb(17 19 24 / .75), rgb(17 19 24 / .25));"></div>
     </div>
-    <div
-      class="absolute inset-0"
-      style="background: linear-gradient(to top, rgb(17 19 24 / .75), rgb(17 19 24 / .25));"
-    >
+
+    <!-- Signature: the logo's roof line draws itself over the video, and drifts as a foreground plane on scroll. Decorative. -->
+    <div class="hero-fore pointer-events-none absolute right-[-30vw] top-[6%] w-[115vw] md:right-[-8vw] md:top-[14%] md:w-[62vw] max-w-[860px]">
+      <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false" class="m-draw w-full text-white/25">
+        <path d="M3 64 L37 61 L69 37 L97 64" pathLength="1" fill="none" stroke="currentColor" stroke-width="0.35" />
+        <!-- A light travels along the stroke once it has drawn (global.css → .m-comet). -->
+        <path class="m-comet" d="M3 64 L37 61 L69 37 L97 64" pathLength="1" fill="none" stroke="#fff" stroke-opacity="0.25" stroke-width="2.2" stroke-linecap="round" />
+        <path class="m-comet" d="M3 64 L37 61 L69 37 L97 64" pathLength="1" fill="none" stroke="#fff" stroke-width="0.7" stroke-linecap="round" />
+      </svg>
+    </div>
+
+    <div class="hero-copy on-photo container-page pb-24 md:pb-28 pt-24 text-white">
+      <h1 class="max-w-4xl leading-[1.05]" aria-label={s.hero.title.replace(/\*/g, '')}>
+        {
+          words.map(({ w, em }, i) => (
+            <>
+              <span class="word-mask" aria-hidden="true">
+                <span class:list={['word', em && 'italic font-medium']} style={`--i:${i}`}>
+                  {w}
+                </span>
+              </span>{' '}
+            </>
+          ))
+        }
+      </h1>
+      <p class="hero-fade mt-6 max-w-xl text-lg text-white/90" style="--i:0">{s.hero.subtitle}</p>
+      <div class="hero-fade mt-10 flex flex-col sm:flex-row gap-4" style="--i:1">
+        <a href={waLink(s.whatsapp.message)} target="_blank" rel="noopener" class="btn bg-brand text-white">
+          {s.hero.ctaPrimary}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </a>
+        <a href="#projeler" class="btn border border-white text-white hover:text-ink [--btn-sweep:#fff]">{s.hero.ctaSecondary}</a>
+      </div>
+      <div class="hero-fade mt-8 flex items-center gap-4 md:hidden" style="--i:2">
+        <span class="text-xs uppercase tracking-[0.3em] text-white/80">{s.footer.follow}</span>
+        <Socials label={s.footer.follow} itemClass={socialOnVideo} />
+      </div>
+    </div>
+
+    <!-- Social rail: vertical on the right from md, a row under the CTAs on mobile. -->
+    <div class="hero-copy absolute right-6 top-1/2 -translate-y-1/2 z-10 hidden md:block">
+      <div class="on-photo hero-fade flex flex-col items-center gap-4" style="--i:3">
+        <span class="w-px h-16 bg-white/40" aria-hidden="true"></span>
+        <Socials label={s.footer.follow} class="flex-col" itemClass={socialOnVideo} />
+        <span class="text-[0.625rem] uppercase tracking-[0.3em] text-white/80 [writing-mode:vertical-rl] rotate-180">{s.footer.follow}</span>
+      </div>
     </div>
   </div>
-
-  <!-- Signature: the logo's roof line draws itself over the video. Decorative. -->
-  <svg
-    viewBox="0 0 100 100"
-    aria-hidden="true"
-    focusable="false"
-    class="m-draw pointer-events-none absolute right-[-30vw] top-[6%] w-[115vw] md:right-[-8vw] md:top-[14%] md:w-[62vw] max-w-[860px] text-white/25"
-  >
-    <path d="M3 64 L37 61 L69 37 L97 64" pathLength="1" fill="none" stroke="currentColor" stroke-width="0.35" />
-    <!-- A light travels along the stroke once it has drawn (global.css → .m-comet). -->
-    <path class="m-comet" d="M3 64 L37 61 L69 37 L97 64" pathLength="1" fill="none" stroke="#fff" stroke-opacity="0.25" stroke-width="2.2" stroke-linecap="round" />
-    <path class="m-comet" d="M3 64 L37 61 L69 37 L97 64" pathLength="1" fill="none" stroke="#fff" stroke-width="0.7" stroke-linecap="round" />
-  </svg>
-
-  <div class="on-photo container-page pb-40 md:pb-44 pt-24 text-white">
-    <h1 class="max-w-4xl leading-[1.05]" aria-label={s.hero.title.replace(/\*/g, '')}>
-      {
-        words.map(({ w, em }, i) => (
-          <>
-            <span class="word-mask" aria-hidden="true">
-              <span class:list={['word', em && 'italic font-medium']} style={`--i:${i}`}>
-                {w}
-              </span>
-            </span>{' '}
-          </>
-        ))
-      }
-    </h1>
-    <p class="hero-fade mt-6 max-w-xl text-lg text-white/90" style="--i:0">{s.hero.subtitle}</p>
-    <div class="hero-fade mt-10 flex flex-col sm:flex-row gap-4" style="--i:1">
-      <a href={waLink(s.whatsapp.message)} target="_blank" rel="noopener" class="btn bg-brand text-white">
-        {s.hero.ctaPrimary}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-      </a>
-      <a href="#projeler" class="btn border border-white text-white hover:text-ink [--btn-sweep:#fff]">{s.hero.ctaSecondary}</a>
-    </div>
-    <div class="hero-fade mt-8 flex items-center gap-4 md:hidden" style="--i:2">
-      <span class="text-xs uppercase tracking-[0.3em] text-white/80">{s.footer.follow}</span>
-      <Socials label={s.footer.follow} itemClass={socialOnVideo} />
-    </div>
-  </div>
-
-  <!-- Social rail: vertical on the right from md, a row under the CTAs on mobile. -->
-  <div class="on-photo hero-fade absolute right-6 top-1/2 -translate-y-1/2 z-10 hidden md:flex flex-col items-center gap-4" style="--i:3">
-    <span class="w-px h-16 bg-white/40" aria-hidden="true"></span>
-    <Socials label={s.footer.follow} class="flex-col" itemClass={socialOnVideo} />
-    <span class="text-[0.625rem] uppercase tracking-[0.3em] text-white/80 [writing-mode:vertical-rl] rotate-180">{s.footer.follow}</span>
-  </div>
-
 </section>
 
 <script>
-  const video = document.querySelector<HTMLVideoElement>('[data-hero-video]');
+  // Apple-style scrub: a still frame per scroll position, drawn to a canvas (a <video> can't seek smoothly).
+  // Frames come from scripts/hero-frames.sh: 95 per set, desktop 16:9 and a portrait 3:4 crop for phones.
+  const FRAMES = 95;
+  const hero = document.getElementById('hero')!;
+  const canvas = hero.querySelector<HTMLCanvasElement>('[data-hero-canvas]')!;
+  const ctx = canvas.getContext('2d');
 
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const conn = (navigator as any).connection;
   const saveData = conn?.saveData === true || ['slow-2g', '2g', '3g'].includes(conn?.effectiveType);
 
-  if (video && !reduced && !saveData) {
-    const hero = document.getElementById('hero')!;
-    let onScreen = true;
-    const start = () => {
-      const mobile = matchMedia('(max-width: 1279px)').matches;
-      const add = (src: string, type: string) => {
-        const el = document.createElement('source');
-        el.src = src;
-        el.type = type;
-        video.appendChild(el);
-      };
-      if (mobile) {
-        add('/video/hero-720.mp4', 'video/mp4');
-      } else {
-        add('/video/hero-1080.mp4', 'video/mp4');
-      }
-      video.preload = 'metadata';
-      video.load();
-      video.addEventListener('playing', () => video.classList.replace('opacity-0', 'opacity-100'), {
-        once: true,
-      });
-      // Autoplay can be blocked (e.g. low-power mode); the poster then stays.
-      if (onScreen) video.play().catch(() => {});
-    };
-    // Start well after load: on fast connections load can fire before the headline (LCP) paints,
-    // and the 1 MB video would then compete with it. The poster covers the wait.
-    const later = () => setTimeout(start, 1500);
-    if (document.readyState === 'complete') later();
-    else addEventListener('load', later, { once: true });
+  if (reduced || saveData || !ctx) {
+    // Collapse to a single-screen poster hero (global.css drops the extra scroll height).
+    document.documentElement.classList.add('no-scrub');
+  } else {
+    const set = matchMedia('(max-aspect-ratio: 1/1)').matches ? 'm' : 'd';
+    const frames: (HTMLImageElement | undefined)[] = new Array(FRAMES);
+    let target = 0;
+    let drawn = -1;
+    let queued = false;
 
-    // Stop decoding video while the hero is scrolled out of view.
+    const progress = () => {
+      const travel = hero.offsetHeight - innerHeight;
+      return travel > 0 ? Math.min(Math.max(-hero.getBoundingClientRect().top / travel, 0), 1) : 0;
+    };
+
+    const size = () => {
+      const dpr = Math.min(devicePixelRatio || 1, 2);
+      canvas.width = Math.round(canvas.clientWidth * dpr);
+      canvas.height = Math.round(canvas.clientHeight * dpr);
+      drawn = -1;
+    };
+
+    // Nearest loaded frame to the target, so early scrolling still moves while the rest stream in.
+    const nearest = (i: number) => {
+      for (let d = 0; d < FRAMES; d++) {
+        if (frames[i - d]) return i - d;
+        if (frames[i + d]) return i + d;
+      }
+      return -1;
+    };
+
+    const draw = () => {
+      queued = false;
+      const p = progress();
+      hero.style.setProperty('--p', p.toFixed(4));
+      target = Math.round(p * (FRAMES - 1));
+      const i = nearest(target);
+      if (i < 0 || i === drawn) return;
+      const img = frames[i]!;
+      // object-fit: cover, centred.
+      const s = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+      const w = img.naturalWidth * s;
+      const h = img.naturalHeight * s;
+      ctx.drawImage(img, (canvas.width - w) / 2, (canvas.height - h) / 2, w, h);
+      if (drawn < 0) canvas.classList.replace('opacity-0', 'opacity-100');
+      drawn = i;
+    };
+    const schedule = () => {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(draw);
+      }
+    };
+
+    // Coarse-to-fine order: 0, every 16th, every 8th, ... so the whole range is scrubbable early.
+    const order: number[] = [];
+    for (let step = 16; step >= 1; step /= 2) for (let i = 0; i < FRAMES; i += step) if (!order.includes(i)) order.push(i);
+
+    const load = async () => {
+      const pad = (n: number) => String(n).padStart(3, '0');
+      let next = 0;
+      // A few parallel requests; each frame redraws only if it's closer to the target than what's shown.
+      const worker = async () => {
+        while (next < order.length) {
+          const i = order[next++];
+          const img = new Image();
+          img.src = `/video/frames/${set}/${pad(i)}.webp`;
+          try {
+            await img.decode();
+          } catch {
+            continue; // A missing frame is skipped; its neighbours cover it.
+          }
+          frames[i] = img;
+          if (Math.abs(i - target) < Math.abs(drawn - target) || drawn < 0) schedule();
+        }
+      };
+      await Promise.all([worker(), worker(), worker(), worker()]);
+    };
+
+    size();
+    addEventListener('resize', () => { size(); schedule(); }, { passive: true });
+
+    // Only track scroll while the hero is on screen.
+    let onScreen = true;
+    addEventListener('scroll', () => onScreen && schedule(), { passive: true });
     new IntersectionObserver(([e]) => {
       onScreen = e.isIntersecting;
-      if (!video.firstChild) return;
-      if (onScreen) video.play().catch(() => {});
-      else video.pause();
+      if (onScreen) schedule();
     }).observe(hero);
-    // Resume if the browser paused it while the tab was hidden.
-    document.addEventListener('visibilitychange', () => {
-      if (!document.hidden && onScreen && video.paused && video.firstChild) video.play().catch(() => {});
-    });
+
+    // Start after load so ~4 MB of frames never compete with the poster/headline (LCP).
+    const start = () => setTimeout(load, 300);
+    if (document.readyState === 'complete') start();
+    else addEventListener('load', start, { once: true });
+    schedule();
   }
 </script>

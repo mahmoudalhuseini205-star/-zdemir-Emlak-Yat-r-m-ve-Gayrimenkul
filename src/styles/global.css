@@ -228,6 +228,26 @@
 @keyframes comet { from { stroke-dashoffset: 0.07; } to { stroke-dashoffset: -1; } }
 @keyframes settle { from { transform: scale(1.08); } to { transform: scale(1); } }
 
+/* Hero scrub (HeroVideo.astro sets --p from 0 to 1 while the stage is pinned).
+   --hero-travel is the pinned scroll distance; the nav sentinel uses it so the nav stays transparent over the hero. */
+:root { --hero-travel: 24px; }
+.hero-scrub { height: 100vh; height: 100svh; }
+@media (prefers-reduced-motion: no-preference) {
+  :root:not(.no-scrub) { --hero-travel: 160vh; --hero-travel: 160svh; }
+  :root:not(.no-scrub) .hero-scrub {
+    height: 260vh; height: 260svh;
+    /* 0 → 1 over the last 15% of the scroll: the frame settles into the page like a card. */
+    --end: clamp(0, (var(--p) - 0.85) / 0.15, 1);
+  }
+  /* Depth: the media tilts back slightly and the camera "lands" while the copy and roof line move faster than it. */
+  :root:not(.no-scrub) .hero-depth { transform: perspective(1400px) rotateX(calc((1 - var(--p)) * 3deg)) scale(calc(1.12 - var(--p) * 0.12)); transform-origin: 50% 100%; }
+  :root:not(.no-scrub) .hero-scrub .hero-media { clip-path: inset(calc(var(--end) * 3%) calc(var(--end) * 3%) round 2px); }
+  :root:not(.no-scrub) .hero-shade { opacity: calc(1 - var(--p) * 0.6); }
+  :root:not(.no-scrub) .hero-copy { opacity: calc(1 - var(--p) * 3.5); transform: translateY(calc(var(--p) * -90px)); }
+  :root:not(.no-scrub) .hero-copy:focus-within { opacity: 1; }
+  :root:not(.no-scrub) .hero-fore { opacity: calc(1 - var(--p) * 1.6); transform: translateY(calc(var(--p) * -30vh)); }
+}
+
 .scroll-progress { transform: scaleX(0); }
 
 /* Theme switch: the new theme spreads as a circle from the toggle (View Transitions; instant elsewhere). */
