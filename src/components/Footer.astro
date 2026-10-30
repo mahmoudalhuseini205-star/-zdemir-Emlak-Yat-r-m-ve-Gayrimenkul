@@ -11,10 +11,7 @@ interface Props {
 const { lang } = Astro.props;
 const s = t(lang);
 
-const stores = [
-  { name: 'hepsiemlak', href: site.hepsiemlak, label: s.projects.hepsiemlak },
-  { name: 'emlakjet', href: site.emlakjet, label: s.projects.emlakjet },
-] as const;
+const stores = [{ name: 'sahibinden', href: site.sahibinden, label: s.projects.sahibinden }] as const;
 ---
 
 <footer class="bg-ink text-white on-dark border-t border-white/10">
@@ -27,18 +24,9 @@ const stores = [
     <div>
       <p class="eyebrow text-white/60">{s.nav.contact}</p>
       <ul class="mt-4 text-sm">
-        <li><a href={site.officePhone.href} class="inline-flex items-center min-h-11 hover:text-white/70">{site.officePhone.display}</a></li>
-        {
-          site.phones.map((p) => (
-            <li>
-              <a href={p.href} class="inline-flex items-center gap-2 min-h-11 hover:text-white/70">
-                {p.display} <span class="text-white/60">· {p.name}</span>
-              </a>
-            </li>
-          ))
-        }
-        <!-- TODO(client): full street address -->
-        <li class="text-white/70">{s.contact.addressValue}</li>
+        <li><a href={site.phone.href} class="inline-flex items-center min-h-11 hover:text-white/70">{site.phone.display}</a></li>
+        <li><a href={`mailto:${site.email}`} class="inline-flex items-center min-h-11 break-all hover:text-white/70">{site.email}</a></li>
+        <li class="text-white/70">{site.street}, {site.postalCode} {site.city} / {site.region}</li>
       </ul>
     </div>
 

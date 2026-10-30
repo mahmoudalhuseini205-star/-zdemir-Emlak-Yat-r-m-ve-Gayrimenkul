@@ -5,7 +5,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // TODO(client): replace with the real domain once bought.
 export default defineConfig({
-  site: 'https://majorgayrimenkul.com',
+  site: 'https://ozdemiryatirimgayrimenkul.com',
   output: 'static',
   // One inline <style> instead of a render-blocking request: the hero text is the LCP element.
   build: { inlineStylesheets: 'always' },

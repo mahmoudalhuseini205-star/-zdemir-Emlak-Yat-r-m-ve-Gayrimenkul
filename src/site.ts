@@ -17,26 +17,20 @@ export function path(lang: Lang, to = '/') {
 
 /** Facts below come from CLIENT.md. Do not change without updating CLIENT.md. */
 export const site = {
-  name: 'MAJÖR GAYRİMENKUL',
-  // TODO(client): full street address unconfirmed (Bakü Cd. vs Savaş …) — city only for now.
-  city: 'İskenderun',
-  region: 'Hatay',
+  name: 'Özdemir Emlak & Yatırım ve Gayrimenkul',
+  street: 'Mustafa Kemal Paşa, Kaymakam S. Koloğlu Sk. No:5/2',
+  postalCode: '16860',
+  city: 'İznik',
+  region: 'Bursa',
   country: 'TR',
-  officePhone: { display: '(0326) 614 15 55', href: 'tel:+903266141555' },
-  /** First entry is also the WhatsApp line. */
-  phones: [
-    { name: 'Şehmuz Sönmez', display: '0532 170 63 58', href: 'tel:+905321706358' },
-    { name: 'Nazmiye Küyük', display: '0532 271 10 93', href: 'tel:+905322711093' },
-  ],
-  whatsappNumber: '905321706358',
-  maps: 'https://maps.app.goo.gl/BicvFDZdN4DZuDTS6',
-  instagram: 'https://www.instagram.com/major_gayrimenkul',
-  facebook: 'https://www.facebook.com/iskenderunmajor/',
-  hepsiemlak: 'https://www.hepsiemlak.com/emlak-ofisi/major-gayrimenkul-32877',
-  emlakjet: 'https://www.emlakjet.com/emlak-ofisleri/major-gayrimenkul-606934',
-  founder: 'Zeki Teymur',
-  yearsExperience: 16,
-  instagramFollowers: 7500,
+  /** Single line: calls and WhatsApp. */
+  phone: { display: '0553 971 53 53', href: 'tel:+905539715353' },
+  whatsappNumber: '905539715353',
+  email: 'isaozdmr0616@gmail.com',
+  maps: 'https://maps.app.goo.gl/Lq6Xus7d4Wi966vj7',
+  instagram: 'https://www.instagram.com/ozdemir.yatirimgayrimenkull',
+  facebook: 'https://www.facebook.com/p/%C3%96zdemir-Yat%C4%B1r%C4%B1m-ve-Gayrimenkul-100063630309136/',
+  sahibinden: 'https://ozdemiryatirimgayrimenkul.sahibinden.com/',
 } as const;
 
 export function waLink(message: string) {

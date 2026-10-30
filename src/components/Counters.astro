@@ -1,5 +1,5 @@
 ---
-import { site, t, type Lang } from '../site';
+import { t, type Lang } from '../site';
 
 interface Props {
   lang: Lang;
@@ -9,11 +9,9 @@ const s = t(lang);
 const locale = lang === 'tr' ? 'tr-TR' : 'en-US';
 
 // Only figures verified in CLIENT.md. Everything else stays out.
-// TODO(client): real stats — properties sold/rented, clients, active listings.
-const items = [
-  { value: site.yearsExperience, suffix: '+', label: s.counters.years },
-  { value: site.instagramFollowers, suffix: '+', label: s.counters.followers },
-];
+// TODO(client): real stats — years of experience, properties sold/rented, followers.
+// The section is left out of Page.astro until at least one verified figure exists.
+const items: { value: number; suffix: string; label: string }[] = [];
 const fmt = (n: number) => new Intl.NumberFormat(locale).format(n);
 ---
 

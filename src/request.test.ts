@@ -5,7 +5,7 @@ import { SERVICES, visibleFields, buildEntries, buildMessage, type MessageText }
 import tr from './i18n/tr.json' with { type: 'json' };
 import en from './i18n/en.json' with { type: 'json' };
 
-const text = (lang: typeof tr): MessageText => ({ ...lang.request, office: 'MAJÖR GAYRİMENKUL' });
+const text = (lang: typeof tr): MessageText => ({ ...lang.request, office: 'Özdemir Emlak & Yatırım ve Gayrimenkul' });
 
 test('rooms and furnishing only show for residential types', () => {
   assert.ok(visibleFields('rent', 'apartment').includes('rooms'));
@@ -37,7 +37,7 @@ test('rent message: labelled lines, option labels, no empty fields, notes last',
     'rent',
     {
       propertyType: 'apartment',
-      city: 'İskenderun',
+      city: 'Bursa',
       district: '',
       rooms: '3+1',
       budget: '25.000 TL / ay',
@@ -53,13 +53,13 @@ test('rent message: labelled lines, option labels, no empty fields, notes last',
   assert.equal(
     msg,
     [
-      'Merhaba MAJÖR GAYRİMENKUL,',
+      'Merhaba Özdemir Emlak & Yatırım ve Gayrimenkul,',
       '',
       '*Yeni gayrimenkul talebi*',
       '',
       'Hizmet: Kiralık arıyorum',
       'Emlak tipi: Daire',
-      'Şehir: İskenderun',
+      'Şehir: Bursa',
       'Oda sayısı: 3+1',
       'Bütçe: 25.000 TL / ay',
       'Eşya durumu: Eşyasız',
@@ -76,14 +76,14 @@ test('rent message: labelled lines, option labels, no empty fields, notes last',
 
 test('hidden fields are dropped even if they still hold a value', () => {
   // User picked "apartment" (rooms filled), then switched to land.
-  const entries = buildEntries('buy', { propertyType: 'land', city: 'Arsuz', rooms: '2+1', budget: '5M TL', moveIn: 'flexible' }, text(en));
+  const entries = buildEntries('buy', { propertyType: 'land', city: 'İznik', rooms: '2+1', budget: '5M TL', moveIn: 'flexible' }, text(en));
   assert.ok(!entries.some(([label]) => label === en.request.labels.rooms));
   assert.deepEqual(entries[0], [en.request.serviceLabel, en.request.services.buy]);
 });
 
 test('every service path builds a message with contact details', () => {
   const values = {
-    propertyType: 'office', city: 'İskenderun', district: 'Merkez', budget: '1', moveIn: 'now', size: '120',
+    propertyType: 'office', city: 'Bursa', district: 'Merkez', budget: '1', moveIn: 'now', size: '120',
     askingPrice: '3M TL', expectedRent: '20.000 TL', available: 'yes', location: 'https://maps.app.goo.gl/x',
     units: '4', management: 'self', challenge: 'Kiracı bulmak', topic: 'valuation', callTime: 'morning',
     name: 'Ayşe K.', phone: '+90 530 000 00 00', method: 'call',

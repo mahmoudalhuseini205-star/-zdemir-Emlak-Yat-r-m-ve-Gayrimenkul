@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "MAJÖR GAYRİMENKUL | İskenderun'da 16 yılı aşkın gayrimenkul uzmanlığı",
-    "description": "İskenderun ve Hatay'da satılık, kiralık, değerleme ve yatırım danışmanlığı. 16 yılı aşkın deneyimle hayalinizdeki evi sizin için buluyoruz.",
-    "ogAlt": "İskenderun kıyısından Akdeniz manzarası"
+    "title": "Özdemir Emlak & Yatırım ve Gayrimenkul | İznik, Bursa",
+    "description": "İznik ve Bursa'da satılık, kiralık, değerleme ve yatırım danışmanlığı. Hayalinizdeki evi sizin için buluyoruz.",
+    "ogAlt": "Özdemir Emlak & Yatırım ve Gayrimenkul logosu"
   },
   "nav": {
     "home": "Ana Sayfa",
@@ -19,7 +19,7 @@
   },
   "hero": {
     "title": "Hayalinizdeki evi *sizin için* buluyoruz.",
-    "subtitle": "İskenderun'da 16 yılı aşkın gayrimenkul uzmanlığı.",
+    "subtitle": "İznik ve Bursa'da güvenilir gayrimenkul danışmanlığı.",
     "ctaPrimary": "WhatsApp'tan Yazın",
     "ctaSecondary": "Projeleri İnceleyin",
     "scroll": "Aşağı kaydırın"
@@ -27,7 +27,7 @@
   "counters": {
     "years": "yıl uzmanlık",
     "followers": "Instagram takipçisi",
-    "city": "İskenderun, Hatay",
+    "city": "İznik, Bursa",
     "cityLabel": "Hizmet bölgesi"
   },
   "services": {
@@ -60,8 +60,7 @@
     "stockNote": "Örnek görsel",
     "open": "Galeriyi aç",
     "allListings": "Tüm güncel ilanlar",
-    "hepsiemlak": "hepsiemlak ofisi",
-    "emlakjet": "Emlakjet ofisi",
+    "sahibinden": "sahibinden.com mağazası",
     "modal": {
       "close": "Kapat",
       "prev": "Önceki görsel",
@@ -85,12 +84,12 @@
   },
   "about": {
     "eyebrow": "Hakkımızda",
-    "title": "İskenderun'da 16 yılı aşkın bir adres",
-    "founderName": "Zeki Teymur",
+    "title": "İznik'te güvenilir bir adres",
+    "founderName": "Kurucu bilgisi bekleniyor",
     "founderRole": "Kurucu · Emlak Danışmanı",
-    "bio": "MAJÖR GAYRİMENKUL, İskenderun'da 16 yılı aşkın süredir alım, satım, kiralama ve değerleme hizmeti veriyor.",
+    "bio": "Özdemir Emlak & Yatırım ve Gayrimenkul, İznik ve Bursa'da alım, satım, kiralama ve değerleme hizmeti veriyor.",
     "bioTodo": "Kurucu biyografisi müşteri onayı bekliyor.",
-    "officeAlt": "MAJÖR GAYRİMENKUL ofis cephesi ve tabelası",
+    "officeTodo": "Ofis fotoğrafı bekleniyor",
     "portraitTodo": "Portre fotoğrafı bekleniyor"
   },
   "testimonials": {
@@ -100,24 +99,7 @@
     "badgeCount": "yorum sayısı onay bekliyor",
     "source": "Google",
     "readOn": "Google'da yorumları okuyun",
-    "items": [
-      {
-        "name": "Recep A.",
-        "quote": "Deprem sonrası bile işlerini aksatmadılar."
-      },
-      {
-        "name": "Kemal Türker U. (Doç. Dr.)",
-        "quote": "Güvenilir ve yakın ilgisi ile Şehmuz bey işinin ehli bir emlakçı. Teknik destek ve uygun emlak alımında yardımcı bir emlakçı. Tavsiye ederim."
-      },
-      {
-        "name": "Mesut K.",
-        "quote": "Kiralık veya satılık evler arıyorsanız doğru adres burası çalışanları çok ilgili hepside çok nazik"
-      },
-      {
-        "name": "Mazlum U.",
-        "quote": "Gayri menkul konusunda uzman bir kuruluş."
-      }
-    ],
+    "items": [],
     "translated": ""
   },
   "contact": {
@@ -126,16 +108,14 @@
     "intro": "Birkaç kısa soruyu yanıtlayın; talebiniz düzenli bir mesaj olarak WhatsApp üzerinden doğrudan ofisimize ulaşsın.",
     "consent": "Kişisel verilerimin KVKK kapsamında iletişim amacıyla işlenmesini kabul ediyorum.",
     "consentLink": "KVKK Aydınlatma Metni",
-    "officePhone": "Ofis",
-    "whatsappNote": "Cep / WhatsApp",
+    "whatsappNote": "Telefon / WhatsApp",
+    "email": "E-posta",
     "address": "Adres",
-    "addressValue": "İskenderun, Hatay",
-    "addressTodo": "Açık adres müşteri onayı bekliyor.",
     "hours": "Çalışma saatleri",
     "hoursTodo": "Çalışma saatleri bekleniyor.",
     "mapCta": "Haritayı yükle",
     "mapNote": "Harita Google Maps üzerinden yüklenir.",
-    "mapTitle": "MAJÖR GAYRİMENKUL konumu",
+    "mapTitle": "Özdemir Emlak & Yatırım ve Gayrimenkul konumu",
     "openMaps": "Google Maps'te aç"
   },
   "request": {
@@ -240,8 +220,8 @@
       }
     },
     "placeholders": {
-      "city": "İskenderun",
-      "district": "ör. Sarıseki, Arsuz",
+      "city": "Bursa",
+      "district": "ör. İznik, Orhangazi",
       "budget": "ör. 25.000 TL / ay",
       "size": "ör. 120",
       "askingPrice": "ör. 4.500.000 TL",
@@ -274,7 +254,7 @@
     }
   },
   "footer": {
-    "tagline": "İskenderun'da gayrimenkul danışmanlığı.",
+    "tagline": "İznik ve Bursa'da gayrimenkul danışmanlığı.",
     "social": "Sosyal medya",
     "listings": "İlan mağazaları",
     "legal": "KVKK Aydınlatma Metni",

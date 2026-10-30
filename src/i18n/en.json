@@ -1,8 +1,8 @@
 {
   "meta": {
-    "title": "MAJÖR GAYRİMENKUL | 16+ years of real estate expertise in İskenderun",
-    "description": "Sales, rentals, valuation and investment advice in İskenderun and Hatay. With more than 16 years of experience, we find the home you've been dreaming of.",
-    "ogAlt": "Mediterranean sea view from the İskenderun coast"
+    "title": "Özdemir Emlak & Yatırım ve Gayrimenkul | İznik, Bursa",
+    "description": "Sales, rentals, valuation and investment advice in İznik and Bursa. We find the home you've been dreaming of.",
+    "ogAlt": "Özdemir Emlak & Yatırım ve Gayrimenkul logo"
   },
   "nav": {
     "home": "Home",
@@ -19,7 +19,7 @@
   },
   "hero": {
     "title": "We find the home *you've been dreaming of.*",
-    "subtitle": "More than 16 years of real estate expertise in İskenderun.",
+    "subtitle": "Trusted real estate advice in İznik and Bursa.",
     "ctaPrimary": "Message us on WhatsApp",
     "ctaSecondary": "See the projects",
     "scroll": "Scroll down"
@@ -27,7 +27,7 @@
   "counters": {
     "years": "years of expertise",
     "followers": "Instagram followers",
-    "city": "İskenderun, Hatay",
+    "city": "İznik, Bursa",
     "cityLabel": "Service area"
   },
   "services": {
@@ -60,8 +60,7 @@
     "stockNote": "Example image",
     "open": "Open gallery",
     "allListings": "All current listings",
-    "hepsiemlak": "hepsiemlak office",
-    "emlakjet": "Emlakjet office",
+    "sahibinden": "sahibinden.com store",
     "modal": {
       "close": "Close",
       "prev": "Previous image",
@@ -85,12 +84,12 @@
   },
   "about": {
     "eyebrow": "About",
-    "title": "An İskenderun address for over 16 years",
-    "founderName": "Zeki Teymur",
+    "title": "A trusted address in İznik",
+    "founderName": "Founder details pending",
     "founderRole": "Founder · Real estate consultant",
-    "bio": "MAJÖR GAYRİMENKUL has been handling sales, rentals and valuations in İskenderun for more than 16 years.",
+    "bio": "Özdemir Emlak & Yatırım ve Gayrimenkul handles sales, rentals and valuations in İznik and Bursa.",
     "bioTodo": "The founder biography is awaiting client approval.",
-    "officeAlt": "MAJÖR GAYRİMENKUL office front and sign",
+    "officeTodo": "Office photo pending",
     "portraitTodo": "Portrait photo pending"
   },
   "testimonials": {
@@ -101,24 +100,7 @@
     "source": "Google",
     "readOn": "Read the reviews on Google",
     "translated": "translated from Turkish",
-    "items": [
-      {
-        "name": "Recep A.",
-        "quote": "They kept working without a hitch even after the earthquake."
-      },
-      {
-        "name": "Kemal Türker U. (Assoc. Prof.)",
-        "quote": "Şehmuz bey is trustworthy, attentive and really knows his trade. He helps with the technical side and with finding the right property. I recommend them."
-      },
-      {
-        "name": "Mesut K.",
-        "quote": "If you're looking for a place to rent or buy, this is the right address. The staff are very attentive and all of them are courteous."
-      },
-      {
-        "name": "Mazlum U.",
-        "quote": "An outfit that really knows real estate."
-      }
-    ]
+    "items": []
   },
   "contact": {
     "eyebrow": "Contact",
@@ -126,16 +108,14 @@
     "intro": "Answer a few short questions and your request reaches our office directly on WhatsApp as a clear, structured message.",
     "consent": "I agree to my personal data being processed for contact purposes under Turkish data protection law (KVKK).",
     "consentLink": "Privacy notice",
-    "officePhone": "Office",
-    "whatsappNote": "Mobile / WhatsApp",
+    "whatsappNote": "Phone / WhatsApp",
+    "email": "Email",
     "address": "Address",
-    "addressValue": "İskenderun, Hatay",
-    "addressTodo": "The full street address is awaiting client confirmation.",
     "hours": "Opening hours",
     "hoursTodo": "Opening hours pending.",
     "mapCta": "Load the map",
     "mapNote": "The map is loaded from Google Maps.",
-    "mapTitle": "MAJÖR GAYRİMENKUL location",
+    "mapTitle": "Özdemir Emlak & Yatırım ve Gayrimenkul location",
     "openMaps": "Open in Google Maps"
   },
   "request": {
@@ -240,8 +220,8 @@
       }
     },
     "placeholders": {
-      "city": "İskenderun",
-      "district": "e.g. Sarıseki, Arsuz",
+      "city": "Bursa",
+      "district": "e.g. İznik, Orhangazi",
       "budget": "e.g. 25,000 TL / month",
       "size": "e.g. 120",
       "askingPrice": "e.g. 4,500,000 TL",
@@ -274,7 +254,7 @@
     }
   },
   "footer": {
-    "tagline": "Real estate consultancy in İskenderun.",
+    "tagline": "Real estate consultancy in İznik and Bursa.",
     "social": "Social media",
     "listings": "Listing stores",
     "legal": "Privacy notice (KVKK)",

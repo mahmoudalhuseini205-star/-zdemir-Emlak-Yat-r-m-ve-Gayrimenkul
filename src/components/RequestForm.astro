@@ -277,13 +277,13 @@ const text = JSON.stringify({ ...r, office: site.name });
 
     <div class="mt-8 border-l-2 border-accent-strong pl-5">
       <p class="font-medium">{r.fallbackTitle}</p>
-      <p class="mt-1 text-sm text-graphite">{r.fallbackText.replace('{phone}', site.phones[0].display)}</p>
+      <p class="mt-1 text-sm text-graphite">{r.fallbackText.replace('{phone}', site.phone.display)}</p>
       <label for="rq-message" class="sr-only">{r.heading}</label>
       <textarea id="rq-message" data-message readonly rows="8" class="mt-4 w-full p-4 field text-base"></textarea>
       <div class="mt-3 flex flex-wrap items-center gap-3">
         <button type="button" data-copy class="inline-flex items-center h-12 px-5 border border-fg text-sm font-medium">{r.copy}</button>
-        <a href={site.phones[0].href} class="inline-flex items-center h-12 px-5 border border-line text-sm font-medium">
-          {s.common.call}: {site.phones[0].display}
+        <a href={site.phone.href} class="inline-flex items-center h-12 px-5 border border-line text-sm font-medium">
+          {s.common.call}: {site.phone.display}
         </a>
         <p data-copy-status aria-live="polite" class="text-sm text-graphite"></p>
       </div>
@@ -300,8 +300,8 @@ const text = JSON.stringify({ ...r, office: site.name });
       <a href={waLink(s.whatsapp.message)} target="_blank" rel="noopener" class="inline-flex items-center h-12 px-5 bg-whatsapp text-ink text-sm font-medium">
         {s.whatsapp.label}
       </a>
-      <a href={site.phones[0].href} class="inline-flex items-center h-12 px-5 border border-fg text-sm font-medium">
-        {s.common.call}: {site.phones[0].display}
+      <a href={site.phone.href} class="inline-flex items-center h-12 px-5 border border-fg text-sm font-medium">
+        {s.common.call}: {site.phone.display}
       </a>
     </p>
   </div>

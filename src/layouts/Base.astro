@@ -35,18 +35,19 @@ const jsonLd = {
   name: site.name,
   url: canonical,
   image: ogUrl,
-  telephone: '+90 326 614 15 55',
-  founder: { '@type': 'Person', name: site.founder },
+  telephone: '+90 553 971 53 53',
+  email: site.email,
   address: {
     '@type': 'PostalAddress',
-    // TODO(client): streetAddress + postalCode once the address conflict is resolved.
+    streetAddress: site.street,
+    postalCode: site.postalCode,
     addressLocality: site.city,
     addressRegion: site.region,
     addressCountry: site.country,
   },
   areaServed: `${site.city}, ${site.region}`,
   hasMap: site.maps,
-  sameAs: [site.instagram, site.facebook, site.hepsiemlak, site.emlakjet],
+  sameAs: [site.instagram, site.facebook, site.sahibinden],
 };
 ---
 
