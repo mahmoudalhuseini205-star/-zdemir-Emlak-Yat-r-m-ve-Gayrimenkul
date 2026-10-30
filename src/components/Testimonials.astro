@@ -18,7 +18,7 @@ const initials = (name: string) =>
     .toLocaleUpperCase(lang === 'tr' ? 'tr-TR' : 'en-US');
 ---
 
-<section class="section-y bg-surface">
+<section class="reviews-sec section-y bg-surface" data-reviews>
   <div class="container-page">
     <h2 class="max-w-2xl" data-reveal>{s.testimonials.title}</h2>
 
@@ -35,77 +35,58 @@ const initials = (name: string) =>
       </a>
     </div>
 
-    <!-- Real Google reviews (CLIENT.md → Testimonials), each with the owner's reply. The first is set large on its own;
-         the others sit below in a row: 2 columns on md+, scroll-snap on mobile. -->
-    {
-      (() => {
-        const [lead] = s.testimonials.items;
-        return (
-          <figure class="mt-14 md:mt-20 max-w-5xl" data-reveal>
-            <p class="text-accent tracking-[0.2em]">
-              <span class="sr-only">5/5</span>
-              <span aria-hidden="true">★★★★★</span>
-            </p>
-            <blockquote class="mt-6 font-display italic font-medium text-[clamp(1.625rem,3.4vw,2.75rem)] leading-[1.2] pb-1 text-accent-strong">
-              “{lead.quote}”
-            </blockquote>
-            <figcaption class="mt-8 flex items-center gap-3 text-sm">
-              <span
-                aria-hidden="true"
-                class="w-10 h-10 shrink-0 halo rounded-full bg-brand text-white text-xs font-semibold inline-flex items-center justify-center"
-                >{initials(lead.name)}</span
-              >
-              <span>
-                <span class="block font-medium">{lead.name}</span>
-                <a href={site.maps} target="_blank" rel="noopener" class="inline-flex items-center min-h-11 min-w-11 text-graphite text-xs underline">
-                  {s.testimonials.source}
-                  {s.testimonials.translated ? ` · ${s.testimonials.translated}` : ''}
-                </a>
-              </span>
-            </figcaption>
-            <div class="mt-6 max-w-2xl border-l-2 border-line pl-4 text-sm">
-              <p class="font-medium">{s.testimonials.replyLabel}</p>
-              <p class="mt-1 text-graphite">{lead.reply}</p>
-            </div>
-          </figure>
-        );
-      })()
-    }
-
-    <ul
-      class="mt-16 flex gap-6 overflow-x-auto snap-x snap-mandatory pb-4 md:grid md:grid-cols-2 md:gap-10 md:overflow-visible md:pb-0"
-    >
+    <!-- Real Google reviews (CLIENT.md → Testimonials), each with the owner's reply.
+         Stacked cards (src/motion.ts): the section pins and each card slides up over the previous one, which sinks back.
+         Without JS / with reduced motion the cards simply sit one under another. -->
+    <ol class="review-stack mt-12 md:mt-16 max-w-4xl" data-review-stack>
       {
-        s.testimonials.items.slice(1).map((item) => (
-          <li class="min-w-[85%] snap-center md:min-w-0 border-t border-fg pt-6 flex flex-col" data-reveal>
-            <p class="text-accent text-sm">
-              <span class="sr-only">5/5</span>
-              <span aria-hidden="true">★★★★★</span>
-            </p>
-            <blockquote class="mt-4 flex-1 font-display italic text-xl leading-snug">
-              “{item.quote}”
-            </blockquote>
-            <div class="mt-6 flex items-center gap-3">
-              <span
-                aria-hidden="true"
-                class="w-10 h-10 shrink-0 halo rounded-full bg-brand text-white text-xs font-semibold inline-flex items-center justify-center"
-                >{initials(item.name)}</span
-              >
-              <span class="text-sm">
-                <span class="block font-medium">{item.name}</span>
-                <a href={site.maps} target="_blank" rel="noopener" class="inline-flex items-center min-h-11 min-w-11 text-graphite text-xs underline">
-                  {s.testimonials.source}
-                  {s.testimonials.translated ? ` · ${s.testimonials.translated}` : ''}
-                </a>
-              </span>
-            </div>
-            <div class="mt-4 border-l-2 border-line pl-4 text-sm">
-              <p class="font-medium">{s.testimonials.replyLabel}</p>
-              <p class="mt-1 text-graphite">{item.reply}</p>
-            </div>
+        s.testimonials.items.map((item) => (
+          <li class="review-card border border-line bg-paper p-6 sm:p-10 shadow-[0_24px_60px_-40px_rgb(17_19_24/0.45)]">
+            <figure>
+              <p class="text-accent tracking-[0.2em]">
+                <span class="sr-only">5/5</span>
+                <span aria-hidden="true">★★★★★</span>
+              </p>
+              <blockquote class="mt-5 font-display italic font-medium text-[clamp(1.25rem,2.6vw,2rem)] leading-[1.3] text-accent-strong">
+                “{item.quote}”
+              </blockquote>
+              <figcaption class="mt-6 flex items-center gap-3 text-sm">
+                <span
+                  aria-hidden="true"
+                  class="w-10 h-10 shrink-0 halo rounded-full bg-brand text-white text-xs font-semibold inline-flex items-center justify-center"
+                  >{initials(item.name)}</span
+                >
+                <span>
+                  <span class="block font-medium">{item.name}</span>
+                  <a href={site.maps} target="_blank" rel="noopener" class="inline-flex items-center min-h-11 min-w-11 text-graphite text-xs underline">
+                    {s.testimonials.source}
+                    {s.testimonials.translated ? ` · ${s.testimonials.translated}` : ''}
+                  </a>
+                </span>
+              </figcaption>
+              <div class="mt-4 border-l-2 border-line pl-4 text-sm">
+                <p class="font-medium">{s.testimonials.replyLabel}</p>
+                <p class="mt-1 text-graphite">{item.reply}</p>
+              </div>
+            </figure>
           </li>
         ))
       }
-    </ul>
+    </ol>
   </div>
 </section>
+
+<style>
+  .review-stack {
+    display: grid;
+    gap: 1.5rem;
+  }
+  /* Stacked mode (src/motion.ts): every card shares one grid cell, so the stack is as tall as the longest review. */
+  .review-stack.is-stacked {
+    gap: 0;
+  }
+  .review-stack.is-stacked > .review-card {
+    grid-area: 1 / 1;
+    transform-origin: 50% 0;
+  }
+</style>

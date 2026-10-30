@@ -20,33 +20,49 @@ const cards = await Promise.all(
     return { ...a, src, ph: src ? await placeholder(src) : undefined, text: a[lang], alt: lang === 'tr' ? a.altTr : a.altEn };
   })
 );
+const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
-<section id="bolgeler" class="section-y bg-surface scroll-mt-20">
-  <div class="container-page">
-    <h2 class="max-w-2xl" data-reveal>{s.areas.title}</h2>
-    <p class="mt-4 max-w-xl text-graphite" data-reveal>{s.areas.intro}</p>
+<!-- Horizontal scroll (src/motion.ts): the section pins and vertical scrolling slides the panels right-to-left, each
+     photo drifting slower than its panel. Without JS / with reduced motion it is a plain swipeable scroll-snap row. -->
+<section id="bolgeler" class="areas-sec section-y bg-surface scroll-mt-20" data-areas>
+  <div class="container-page flex flex-wrap items-end justify-between gap-6">
+    <div>
+      <h2 class="max-w-2xl" data-reveal>{s.areas.title}</h2>
+      <p class="mt-4 max-w-xl text-graphite" data-reveal>{s.areas.intro}</p>
+    </div>
+    <div class="areas-meter hidden items-center gap-4 font-display text-graphite" aria-hidden="true">
+      <span class="relative inline-block h-[1em] overflow-hidden text-4xl leading-none text-fg">
+        <span class="flex flex-col" data-areas-digits>
+          {cards.map((_, i) => <span class="h-[1em]">{pad(i + 1)}</span>)}
+        </span>
+      </span>
+      <span class="text-lg">/ {pad(cards.length)}</span>
+      <span class="relative w-24 sm:w-40 h-px bg-line">
+        <span class="absolute inset-0 bg-accent-strong origin-left scale-x-0" data-areas-bar></span>
+      </span>
+    </div>
+  </div>
 
-    <!-- Desktop (lg+): accordion strip. Hovering or focusing a panel widens it; the first is open by default.
-         Below lg: horizontal scroll-snap row with every panel fully shown. -->
-    <ul
-      class="areas mt-12 -mx-4 px-4 scroll-px-4 sm:-mx-6 sm:px-6 sm:scroll-px-6 flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4 [scrollbar-width:none] lg:mx-0 lg:px-0 lg:pb-0 lg:overflow-visible lg:h-[34rem]"
-      data-reveal
-    >
+  <div class="areas-viewport mt-10 overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <ul class="areas-track flex w-max gap-4 md:gap-6 px-4 sm:px-6 lg:px-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))]" data-areas-track>
       {
-        cards.map((area) => (
-          <li class="area group relative shrink-0 w-[82%] sm:w-[48%] h-[28rem] snap-start overflow-hidden bg-ink text-white lg:w-auto lg:h-auto lg:shrink" style={area.ph}>
+        cards.map((area, i) => (
+          <li class="area-panel group relative shrink-0 snap-center overflow-hidden bg-ink text-white" style={area.ph}>
             {area.src ? (
-              <Picture
-                src={area.src}
-                alt={area.alt}
-                formats={['avif']} fallbackFormat="webp"
-                widths={[500, 1000]}
-                sizes="(min-width: 1024px) 440px, 82vw"
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1400ms] ease-[var(--ease-out)] group-hover:scale-[1.04]"
-                quality={60}
-                loading="lazy"
-              />
+              <div class="area-media absolute inset-y-0 -inset-x-[12%]">
+                <Picture
+                  src={area.src}
+                  alt={area.alt}
+                  formats={['avif']}
+                  fallbackFormat="webp"
+                  widths={[600, 1000, 1400]}
+                  sizes="(min-width: 1024px) 70vw, 85vw"
+                  class="w-full h-full object-cover"
+                  quality={60}
+                  loading="lazy"
+                />
+              </div>
             ) : (
               /* TODO(image): area {area.slug} */
               <div class="absolute inset-0 flex items-center justify-center bg-paper text-graphite text-xs uppercase tracking-[0.2em]">
@@ -55,77 +71,56 @@ const cards = await Promise.all(
             )}
             <div
               class="absolute inset-0"
-              style="background: linear-gradient(to top, rgb(17 19 24 / .85) 0%, rgb(17 19 24 / .2) 55%, rgb(17 19 24 / .05) 100%);"
+              style="background: linear-gradient(to top, rgb(17 19 24 / .88) 0%, rgb(17 19 24 / .25) 55%, rgb(17 19 24 / .05) 100%);"
             />
-            <div class="on-photo absolute inset-x-0 bottom-0 p-6 lg:p-4 xl:p-6">
-              <h3 class="text-3xl lg:text-lg xl:text-[1.375rem] whitespace-nowrap">{area.name}</h3>
-              <div class="area-body">
-              <p class="mt-2 max-w-sm text-sm text-white/85">{area.text}</p>
+            <span class="absolute top-5 left-6 md:top-8 md:left-10 font-display text-white/70 text-lg" aria-hidden="true">{pad(i + 1)}</span>
+            <div class="area-copy on-photo absolute inset-x-0 bottom-0 p-6 md:p-10">
+              <h3 class="font-display leading-none text-[clamp(2.25rem,6vw,5rem)]">{area.name}</h3>
+              <p class="mt-3 max-w-md text-sm md:text-base text-white/85">{area.text}</p>
               <a
                 href={waLink(fill(s.whatsapp.areaMessage, { area: area.name }))}
                 target="_blank"
                 rel="noopener"
-                class="mt-3 inline-flex items-center h-11 text-sm font-medium text-white link-line"
+                class="mt-4 inline-flex items-center h-11 text-sm font-medium text-white link-line"
               >
                 {s.areas.ask}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-4 h-4 ml-2" aria-hidden="true">
                   <path d="M5 12h14M13 6l6 6-6 6" />
                 </svg>
               </a>
-              </div>
             </div>
           </li>
         ))
       }
     </ul>
-
-    <p class="mt-8 text-xs text-graphite" data-reveal>{s.areas.todo}</p>
   </div>
+
+  <p class="container-page mt-8 text-xs text-graphite" data-reveal>{s.areas.todo}</p>
 </section>
 
 <style>
+  .area-panel {
+    width: 85vw;
+    height: clamp(20rem, 58svh, 36rem);
+  }
   @media (min-width: 1024px) {
-    .area {
-      flex: 1 1 0;
-      contain: layout paint;
-      transition: flex-grow 800ms var(--ease-out);
-    }
-    /* Collapsed panels hide the body entirely so every name sits on the same baseline. */
-    .area-body {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 700ms var(--ease-out), opacity 400ms var(--ease-out);
-    }
-    /* Open panel: the focused one, or the first while nothing is focused. */
-    .area:focus-within,
-    .areas:not(:focus-within) .area:first-child {
-      flex-grow: 3;
-    }
-    .area:focus-within .area-body,
-    .areas:not(:focus-within) .area:first-child .area-body {
-      max-height: 12rem;
-      opacity: 1;
-      transition-delay: 150ms;
+    .area-panel {
+      width: min(68vw, 62rem);
     }
   }
-  /* Not gated on (hover: hover): on touch screens this wide (iPad landscape) a tap's sticky hover is the only way to open a panel. */
-  @media (min-width: 1024px) {
-    .areas:hover:not(:focus-within) .area:first-child:not(:hover) {
-      flex-grow: 1;
-    }
-    .areas:hover:not(:focus-within) .area:first-child:not(:hover) .area-body {
-      max-height: 0;
-      opacity: 0;
-      transition-delay: 0ms;
-    }
-    .area:hover {
-      flex-grow: 3;
-    }
-    .area:hover .area-body {
-      max-height: 12rem;
-      opacity: 1;
-      transition-delay: 150ms;
-    }
+  /* Pinned mode (src/motion.ts): the section fills the screen and the track is moved by GSAP, not by swiping. */
+  .areas-sec.is-pinned {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 6rem 2.5rem;
+  }
+  .areas-sec.is-pinned .areas-viewport {
+    overflow: clip;
+    scroll-snap-type: none;
+  }
+  .areas-sec.is-pinned .areas-meter {
+    display: flex;
   }
 </style>
