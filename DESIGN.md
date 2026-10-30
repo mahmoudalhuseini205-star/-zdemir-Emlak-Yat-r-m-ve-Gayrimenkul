@@ -81,10 +81,21 @@ A nav toggle switches `data-theme` on `<html>` (saved in localStorage, defaultin
 - Under `prefers-reduced-motion`, the final value renders immediately. The real value is in the HTML (not 0), so it works with no JS and is SEO-safe.
 
 ### Hero scrub (Apple-style)
-- Source: `asset/hero video/hero section v2.mp4` (exterior → pool → living room). `scripts/hero-frames.sh` turns it into 95 WebP frames: `public/video/frames/d/` (1600×900) and `frames/m/` (720×960 centre crop, used when the viewport is portrait). ~4.5 MB / ~2.3 MB.
+- Source: `asset/hero video/hero section v2.mp4` (exterior → pool → living room). `scripts/hero-frames.sh` turns it into 95 frames in two sets, each as **AVIF (primary) + WebP (fallback)** under a versioned path `public/video/frames/v2/{d,m}/NNN.{avif,webp}`: `d/` 16:9 1600×900, `m/` centre 3:4 crop (used when the viewport is portrait), AVIF 900×1200 / WebP fallback 720×960.
+- Sizes (measured 2026-10, total for 95 frames; SSIM = mean vs lossless frame at the same size; decode = Chrome `img.decode()` per frame, unthrottled, off-main-thread so CPU throttling does not move it):
+
+  | Set | Format | Size | Quality | MB | SSIM | decode |
+  |---|---|---|---|---|---|---|
+  | d | WebP (fallback, was v1) | 1600×900 | q58 | 4.26 | 0.9640 | 11 ms |
+  | d | **AVIF (ships)** | 1600×900 | crf 32 | **2.65** | **0.9663** | 12.6 ms |
+  | m | WebP (fallback, was v1) | 720×960 | q55 | 2.05 | 0.9666 | 5.6 ms |
+  | m | **AVIF (ships)** | 900×1200 | crf 32 | **1.74** | **0.9719** | 9.9 ms |
+
+  Rejected: d AVIF crf 36 (2.16 MB, SSIM 0.960, softens marble veins); m AVIF 1080×1440 crf 32 (2.04 MB, only marginally crisper than 900 but decoded bitmaps ≈ 590 MB across 95 frames on a phone vs ≈ 390 MB). Sky gradients show no banding in any shipped set. Visitors with AVIF download ~2.7 MB (desktop) / ~1.8 MB (phone); the fallback is the old ~4.3 / ~2.1 MB.
+- Frames are cached immutable for a year (`vercel.json`), so the version folder (`VER` in the script and in `HeroVideo.astro`) must be bumped whenever the frames are regenerated. The poster stays WebP (q72, 47 KB / 19 KB): it is the LCP and is preloaded, so it must work in every browser.
 - The section is 260svh tall with a sticky 100svh stage. JS sets `--p` (0 → 1) from scroll and draws the nearest loaded frame to a `<canvas>` (cover-fit). A `<video>` is not used because it can't seek smoothly.
 - Depth, all from `--p` in global.css: the media tilts back ≤3° and settles from scale 1.12; the copy fades and rises fast; the roof line drifts as a foreground plane; in the last 15% the frame insets slightly like a card. The nav stays transparent for the whole pinned distance (`--hero-travel`).
-- Frames load only after `load` (coarse-to-fine: every 16th, 8th, …, so the whole range scrubs early). The poster (first frame) is the LCP element.
+- A tiny inline AVIF is decoded once to choose `.avif` or `.webp` for every frame. Frames load only after `load` (coarse-to-fine: every 16th, 8th, …, so the whole range scrubs early). The poster (first frame) is the LCP element.
 - Opt-in: an inline `<head>` script adds `html.scrub` only with JS on, motion allowed, no Save-Data/slow link, and `svh` support. Without it (reduced motion, no JS, old browsers) no frames load and the hero is a normal 100svh poster. Frames also wait until the hero is on screen, and faded-out hero links ignore taps (`.is-faded`).
 
 ## Motion
