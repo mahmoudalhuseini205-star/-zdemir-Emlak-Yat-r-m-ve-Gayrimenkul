@@ -37,7 +37,7 @@ WhatsApp prefilled text:
 These are all the channels the client has. There is no hepsiemlak and no Emlakjet.
 
 ## Testimonials
-None yet. The Testimonials section is hidden (`Page.astro`) until real Google reviews are supplied.
+Three real Google reviews (all 5★) with the owner's replies, copied verbatim from Google Maps by the user on 2026-10-30: Refii „ReBu“ Edman, ali aslan, Mesut Calim. Text lives in `src/i18n/*.json` → `testimonials.items` (TR original, EN translated). The badge shows "5 stars" only: the client asked not to show the review count.
 
 ## Services (confirm with client)
 - Satılık konut / işyeri / arsa
@@ -48,7 +48,7 @@ None yet. The Testimonials section is hidden (`Page.astro`) until real Google re
 ## Open questions — client to answer
 - [ ] Founder short bio (3–4 sentences) and portrait photo (the name, İsa Özdemir, is confirmed)
 - [ ] Years of experience and any real stats (properties sold/rented, followers). The Counters section stays hidden until these arrive
-- [ ] Google reviews to quote, plus the overall rating and review count
+- [x] Google reviews to quote, plus the overall rating (5★; count intentionally not shown)
 - [ ] Door number: the office photo reads "8A" but Google Maps says "No:5/2". The site keeps 5/2. Please confirm which is right
 - [ ] Slogan "Güvenle Geleceğe" appears on the shop sign. It is not used on the site until the client approves it
 - [ ] Confirm the services list above

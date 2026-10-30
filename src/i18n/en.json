@@ -94,12 +94,28 @@
   "testimonials": {
     "eyebrow": "References",
     "title": "What our clients say",
-    "badge": "TODO(client): verified Google rating",
-    "badgeCount": "review count awaiting confirmation",
+    "badge": "5 stars on Google",
     "source": "Google",
     "readOn": "Read the reviews on Google",
     "translated": "translated from Turkish",
-    "items": []
+    "items": [
+      {
+        "name": "Refii „ReBu“ Edman",
+        "quote": "Mr. İsa is a really attentive, friendly estate agent who does his job professionally. We were extremely happy working with him and still keep working with him. I recommend him to anyone who wants to buy or sell property in İznik :)",
+        "reply": "We are grateful for your kind words, which honour us and our business."
+      },
+      {
+        "name": "ali aslan",
+        "quote": "First of all, many thanks to Mr. İsa for his big part in us becoming owners of our plot. He followed the sale one-on-one from start to finish and helped us. For me, the only address in İznik is now Özdemir Gayrimenkul Danışmanlık. Glad to know you, brother, may your work go well.",
+        "reply": "Mr. Ali, thank you for your kind thoughts. Take care, you are always welcome."
+      },
+      {
+        "name": "Mesut Calim",
+        "quote": "Very attentive. Everything was ready and quick. Thank you.",
+        "reply": "I try to do my work with love and do it properly. Thanks, here is to new meetings on new deals."
+      }
+    ],
+    "replyLabel": "Response from the owner"
   },
   "contact": {
     "eyebrow": "Contact",

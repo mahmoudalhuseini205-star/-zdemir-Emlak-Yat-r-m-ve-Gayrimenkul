@@ -150,32 +150,9 @@ const jsonLd = {
     </script>
 
     <script>
-      // Section reveal. Applied from JS so no-JS visitors never see hidden content.
-      const items = document.querySelectorAll<HTMLElement>('[data-reveal]');
-      // Skipped if the 3s fallback in <head> already removed .js, so late-loading JS never re-hides visible content.
-      if ('IntersectionObserver' in window && items.length && document.documentElement.classList.contains('js')) {
-        document.documentElement.classList.add('reveal-ready');
-        const io = new IntersectionObserver(
-          (entries) => {
-            // Stagger only the elements that enter together; the delay is cleared
-            // afterwards so it never slows down later hover transitions.
-            let n = 0;
-            for (const e of entries) {
-              if (!e.isIntersecting) continue;
-              const el = e.target as HTMLElement;
-              el.style.transitionDelay = `${n++ * 90}ms`;
-              el.classList.add('is-in');
-              el.addEventListener('transitionend', () => (el.style.transitionDelay = ''), { once: true });
-              io.unobserve(el);
-            }
-          },
-          { rootMargin: '0px 0px -10% 0px' }
-        );
-        items.forEach((el) => {
-          el.classList.add('reveal');
-          io.observe(el);
-        });
-      }
+      // Section reveals (GSAP ScrollTrigger + SplitText): see src/motion.ts.
+      import { initMotion } from '../motion';
+      initMotion();
     </script>
   </body>
 </html>

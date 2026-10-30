@@ -94,12 +94,28 @@
   "testimonials": {
     "eyebrow": "Referanslar",
     "title": "Müşterilerimiz ne diyor?",
-    "badge": "TODO(client): doğrulanmış Google puanı",
-    "badgeCount": "yorum sayısı onay bekliyor",
+    "badge": "Google'da 5 yıldız",
     "source": "Google",
     "readOn": "Google'da yorumları okuyun",
-    "items": [],
-    "translated": ""
+    "items": [
+      {
+        "name": "Refii „ReBu“ Edman",
+        "quote": "İsa Bey gerçekten çok ilgili, güler yüzlü, işini profesyonel bir şekilde yapan bir emlakçı. Biz çalışmamızdan son derece memnun kaldık, halen de çalışmaya devam ediyoruz, İznikte emlak satın almak veya satmak isteyen herkese tavsiye ederim :)",
+        "reply": "Şahsımız ve iş yerimizi onura edici görüşlerimizden dolayı müteşekkiriz"
+      },
+      {
+        "name": "ali aslan",
+        "quote": "Öncelikle İsa Bey'e çok teşekkürler etmek istiyorum bizim arsa sahibi olmamıza büyük katkısı oladugu icin satış sürecini başından sonuna kadar bire bir takip edip yardımcı oldu iznik te benm icn artık tek adres Özdemir gayrimenkul danışmanlık iyi tanidm abi seni isim gucn rast gelsin",
+        "reply": "Ali bey nazik düşüncelerinizden dolayı teşekkür ediyorum çok sağ olun her zaman bekleriz"
+      },
+      {
+        "name": "Mesut Calim",
+        "quote": "Çok ilgiliydi. Her şey hazır ve hızlıydı. Teşekkür ederiz",
+        "reply": "İşimi severek ve layıkıyla yapmaya çalışıyorum Yeni işlerde yeni buluşmalar için eyvallah"
+      }
+    ],
+    "translated": "",
+    "replyLabel": "İşletme sahibinin yanıtı"
   },
   "contact": {
     "eyebrow": "İletişim",

@@ -131,31 +131,12 @@
 }
 
 /* Reveal on scroll. The head script adds .js (only when IO is supported) so items are hidden from first
-   paint; the reveal script then adds .reveal + html.reveal-ready. If that never happens, the head script
-   drops .js after 3s. No-JS visitors always see content. */
+   paint; src/motion.ts (GSAP) then holds that hidden state inline, adds .is-in + html.reveal-ready and animates
+   them in. If that never happens, the head script drops .js after 3s. No-JS visitors always see content. */
 :root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
 
-.reveal, .js [data-reveal]:not(.is-in) {
-  opacity: 0;
-  transform: translateY(24px);
-}
-.reveal { transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
-.reveal.is-in { opacity: 1; transform: none; }
-
-/* Image variant: the photo is uncovered bottom-up like a lifted sheet. */
-.reveal[data-reveal="clip"], .js [data-reveal="clip"]:not(.is-in) {
-  opacity: 1;
-  transform: none;
-  clip-path: inset(100% 0 0 0);
-}
-.reveal[data-reveal="clip"] { transition: clip-path 1100ms var(--ease-out); }
-/* -8px so the focus ring of buttons inside the revealed block isn't clipped. */
-.reveal[data-reveal="clip"].is-in { clip-path: inset(-8px); }
-/* ...and the photo settles from a slight zoom as it is uncovered, echoing the hero video. */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal[data-reveal="clip"] img { transition-property: transform, scale; transition-duration: 1600ms; transition-timing-function: var(--ease-out); }
-  .reveal[data-reveal="clip"]:not(.is-in) img { transform: scale(1.12); }
-}
+.js [data-reveal]:not(.is-in) { opacity: 0; }
+.js [data-reveal="clip"]:not(.is-in) { opacity: 1; clip-path: inset(100% 0 0 0); }
 
 /* Buttons: a fill sweeps in from the left on hover, a 1px press on :active. */
 @utility btn {
@@ -311,7 +292,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .reveal.is-in, .reveal[data-reveal="clip"], .js [data-reveal]:not(.is-in), .js [data-reveal="clip"]:not(.is-in) { opacity: 1; transform: none; clip-path: none; transition: none; }
+  .js [data-reveal]:not(.is-in), .js [data-reveal="clip"]:not(.is-in) { opacity: 1; clip-path: none; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
