@@ -27,6 +27,8 @@ export const site = {
   phone: { display: '0553 971 53 53', href: 'tel:+905539715353' },
   whatsappNumber: '905539715353',
   email: 'isaozdmr0616@gmail.com',
+  /** Monday–Saturday; closed on Sunday. */
+  hours: { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], opens: '09:00', closes: '17:00' },
   maps: 'https://maps.app.goo.gl/Lq6Xus7d4Wi966vj7',
   instagram: 'https://www.instagram.com/ozdemir.yatirimgayrimenkull',
   facebook: 'https://www.facebook.com/p/%C3%96zdemir-Yat%C4%B1r%C4%B1m-ve-Gayrimenkul-100063630309136/',

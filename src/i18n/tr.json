@@ -85,11 +85,11 @@
   "about": {
     "eyebrow": "Hakkımızda",
     "title": "İznik'te güvenilir bir adres",
-    "founderName": "Kurucu bilgisi bekleniyor",
+    "founderName": "İsa Özdemir",
     "founderRole": "Kurucu · Emlak Danışmanı",
     "bio": "Özdemir Emlak & Yatırım ve Gayrimenkul, İznik ve Bursa'da alım, satım, kiralama ve değerleme hizmeti veriyor.",
     "bioTodo": "Kurucu biyografisi müşteri onayı bekliyor.",
-    "officeTodo": "Ofis fotoğrafı bekleniyor",
+    "officeAlt": "İznik'teki Özdemir Yatırım & Gayrimenkul ofisi",
     "portraitTodo": "Portre fotoğrafı bekleniyor"
   },
   "testimonials": {
@@ -112,7 +112,8 @@
     "email": "E-posta",
     "address": "Adres",
     "hours": "Çalışma saatleri",
-    "hoursTodo": "Çalışma saatleri bekleniyor.",
+    "hoursWeek": "Pazartesi – Cumartesi: {opens} – {closes}",
+    "hoursSunday": "Pazar: Kapalı",
     "mapCta": "Haritayı yükle",
     "mapNote": "Harita Google Maps üzerinden yüklenir.",
     "mapTitle": "Özdemir Emlak & Yatırım ve Gayrimenkul konumu",

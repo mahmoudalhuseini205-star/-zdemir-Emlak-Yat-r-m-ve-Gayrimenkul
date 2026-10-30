@@ -6,7 +6,10 @@ The site was handed over from a previous client (MAJÖR GAYRİMENKUL, İskenderu
 ## Business
 - **Name:** Özdemir Emlak & Yatırım ve Gayrimenkul
 - **Address:** Mustafa Kemal Paşa, Kaymakam S. Koloğlu Sk. No:5/2, 16860 İznik/Bursa, Türkiye
-- **Experience, founder, staff:** TODO(client), see Open questions.
+- **Founder:** İsa Özdemir (portrait photo still missing; the site shows a placeholder).
+- **Opening hours:** Monday–Saturday 09:00–17:00, Sunday closed. Source: `src/site.ts` (`hours`), also in the JSON-LD.
+- **Office photo:** `asset/office/office photo.png` (shopfront, client-supplied), shown in About as `src/assets/office/office.webp`.
+- **Experience, bio, staff:** TODO(client), see Open questions.
 - **Tagline:** "Hayalinizdeki evi sizin için buluyoruz." (kept from the template). TODO(client): confirm or replace.
 
 ## Brand
@@ -43,11 +46,11 @@ None yet. The Testimonials section is hidden (`Page.astro`) until real Google re
 - Yatırım danışmanlığı
 
 ## Open questions — client to answer
-- [ ] Founder / broker name, short bio (3–4 sentences) and portrait photo
+- [ ] Founder short bio (3–4 sentences) and portrait photo (the name, İsa Özdemir, is confirmed)
 - [ ] Years of experience and any real stats (properties sold/rented, followers). The Counters section stays hidden until these arrive
 - [ ] Google reviews to quote, plus the overall rating and review count
-- [ ] Office exterior/interior photos (About currently shows a placeholder)
-- [ ] Working hours (weekdays / Saturday / Sunday)
+- [ ] Door number: the office photo reads "8A" but Google Maps says "No:5/2". The site keeps 5/2. Please confirm which is right
+- [ ] Slogan "Güvenle Geleceğe" appears on the shop sign. It is not used on the site until the client approves it
 - [ ] Confirm the services list above
 - [ ] Neighbourhoods to feature in the area guide (the current list is our proposal around İznik/Bursa)
 - [ ] Vector logo (SVG/AI/PDF) and exact brand colours (HEX). Ours are redrawn/eyeballed from the mock-up photo
@@ -61,5 +64,5 @@ None yet. The Testimonials section is hidden (`Page.astro`) until real Google re
 | `asset/logo/` | Logo (`new logo.jpg`, raster mock-up) | ✅ have. Vector ❌ needed |
 | `asset/hero video/` | `hero section v2.mp4` (2560×1440, 8 s), used as the scroll-driven hero | ✅ have |
 | `asset/team/` | Founder portrait, ≥ 1200px, clean background | ❌ needed |
-| `asset/office/` | Office exterior + interior | ❌ needed |
+| `asset/office/` | Office exterior (`office photo.png`) | ✅ have exterior. Interior optional |
 | `asset/neighbourhoods/` | Real photos of the featured areas (stock is used until then) | optional |

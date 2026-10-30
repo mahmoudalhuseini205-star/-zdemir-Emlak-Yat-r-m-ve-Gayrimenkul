@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Placeholder from './Placeholder.astro';
+import office from '../assets/office/office.webp';
 import { t, type Lang } from '../site';
 
 interface Props {
@@ -28,8 +30,14 @@ const s = t(lang);
     </div>
 
     <div class="overflow-hidden aspect-[4/3] lg:col-span-6 lg:col-start-7" data-reveal="clip">
-      <!-- TODO(client): office exterior photo (see CLIENT.md shot list #3). -->
-      <Placeholder label={s.about.officeTodo} class="w-full h-full" />
+      <Image
+        src={office}
+        alt={s.about.officeAlt}
+        widths={[600, 1000, 1400]}
+        sizes="(min-width: 1024px) 600px, calc(100vw - 2rem)"
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
     </div>
   </div>
 </section>

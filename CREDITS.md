@@ -81,7 +81,7 @@ Only the Osmangazi photo is actually taken in Bursa. The others are illustrative
 | Open Graph share image (`src/assets/og/share.jpg`) | Generated from the SVG logo on a paper background |
 | Hero frames + poster (`public/video/`) | Client material — `asset/hero video/hero section v2.mp4`, via `scripts/hero-frames.sh` (the raw clip is never shipped) |
 | Logo (`src/assets/brand/`) | Redrawn as SVG from client material `asset/logo/new logo.jpg`; wordmark outlined from Damion (OFL) and Montserrat (OFL). TODO(client): official vector logo |
-| Office photo | **Placeholder.** TODO(client): office exterior photo |
+| Office photo (`src/assets/office/office.webp`) | Client-supplied — `asset/office/office photo.png`, resized to 1536 px wide WebP |
 | Founder portrait | **Placeholder.** No stock photo of a person is ever used as staff. TODO(image): founder portrait |
 
 Nothing here was taken from Instagram, Facebook, sahibinden or Google Maps.

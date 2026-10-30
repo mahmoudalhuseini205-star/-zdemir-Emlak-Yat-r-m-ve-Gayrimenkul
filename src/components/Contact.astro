@@ -1,7 +1,7 @@
 ---
 import Socials from './Socials.astro';
 import RequestForm from './RequestForm.astro';
-import { site, t, type Lang } from '../site';
+import { fill, site, t, type Lang } from '../site';
 
 interface Props {
   lang: Lang;
@@ -44,8 +44,8 @@ const mapsEmbed = `https://maps.google.com/maps?q=${encodeURIComponent(`${site.s
         </div>
         <div>
           <dt class="text-sm text-graphite">{c.hours}</dt>
-          <!-- TODO(client): working hours -->
-          <dd class="text-xs text-graphite">{c.hoursTodo}</dd>
+          <dd>{fill(c.hoursWeek, { opens: site.hours.opens, closes: site.hours.closes })}</dd>
+          <dd>{c.hoursSunday}</dd>
         </div>
         <div>
           <dt class="text-sm text-graphite">{s.footer.follow}</dt>

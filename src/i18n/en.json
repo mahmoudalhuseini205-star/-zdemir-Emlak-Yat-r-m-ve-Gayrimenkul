@@ -85,11 +85,11 @@
   "about": {
     "eyebrow": "About",
     "title": "A trusted address in İznik",
-    "founderName": "Founder details pending",
+    "founderName": "İsa Özdemir",
     "founderRole": "Founder · Real estate consultant",
     "bio": "Özdemir Emlak & Yatırım ve Gayrimenkul handles sales, rentals and valuations in İznik and Bursa.",
     "bioTodo": "The founder biography is awaiting client approval.",
-    "officeTodo": "Office photo pending",
+    "officeAlt": "The Özdemir Yatırım & Gayrimenkul office in İznik",
     "portraitTodo": "Portrait photo pending"
   },
   "testimonials": {
@@ -112,7 +112,8 @@
     "email": "Email",
     "address": "Address",
     "hours": "Opening hours",
-    "hoursTodo": "Opening hours pending.",
+    "hoursWeek": "Monday – Saturday: {opens} – {closes}",
+    "hoursSunday": "Sunday: Closed",
     "mapCta": "Load the map",
     "mapNote": "The map is loaded from Google Maps.",
     "mapTitle": "Özdemir Emlak & Yatırım ve Gayrimenkul location",

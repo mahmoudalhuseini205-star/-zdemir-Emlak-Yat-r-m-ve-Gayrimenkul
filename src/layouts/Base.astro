@@ -45,6 +45,12 @@ const jsonLd = {
     addressRegion: site.region,
     addressCountry: site.country,
   },
+  openingHoursSpecification: {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: site.hours.days,
+    opens: site.hours.opens,
+    closes: site.hours.closes,
+  },
   areaServed: `${site.city}, ${site.region}`,
   hasMap: site.maps,
   sameAs: [site.instagram, site.facebook, site.sahibinden],
