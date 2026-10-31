@@ -136,7 +136,6 @@
 :root { --ease-out: cubic-bezier(0.16, 1, 0.3, 1); }
 
 .js [data-reveal]:not(.is-in) { opacity: 0; }
-.js [data-reveal="clip"]:not(.is-in) { opacity: 1; clip-path: inset(100% 0 0 0); }
 
 /* Buttons: a fill sweeps in from the left on hover, a 1px press on :active. */
 @utility btn {
@@ -292,7 +291,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js [data-reveal]:not(.is-in), .js [data-reveal="clip"]:not(.is-in) { opacity: 1; clip-path: none; }
+  .js [data-reveal]:not(.is-in) { opacity: 1; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;

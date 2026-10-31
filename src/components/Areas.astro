@@ -23,24 +23,12 @@ const cards = await Promise.all(
 const pad = (n: number) => String(n).padStart(2, '0');
 ---
 
-<!-- Horizontal scroll (src/motion.ts): the section pins and vertical scrolling slides the panels right-to-left, each
-     photo drifting slower than its panel. Without JS / with reduced motion it is a plain swipeable scroll-snap row. -->
-<section id="bolgeler" class="areas-sec section-y bg-surface scroll-mt-20" data-areas>
+<!-- A swipeable scroll-snap row of area panels. -->
+<section id="bolgeler" class="areas-sec section-y bg-surface scroll-mt-20">
   <div class="container-page flex flex-wrap items-end justify-between gap-6">
     <div>
       <h2 class="max-w-2xl" data-reveal>{s.areas.title}</h2>
       <p class="mt-4 max-w-xl text-graphite" data-reveal>{s.areas.intro}</p>
-    </div>
-    <div class="areas-meter hidden items-center gap-4 font-display text-graphite" aria-hidden="true">
-      <span class="relative inline-block h-[1em] overflow-hidden text-4xl leading-none text-fg">
-        <span class="flex flex-col" data-areas-digits>
-          {cards.map((_, i) => <span class="h-[1em]">{pad(i + 1)}</span>)}
-        </span>
-      </span>
-      <span class="text-lg">/ {pad(cards.length)}</span>
-      <span class="relative w-24 sm:w-40 h-px bg-line">
-        <span class="absolute inset-0 bg-accent-strong origin-left scale-x-0" data-areas-bar></span>
-      </span>
     </div>
   </div>
 
@@ -107,20 +95,5 @@ const pad = (n: number) => String(n).padStart(2, '0');
     .area-panel {
       width: min(68vw, 62rem);
     }
-  }
-  /* Pinned mode (src/motion.ts): the section fills the screen and the track is moved by GSAP, not by swiping. */
-  .areas-sec.is-pinned {
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-block: 6rem 2.5rem;
-  }
-  .areas-sec.is-pinned .areas-viewport {
-    overflow: clip;
-    scroll-snap-type: none;
-  }
-  .areas-sec.is-pinned .areas-meter {
-    display: flex;
   }
 </style>

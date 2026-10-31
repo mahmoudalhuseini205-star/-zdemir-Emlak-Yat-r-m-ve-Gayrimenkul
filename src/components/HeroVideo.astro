@@ -186,7 +186,9 @@ if (words.length > 2 && words.at(-1)!.em === words.at(-2)!.em) {
 
     // Coarse-to-fine order: 0, every 16th, every 8th, ... so the whole range is scrubbable early.
     const order: number[] = [];
-    for (let step = 16; step >= 1; step /= 2) for (let i = 0; i < FRAMES; i += step) if (!order.includes(i)) order.push(i);
+    // Phones stop at every 3rd frame (~1/3 the download and decoded memory); nearest() fills the gaps.
+    const finest = set === 'm' ? 3 : 1;
+    for (let step = 16; step >= 1; step /= 2) for (let i = 0; i < FRAMES; i += step) if (i % finest === 0 && !order.includes(i)) order.push(i);
 
     // One tiny inline AVIF decides the format for every frame; browsers without AVIF get the WebP set.
     const avifSupported = async () => {
