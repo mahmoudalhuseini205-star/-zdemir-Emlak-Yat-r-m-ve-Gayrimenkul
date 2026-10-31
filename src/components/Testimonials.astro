@@ -81,4 +81,13 @@ const initials = (name: string) =>
     display: grid;
     gap: 1.5rem;
   }
+  /* Stacked mode (src/motion.ts): every card shares one grid cell, so the stack is as tall as the longest review. */
+  .review-stack.is-stacked {
+    gap: 0;
+  }
+  .review-stack.is-stacked > .review-card {
+    grid-area: 1 / 1;
+    transform-origin: 50% 0;
+    will-change: transform, opacity;
+  }
 </style>
